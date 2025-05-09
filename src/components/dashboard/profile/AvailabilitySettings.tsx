@@ -33,9 +33,9 @@ const ProfileAvailability: React.FC = () => {
     ];
 
     const initialValues: FormValues = {
-        availability: profile?.mentor?.availability || defaultAvailability,
+        availability: profile?.mentor?.availability?.length ? profile.mentor.availability : defaultAvailability,
     };
-
+    
     const handleSubmit = async (values: FormValues): Promise<void> => {
 
         const isAtLeastOneAvailable = values.availability.some(day => day.is_available);
