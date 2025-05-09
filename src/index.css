@@ -1,0 +1,95 @@
+@import url('https://fonts.cdnfonts.com/css/euclid-circular-a');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,500;1,600&display=swap');
+
+@import '@mantine/core/styles.css';
+@import '@mantine/charts/styles.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    body {
+        @apply m-0 p-0 box-border overflow-x-hidden
+    }
+
+    @layer components {
+        .board {
+            @apply flex flex-col p-4 mt-2 space-y-8 bg-white rounded-xl md:p-8;
+        }
+    }
+
+    .form-control {
+        @apply py-2.5 px-4 focus:outline-none focus:ring-0 block outline-none border border-input w-full rounded-2xl text-xs text-black focus:shadow-md focus:border-input-focus focus:border placeholder:text-xs
+    }
+    
+    label {
+        @apply inline-block tracking-tight
+    }
+
+    .form-label {
+        @apply mb-[.5rem] text-xs font-medium
+    }
+
+    .PhoneInput input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        outline: none;
+        font-size: 13px !important;
+        background: none !important;
+        height: 32px !important;
+    }
+
+    .PhoneInput select {
+        font-size: 13px !important;
+    }
+
+    .PhoneInput .PhoneInputCountrySelectArrow {
+        @apply mr-2 ml-3
+    }
+
+    .PhoneInput .PhoneInputCountryIconImg {
+        display: block;
+        width: 30px !important;
+        height: 22px !important;
+        max-width: 22px;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        margin-top: -4px;
+    }
+
+    .PhoneInput input[type='tel']:focus {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+
+    .PhoneInput .PhoneInputCountryIcon {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .form-control.is-invalid,
+    .was-validated .form-control:invalid {
+        @apply border-red-600
+    }
+
+
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Euclid Circular A', sans-serif;
+}
+
+.go3958317564 {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    margin: 4px 8px !important;
+}
