@@ -30,7 +30,7 @@ const DashboardNav: React.FC<DashboardNavProps> = ({ setOpen, profile }) => {
                                 src: profile?.avatar,
                             }}
                             className='text-black'
-                            description={profile?.email}
+                            description={profile?.role}
                             name={profile?.fullname}
                         />
 

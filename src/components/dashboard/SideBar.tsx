@@ -91,7 +91,7 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile, basePath, lin
                                     src: profile?.avatar,
                                 }}
                                 className='text-white !text-xs'
-                                description={profile?.email}
+                                description={profile?.role}
                                 name={profile?.fullname}
                             />
                             <Button size='sm' onPress={() => dispatch(logout())} isIconOnly radius='full' variant='light'>
