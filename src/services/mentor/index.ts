@@ -1,6 +1,7 @@
 import { useGetMentorSessions, useAddSession, useUpdateSession, useDeleteSession } from "./sessions";
 import { useGetMentorTransactions, useGetMentorWithdrawal, useGetWallet, usePlaceWithdrawal } from "./wallet";
 import { useGetReviews } from "./reviews";
+import { useGetBookings, useRejectBookings, useApproveBooking, useMarkAsInProgress, useUploadSessionResources } from "./booking";
 
 export {
     useGetMentorSessions,
@@ -12,5 +13,11 @@ export {
     useGetMentorWithdrawal,
     useGetWallet,
     usePlaceWithdrawal,
-    useGetReviews
+    useGetReviews,
+
+    useGetBookings,
+    useRejectBookings,
+    useApproveBooking,
+    useMarkAsInProgress,
+    useUploadSessionResources
 }

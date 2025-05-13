@@ -1,12 +1,11 @@
 import React from 'react';
 import SidebarLink from './SidebarLink';
-import { Button } from '../ui';
 import {
     ArrowRightStartOnRectangleIcon,
     XMarkIcon
 } from '@heroicons/react/24/solid';
 import { Link, useLocation } from 'react-router-dom';
-import { User } from '@heroui/react';
+import { Button, User } from '@heroui/react';
 import { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/features/authSlice';
@@ -91,11 +90,11 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile, basePath, lin
                                 avatarProps={{
                                     src: profile?.avatar,
                                 }}
-                                className='text-white'
-                                description={profile?.role}
+                                className='text-white !text-xs'
+                                description={profile?.email}
                                 name={profile?.fullname}
                             />
-                            <Button onClick={() => dispatch(logout())} isIconOnly radius='full' variant='light'>
+                            <Button size='sm' onPress={() => dispatch(logout())} isIconOnly radius='full' variant='light'>
                                 <ArrowRightStartOnRectangleIcon className='w-5 !text-white' />
                             </Button>
                         </div>

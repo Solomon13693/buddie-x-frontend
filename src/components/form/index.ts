@@ -4,6 +4,7 @@ import CustomSelect from "./CustomSelect";
 import TextArea from "./TextArea";
 import CustomPhoneInput from './CustomPhoneInput'
 import CustomAutocomplete from "./CustomAutocomplete";
+import CustomFileInput from "./CustomFileInput";
 
 export {
     CustomInput,
@@ -11,5 +12,6 @@ export {
     CustomSelect,
     TextArea,
     CustomPhoneInput,
-    CustomAutocomplete
+    CustomAutocomplete,
+    CustomFileInput
 }

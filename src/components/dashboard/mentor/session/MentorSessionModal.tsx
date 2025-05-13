@@ -1,7 +1,6 @@
 import { Form, Formik } from "formik"
 import toast from "react-hot-toast"
 import { useAddSession, useUpdateSession } from "../../../../services"
-import type { SessionType } from "../../../../types"
 import { Button, PopupModal } from "../../../ui"
 import { getErrorMessage } from "../../../../utils"
 import { CustomInput, CustomSelect, TextArea } from "../../../form"
@@ -9,6 +8,7 @@ import { sessionSchema } from "../../../../utils/schema"
 import type { RootState } from "../../../../redux/store"
 import { useSelector } from "react-redux"
 import { Chip } from "@heroui/react"
+import { SessionType } from "../../../../types"
 
 const MentorSessionModal = ({
     open,
@@ -26,7 +26,7 @@ const MentorSessionModal = ({
         title: item?.title || "",
         duration: item?.duration || 30,
         sessions_count: item?.sessions_count || 1,
-        frequency: item?.frequency || "",
+        frequency: item?.frequency || "one-time",
         price: item?.price || "",
         description: item?.description || "",
     }

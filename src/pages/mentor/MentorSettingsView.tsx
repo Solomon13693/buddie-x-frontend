@@ -16,8 +16,9 @@ const navItems = [
 ];
 
 const MentorSettingsView = () => {
+  
   const dispatch = useDispatch<AppDispatch>();
-  const [active, setActive] = useState<number>(1);
+  const [active, setActive] = useState<number |  string>(1);
 
   const getActiveComponent = () => {
     switch (active) {

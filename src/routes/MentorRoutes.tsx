@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { MentorDashboard } from '../pages';
 
-export const rentalRoutes = [
+export const mentorRoutes = [
     {
         path: 'mentor/dashboard',
         element: <Outlet />,

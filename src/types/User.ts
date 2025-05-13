@@ -50,6 +50,7 @@ export interface BaseUserProfile {
     fullname: string;
     email: string;
     phone: string;
+    slug: string;
     avatar: string | null;
     bio: string;
     role: string;

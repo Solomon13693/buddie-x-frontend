@@ -6,6 +6,7 @@ import WalletView from "./WalletView";
 import MentorReviewsView from "./MentorReviewsView";
 import NotificationView from "./NotificationView";
 import MentorSettingsView from "./MentorSettingsView";
+import BookingView from "./BookingView";
 
 export {
     MentorDashboard,
@@ -15,5 +16,6 @@ export {
     WalletView,
     MentorReviewsView,
     NotificationView,
-    MentorSettingsView
+    MentorSettingsView,
+    BookingView
 }

@@ -17,7 +17,7 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: '#F97316',  // Bright Orange
+          DEFAULT: '#FF6F00',  // Bright Orange
           dark: '#EA580C',     // Darker Orange
           light: '#FDBA74',    // Soft Orange
         },

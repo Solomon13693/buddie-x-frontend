@@ -1,4 +1,4 @@
-import { MentorChats, MentorDashboard, MentorReviewsView, MentorSessions, MentorSettingsView, MentorTransaction, NotificationView, WalletView } from "../pages";
+import { MentorChats, MentorDashboard, MentorReviewsView, MentorSessions, MentorSettingsView, MentorTransaction, NotificationView, WalletView, BookingView } from "../pages";
 
 export const AppRoutes = [
     {
@@ -12,6 +12,10 @@ export const AppRoutes = [
     {
         path: "sessions",
         element: <MentorSessions />
+    },
+    {
+        path: "bookings",
+        element: <BookingView />
     },
     {
         path: "transactions",

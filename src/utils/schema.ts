@@ -224,12 +224,12 @@ export const educationSchema = Yup.object().shape({
 export const changePasswordSchema = Yup.object().shape({
   old_password: Yup.string().required('Old password is required'),
   password: Yup.string()
-  .required('Password is required')
-  .min(8, 'Password must be at least 8 characters')
-  .matches(/[a-z]/, 'Must contain at least one lowercase letter')
-  .matches(/[A-Z]/, 'Must contain at least one uppercase letter')
-  .matches(/\d/, 'Must contain at least one number')
-  .matches(/[@$!%*?&#]/, 'Must contain at least one special character'),
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(/[a-z]/, 'Must contain at least one lowercase letter')
+    .matches(/[A-Z]/, 'Must contain at least one uppercase letter')
+    .matches(/\d/, 'Must contain at least one number')
+    .matches(/[@$!%*?&#]/, 'Must contain at least one special character'),
   password_confirmation: Yup.string()
     .required('Please confirm your password')
     .oneOf([Yup.ref('password')], 'Passwords must match'),
@@ -237,27 +237,27 @@ export const changePasswordSchema = Yup.object().shape({
 
 export const mentorProfileSchema = Yup.object().shape({
   title: Yup.string()
-      .required("Title is required"),
+    .required("Title is required"),
   employer: Yup.string()
-      .required("Company/School is required"),
+    .required("Company/School is required"),
   linkedin_url: Yup.string()
-      .url("Enter a valid LinkedIn URL")
-      .required("LinkedIn URL is required"),
+    .url("Enter a valid LinkedIn URL")
+    .required("LinkedIn URL is required"),
   twitter_url: Yup.string()
-      .url("Enter a valid Twitter URL"),
+    .url("Enter a valid Twitter URL"),
   website_url: Yup.string()
-      .url("Enter a valid Website/Portfolio URL"),
+    .url("Enter a valid Website/Portfolio URL"),
   yrs_of_experience: Yup.number()
-      .min(1, "Minimum 1 year")
-      .max(30, "Maximum 30 years")
-      .required("Years of experience is required"),
+    .min(1, "Minimum 1 year")
+    .max(30, "Maximum 30 years")
+    .required("Years of experience is required"),
   months_of_experience: Yup.number()
-      .min(1, "Minimum 1 month")
-      .max(12, "Maximum 12 months")
-      .required("Months of experience is required"),
+    .min(1, "Minimum 1 month")
+    .max(12, "Maximum 12 months")
+    .required("Months of experience is required"),
   level: Yup.string()
-      .oneOf(["Entry Level", "Mid Level", "Senior"], "Select a valid level")
-      .required("Level of experience is required"),
+    .oneOf(["Entry Level", "Mid Level", "Senior"], "Select a valid level")
+    .required("Level of experience is required"),
 })
 
 export const ProfileExpertiseSchema = Yup.object().shape({
@@ -283,15 +283,15 @@ export const MenteeProfileSchema = Yup.object().shape({
   title: Yup.string()
     .required("Title is required")
     .max(50, "Title must be at most 50 characters"),
-  
+
   employer: Yup.string()
     .required("Company/School is required")
     .max(100, "Company/School must be at most 100 characters"),
-  
+
   level: Yup.string()
     .oneOf(["Entry Level", "Mid Level", "Senior"], "Invalid level")
     .required("Level of experience is required"),
-  
+
   expertise: Yup.array().of(Yup.string()),
 
   skills: Yup.array().of(Yup.string()),
@@ -312,11 +312,62 @@ export const workExperienceSchema = Yup.object().shape({
         .when('is_current', {
           is: false,
           then: (schema) => schema.required('End date is required').min(
-            Yup.ref('start_date'), 
+            Yup.ref('start_date'),
             'End date cannot be before start date'
           )
         }),
       is_current: Yup.boolean()
     })
   ).max(5, 'You can only add up to 5 work experiences')
+});
+
+export const fileResourcesSchema = Yup.object().shape({
+  type: Yup.string()
+    .required("File type is required")
+    .oneOf(["pdf", "video", "link"], "Invalid file type"),
+
+  file_name: Yup.string()
+    .required("File name is required")
+    .max(100, "File name cannot exceed 100 characters"),
+
+    file: Yup.mixed()
+    .when("type", {
+      is: (type: string) => type === "pdf" || type === "video",
+      then: (schema) =>
+        schema
+          .required("File is required")
+          .test("fileSize", "File size must be less than 10MB", (value) => {
+            return value ? (value as File).size <= 10 * 1024 * 1024 : false;
+          })
+          .test("fileFormat", "Unsupported file format", function (value) {
+            if (!value) return true;
+            
+            const fileType = this.parent.type;
+            const mimeType = (value as File).type;
+            const fileName = (value as File).name || "";
+            if (mimeType === "application/pdf" || fileName.toLowerCase().endsWith('.pdf')) {
+              return fileType === "pdf";
+            } else if (mimeType.startsWith("video/")) {
+              return fileType === "video"; 
+            }
+            return false;
+          }),
+      otherwise: (schema) =>
+        schema
+          .nullable()
+          .test("noFileForLink", "File should not be uploaded when link type is selected", (value) => !value),
+    }),
+
+  link: Yup.string()
+    .when("type", {
+      is: "link",
+      then: (schema) =>
+        schema
+          .required("Link is required")
+          .url("Enter a valid URL"),
+      otherwise: (schema) =>
+        schema
+          .nullable()
+          .test("noLinkForFile", "Link should not be provided when file type is selected", (value) => !value),
+    }),
 });

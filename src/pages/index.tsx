@@ -1,4 +1,4 @@
-import { MentorDashboard, MentorChats, MentorSessions, MentorTransaction, WalletView, MentorReviewsView, NotificationView, MentorSettingsView } from "./mentor";
+import { MentorDashboard, MentorChats, MentorSessions, MentorTransaction, WalletView, MentorReviewsView, NotificationView, MentorSettingsView, BookingView } from "./mentor";
 import {Registeration, LoginView, VerifyAccount, ForgotPassword, ResetPassword } from "./auth";
 
 export {
@@ -10,6 +10,7 @@ export {
     MentorReviewsView,
     NotificationView,
     MentorSettingsView,
+    BookingView,
     
     Registeration,
     LoginView,

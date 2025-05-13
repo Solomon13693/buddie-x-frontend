@@ -1,11 +1,13 @@
 import { registerUser, loginUser, ResendVerifyCode, verifyAccount, forgotPassword, resetPassword } from "./auth";
 import { useGetStats, useGetViewChart } from "./overview";
 
-import { useGetMentorSessions, useAddSession, useDeleteSession, useUpdateSession, useGetMentorTransactions, useGetMentorWithdrawal, useGetWallet, usePlaceWithdrawal, useGetReviews } from "./mentor";
+import { useGetMentorSessions, useAddSession, useDeleteSession, useUpdateSession, useGetMentorTransactions, useGetMentorWithdrawal, useGetWallet, usePlaceWithdrawal, useGetReviews, useGetBookings, useRejectBookings, useApproveBooking, useMarkAsInProgress, useUploadSessionResources } from "./mentor";
 
 import { useGetNotifications, useGetUnReadNotifications, useMarkAllAsRead, useMarkAsRead } from "./notification";
 
 import { updateProfile, updateAvailability, updatePassword } from "./profile";
+
+import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted } from './mentee'
 
 export {
 
@@ -28,11 +30,22 @@ export {
     useGetWallet,
     usePlaceWithdrawal,
     useGetReviews,
+    useGetBookings,
+    useRejectBookings,
+    useApproveBooking,
+    useMarkAsInProgress,
+    useUploadSessionResources,
+
+    // MENTEE
+    useCancelBookings,
+    useGetMenteeBookings,
+    useRequestRefund,
+    useMarkAsCompleted,
 
     // GENERAL
     useGetNotifications,
     useGetUnReadNotifications,
-    useMarkAllAsRead, 
+    useMarkAllAsRead,
     useMarkAsRead,
 
     // PROFILE

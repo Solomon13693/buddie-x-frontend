@@ -32,20 +32,18 @@ const LoginView = () => {
 
         const callbackUrl = queryParams.get('callbackUrl');
 
-        navigate("/mentor/dashboard")
+        console.log(role)
 
-        // console.log(role)
+        if (callbackUrl) {
+            navigate(callbackUrl)
+            return
+        }
 
-        // if (callbackUrl) {
-        //     navigate(callbackUrl)
-        //     return
-        // }
-
-        // if (role == "mentor") {
-       
-        // } else {
-        //     navigate("/dashboard")
-        // }
+        if (role == "mentor") {
+            navigate("/mentor/dashboard")
+        } else {
+            navigate("/dashboard")
+        }
 
     };
 
