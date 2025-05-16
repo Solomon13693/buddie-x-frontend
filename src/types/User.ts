@@ -25,7 +25,6 @@ export interface AuthType {
     password_confirmation?: string;
 }
 
-
 export interface Country {
     label?: string;
     value?: string;
@@ -98,22 +97,3 @@ export interface MentorProfile extends BaseUserProfile {
     average_attendance: string;
     is_top_rated: boolean;
 }
-
-export type WorkExperienceType = {
-    id: string;
-    employer: string;
-    title: string;
-    description: string;
-    start_date: string;
-    end_date: string;
-    is_current: boolean;
-};
-
-export type EducationType = {
-    id: string;
-    institution: string;
-    degree: string;
-    field_of_study: string;
-    start_date: string;
-    end_date: string;
-};

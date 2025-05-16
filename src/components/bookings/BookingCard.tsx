@@ -13,6 +13,8 @@ import { setSelectedChat } from "../../redux/features/chatSlice";
 import { useDispatch } from "react-redux";
 import UploadSessionResources from "./UploadSessionResources";
 import BookingResourcesModal from "./BookingResourcesModal";
+import toast from "react-hot-toast";
+import { getErrorMessage } from "../../utils";
 
 type RoleType = "mentor" | "mentee";
 
@@ -41,6 +43,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
         user,
         session,
         created_at,
+        payment_status,
         resources
     } = item;
 
@@ -76,7 +79,15 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
         handleConfirmation(
             "Approve Booking",
             "Are you sure you want to approve this booking?",
-            () => approveBooking(id, { onSuccess: () => setConfirmOpen(false) }),
+            () => approveBooking(id, {
+                onSuccess: () => {
+                    toast.success("Booking approved successfully.");
+                    setConfirmOpen(false);
+                },
+                onError: (err) => {
+                    toast.error(getErrorMessage(err));
+                }
+            }),
             "Approve",
             "bg-primary text-white"
         );
@@ -86,7 +97,15 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
         handleConfirmation(
             "Mark as In Progress",
             "Are you sure you want to mark this booking as in progress?",
-            () => markAsInProgress(id, { onSuccess: () => setConfirmOpen(false) }),
+            () => markAsInProgress(id, {
+                onSuccess: () => {
+                    toast.success("Booking marked as in progress.");
+                    setConfirmOpen(false);
+                },
+                onError: (err) => {
+                    toast.error(getErrorMessage(err));
+                }
+            }),
             "Mark as In Progress",
             "!bg-black text-white"
         );
@@ -96,7 +115,15 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
         handleConfirmation(
             "Mark as Completed",
             "Are you sure you want to mark this booking as completed?",
-            () => markCompleted(id, { onSuccess: () => setConfirmOpen(false) }),
+            () => markCompleted(id, {
+                onSuccess: () => {
+                    toast.success("Booking marked as completed.");
+                    setConfirmOpen(false);
+                },
+                onError: (err) => {
+                    toast.error(getErrorMessage(err));
+                }
+            }),
             "Mark as Completed",
             "!bg-black text-white"
         );
@@ -134,7 +161,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                 receiverUser: payload
             }))
 
-            navigate('/messages')
+            navigate('/dashboard/messages')
 
         }
 
@@ -276,16 +303,24 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             )}
 
                             {status === "in_progress" && (
-                                <Button color="success" onPress={handleMarkCompleted} size="sm" className="!bg-transparent rounded-md !text-black" variant="light">
+                                <Button color="success" onPress={handleMarkCompleted} size="sm" className="rounded-md !text-success" variant="light">
                                     Mark as Completed
                                 </Button>
                             )}
 
-                            {["cancelled", "rejected"].includes(status) && (
-                                <Button onPress={openRefund} size="sm" color="danger" className="!bg-transparent text-error-500 rounded-md" variant="light">
-                                    Request Refund
-                                </Button>
-                            )}
+                            {payment_status !== 'refunded' &&
+                                ["cancelled", "rejected"].includes(status) && (
+                                    <Button
+                                        onPress={openRefund}
+                                        size="sm"
+                                        color="danger"
+                                        className="!bg-transparent text-error-500 rounded-md"
+                                        variant="light"
+                                    >
+                                        Request Refund
+                                    </Button>
+                                )
+                            }
 
                         </>
                     )}
@@ -352,6 +387,11 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             <div className="flex flex-col gap-1">
                                 <label className="text-[#6E7E8D] text-xs">Sessions Duration</label>
                                 <h1 className="font-medium text-sm">{duration}</h1>
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-[#6E7E8D] text-xs">Payment Status</label>
+                                <h1 className="font-medium text-sm capitalize"> { payment_status } </h1>
                             </div>
 
                             <div className="flex flex-col gap-1">

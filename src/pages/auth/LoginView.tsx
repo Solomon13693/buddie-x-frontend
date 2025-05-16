@@ -32,17 +32,21 @@ const LoginView = () => {
 
         const callbackUrl = queryParams.get('callbackUrl');
 
-        console.log(role)
-
         if (callbackUrl) {
             navigate(callbackUrl)
             return
         }
 
-        if (role == "mentor") {
-            navigate("/mentor/dashboard")
-        } else {
-            navigate("/dashboard")
+        switch (role) {
+            case "mentor":
+                navigate("/mentor/dashboard");
+                break;
+            case "mentee":
+                navigate("/dashboard");
+                break;
+            default:
+                navigate("/");
+                break;
         }
 
     };

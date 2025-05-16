@@ -14,6 +14,7 @@ interface LinkItem {
     href: string;
     icon: any;
     text: string;
+    isRoot?: boolean;
 }
 
 interface SidebarProps {
@@ -67,14 +68,16 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile, basePath, lin
                 <div className="flex-grow pt-7">
                     <ul className="flex flex-col pl-0 mb-0 list-none space-y-2 2xl:space-y-3">
                         {links.map((link, index) => {
-                            const fullHref = `${basePath}${link.href}`;
+                            const fullHref = link.isRoot ? link.href : `${basePath}${link.href}`;
+                            const isActive = pathname === fullHref || (pathname.startsWith(fullHref) && !pathname.slice(fullHref.length).includes("/"));
+
                             return (
                                 <li key={index} className="w-full">
                                     <SidebarLink
                                         href={fullHref}
                                         Icon={link.icon}
                                         text={link.text}
-                                        isActive={pathname === fullHref || (pathname.startsWith(fullHref) && !pathname.slice(fullHref.length).includes("/"))}
+                                        isActive={isActive}
                                         onClick={handleLinkClick}
                                     />
                                 </li>

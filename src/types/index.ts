@@ -1,17 +1,18 @@
-import { AuthType, MenteeProfile, MentorProfile, WorkExperienceType, EducationType } from "./User";
+import { AuthType, MenteeProfile, MentorProfile } from "./User";
 import { CategoryType } from "./category";
 import { ReviewType } from "./review";
 import { TransactionType, MentorTransaction } from "./transaction";
 import { RecentchatType, MessageType } from "./chat";
 import { AvailabilityDayType, PasswordResetValues } from "./profile";
-import { BookingType, ZoomDetailType, SessionType, ResourcesType } from "./bookings";
+import { BookingType, ZoomDetailType, ResourcesType } from "./bookings";
+import { MentorType, FavouriteType, MentorProfileType, EducationType, WorkExperienceType } from "./mentor";
+
+import { SessionType } from "./session";
 
 export type {
     AuthType,
     MenteeProfile,
     MentorProfile,
-    WorkExperienceType,
-    EducationType,
 
     CategoryType,
     ReviewType,
@@ -26,6 +27,14 @@ export type {
 
     BookingType,
     ZoomDetailType,
-    SessionType,
-    ResourcesType
+    ResourcesType,
+
+    MentorType,
+    FavouriteType,
+    MentorProfileType,
+    EducationType,
+    WorkExperienceType,
+
+    SessionType
+
 };

@@ -2,9 +2,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppRoutes } from "./routes/AppRoutes";
 import { Toaster } from "react-hot-toast";
 import { Error, PageNotFound } from "./components";
-import { AppLayout } from "./layout";
+import { AppLayout, LandingPageLayout, MenteeAppLayout } from "./layout";
 import { ForgotPassword, LoginView, Registeration, ResetPassword, VerifyAccount } from "./pages";
 import { AuthDirect } from "./components/auth";
+import { MenteeRoutes } from "./routes/MenteeRoutes";
+import { LandingPageRoutes } from "./routes/LandingPageRoutes";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,18 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     errorElement: <Error />,
     children: AppRoutes,
+  },
+  {
+    path: "/dashboard",
+    element: <MenteeAppLayout />,
+    errorElement: <Error />,
+    children: MenteeRoutes,
+  },
+  {
+    path: "/",
+    element: <LandingPageLayout />,
+    errorElement: <Error />,
+    children: LandingPageRoutes,
   },
   {
     path: "*",

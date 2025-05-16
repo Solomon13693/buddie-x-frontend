@@ -19,13 +19,13 @@ const AuthBg = () => {
     return (
         <div className="fixed top-0 left-0 hidden lg:flex flex-col lg:w-[40%] xl:w-[35%] 2xl:w-1/3 h-full px-3 pl-0">
 
-            <div className="h-full m-4 bg-primary rounded-2xl backdrop-blur-[69.09px] relative p-8 2xl:p-12 overflow-hidden flex flex-col">
+            <div className="h-full m-4 bg-black rounded-2xl backdrop-blur-[69.09px] relative p-8 2xl:p-12 overflow-hidden flex flex-col">
 
                 <Link to='/' className="flex-none mb-4">
                     <img src='/images/logo/logo_white.svg' className='w-20' alt='Logo' />
                 </Link>
 
-                <div className="mt-8 text-black">
+                <div className="mt-8 text-white">
 
                     <h2 className="text-2xl 2xl:text-3xl font-lora font-bold leading-snug">
                         Unlock Your Potential with Mentorship.

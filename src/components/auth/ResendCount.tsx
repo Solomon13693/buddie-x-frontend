@@ -1,34 +1,36 @@
+"use client"
+
 import type React from "react"
 import { useEffect, useState, useRef } from "react"
 
 interface ResendCountProps {
     onResendClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
     loading?: boolean
-    initialCountdown?: number 
+    initialCountdown?: number
     className?: string
 }
 
 const ResendCount: React.FC<ResendCountProps> = ({
     onResendClick,
     loading = false,
-    initialCountdown = 60, // Default to 60 seconds if not provided
+    initialCountdown = 60,
     className = "",
 }) => {
+    
     const [countdown, setCountdown] = useState(initialCountdown)
     const [showResend, setShowResend] = useState(false)
-    const timerRef = useRef<any>(null)
+    const timerRef = useRef<number | null>(null)
+    const wasLoadingRef = useRef(loading)
 
     const startCountdown = () => {
         if (timerRef.current) {
             clearInterval(timerRef.current)
         }
 
-        // Reset state
         setCountdown(initialCountdown)
         setShowResend(false)
 
-        // Start new timer
-        timerRef.current = setInterval(() => {
+        timerRef.current = window.setInterval(() => {
             setCountdown((prev) => {
                 const newValue = (prev ?? initialCountdown) - 1
                 if (newValue <= 0) {
@@ -39,7 +41,7 @@ const ResendCount: React.FC<ResendCountProps> = ({
                     return 0
                 }
                 return newValue
-            })            
+            })
         }, 1000)
     }
 
@@ -53,11 +55,20 @@ const ResendCount: React.FC<ResendCountProps> = ({
         }
     }, [initialCountdown])
 
+    useEffect(() => {
+        if (wasLoadingRef.current && !loading) {
+            startCountdown()
+        }
+
+        wasLoadingRef.current = loading
+    }, [loading, initialCountdown])
+
     const handleResendClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (onResendClick) {
             onResendClick(e)
         }
-        startCountdown()
+
+        setShowResend(false)
     }
 
     return (
@@ -67,9 +78,14 @@ const ResendCount: React.FC<ResendCountProps> = ({
                     onClick={handleResendClick}
                     disabled={loading}
                     type="button"
-                    className="text-success underline hover:text-success/80 transition-colors">
+                    className="text-success underline hover:text-success/80 transition-colors"
+                >
                     {loading ? "Resending..." : "Resend code"}
                 </button>
+            ) : loading ? (
+                <div className="flex items-center gap-1">
+                    <span className="text-success">Resending...</span>
+                </div>
             ) : (
                 <div className="flex items-center gap-1">
                     <span className="text-black">Resend in</span>

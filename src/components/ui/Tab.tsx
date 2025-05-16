@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "../../lib";
 
 interface TabItem {
     id: number | string;
@@ -32,7 +33,7 @@ const Tabs = ({ items, onTabChange, initialActive = 1, className = "" }: TabsPro
     }, [active, items]);
 
     return (
-        <nav className={className}>
+        <nav className={cn(className, "relative text-xs")}>
             <ul
                 ref={containerRef}
                 className="flex flex-wrap gap-5 items-center border-b-2 border-[#F5F5F5] relative"
@@ -41,7 +42,7 @@ const Tabs = ({ items, onTabChange, initialActive = 1, className = "" }: TabsPro
                     <li
                         key={item.id}
                         data-id={item.id}
-                        className={`text-xs text-black100 h-6 cursor-pointer relative ${
+                        className={`text-black100 h-6 cursor-pointer relative ${
                             active === item.id ? "font-bold" : ""
                         }`}
                         onClick={() => handleActive(item.id)}

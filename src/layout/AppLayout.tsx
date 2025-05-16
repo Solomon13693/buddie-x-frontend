@@ -88,7 +88,7 @@ const AppLayout = () => {
                         )}
                     </div>
 
-                    <ProtectedRoute requiredRole="admin" />
+                    <ProtectedRoute requiredRole="mentor" />
 
                 </div>
 

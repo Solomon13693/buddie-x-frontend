@@ -1,5 +1,9 @@
 import AppLayout from "./AppLayout";
+import MenteeAppLayout from "./MenteeAppLayout";
+import LandingPageLayout from "./LandingPageLayout";
 
 export {
-    AppLayout
+    AppLayout,
+    MenteeAppLayout,
+    LandingPageLayout
 }

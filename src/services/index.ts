@@ -5,9 +5,11 @@ import { useGetMentorSessions, useAddSession, useDeleteSession, useUpdateSession
 
 import { useGetNotifications, useGetUnReadNotifications, useMarkAllAsRead, useMarkAsRead } from "./notification";
 
-import { updateProfile, updateAvailability, updatePassword } from "./profile";
+import { updateProfile, updateAvailability, updatePassword, uploadAvatar } from "./profile";
 
-import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted } from './mentee'
+import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist } from './mentee'
+
+import { useGetMentors, useGetMentorDetails, useGetMentorReviews, useGetSessions } from "./mentors";
 
 export {
 
@@ -41,6 +43,13 @@ export {
     useGetMenteeBookings,
     useRequestRefund,
     useMarkAsCompleted,
+    useGetTransactions,
+    useGetTransactionsStats,
+    useGetMenteeChart,
+    useGetMenteeStats,
+    useRemoveWishlist,
+    useAddWishlist,
+    useGetWishlist,
 
     // GENERAL
     useGetNotifications,
@@ -51,6 +60,12 @@ export {
     // PROFILE
     updateProfile,
     updateAvailability,
-    updatePassword
+    updatePassword,
+    uploadAvatar,
+
+    useGetMentors,
+    useGetMentorDetails,
+    useGetMentorReviews,
+    useGetSessions
 
 }

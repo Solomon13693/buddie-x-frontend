@@ -16,7 +16,7 @@ const VerifyAccount = () => {
     const [otp, setOtp] = useState('');
     const isOtpValid: boolean = otp.length === 6;
 
-    const [countdown, setCountdown] = useState<number>(5);
+    const [countdown, setCountdown] = useState<number>(60);
     const [loading, setLoading] = useState<boolean>(false);
 
     const [email, setEmail] = useState<string | undefined>(undefined);

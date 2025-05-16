@@ -1,3 +1,4 @@
+import { SessionType } from "./session";
 import { BaseUserProfile } from "./User";
 
 export type ZoomDetailType = {
@@ -6,17 +7,6 @@ export type ZoomDetailType = {
     meeting_id: number;
     passcode: string;
     start_time: string;
-};
-
-export type SessionType = {
-    id?: string;
-    title: string;
-    description: string;
-    price: string;
-    created_at?: string;
-    duration: string | number;
-    sessions_count: string | number;
-    frequency: "one-time" | "fortnightly" | "weekly" | "monthly";
 };
 
 export type ResourcesType = {
@@ -32,7 +22,7 @@ export type BookingType = {
     zoom_meeting_link: string;
     zoom_details: ZoomDetailType[];
     date_and_time: string[];
-    payment_status: "paid" | "unpaid";
+    payment_status: "paid" | "unpaid" | 'refunded';
     rejection_reason: string | null;
     cancellation_reason: string | null;
     mentor: BaseUserProfile;

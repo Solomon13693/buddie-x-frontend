@@ -36,6 +36,7 @@ export default {
           DEFAULT: '#F97316',
           focus: '#EA580C'
         },
+        "danger": "#CB1A14",
         "gray-200": "#f6f6f6",
         'error-400': '#D42620',
         'error-500': '#CB1A14',

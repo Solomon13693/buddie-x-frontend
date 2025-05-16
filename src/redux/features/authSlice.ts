@@ -98,7 +98,7 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             });
-    },
+    }
 });
 
 export const getUserProfile = (state: { auth: AuthState }) => state.auth.user;

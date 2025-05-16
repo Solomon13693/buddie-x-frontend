@@ -5,6 +5,7 @@ import { NotificationItemSkeleton } from "../../components/skeleton";
 import { Button } from "../../components/ui";
 import { useGetNotifications, useMarkAllAsRead } from "../../services";
 import { getErrorMessage, useQueryParams } from "../../utils";
+import EmptyState from "../../components/EmptyState";
 
 const NotificationView = () => {
 
@@ -19,7 +20,7 @@ const NotificationView = () => {
     };
 
     const { response, isLoading } = useGetNotifications(params);
-    const { data, pagination } = response || {};
+    const { data, total } = response || {};
 
     const { mutate, isPending } = useMarkAllAsRead()
 
@@ -48,29 +49,28 @@ const NotificationView = () => {
                     <NotificationItemSkeleton />
 
                 ) : (
-                    <div className="space-y-3 divide-y">
-
-                        {data?.map((notification: any[], index: number) => (
-
-                            <NotificationItem key={index} notification={notification} />
-
-                        ))}
-
-                    </div>
+                    data?.length ? (
+                        <div className="space-y-3 divide-y">
+                            {data.map((notification: any, index: number) => (
+                                <NotificationItem key={index} notification={notification} />
+                            ))}
+                        </div>
+                    ) : (
+                        <EmptyState emptyText="You have no notifications at the moment." />
+                    )
                 )}
 
             </div >
 
             {/* Pagination */}
-            < Pagination
+            <Pagination
                 className="mt-5"
                 perPage={perPage}
-                total={pagination?.total || 0
-                }
+                total={total || 0}
             />
 
         </>
     )
 }
 
-export default NotificationView
+export default NotificationView;

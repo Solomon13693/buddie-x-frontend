@@ -1,25 +1,35 @@
-import { JSX } from "react";
-import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
-import { RootState } from "../../redux/store";
+"use client"
+
+import { useEffect } from "react"
+import type { JSX } from "react"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import type { RootState } from "../../redux/store"
 
 interface AuthDirectProps {
-    children: JSX.Element;
+    children: JSX.Element
 }
 
 export const AuthDirect = ({ children }: AuthDirectProps) => {
-    const token = useSelector((state: RootState) => state.auth.token);
-    const role = useSelector((state: RootState) => state.auth.role);
-    const location = useLocation();
+    const { token, role, loading } = useSelector((state: RootState) => state.auth)
 
-    if (token) {
-        if (role == "mentor") {
-            return <Navigate to="/mentor/dashboard" state={{ from: location }} replace />;
-        } 
-        if (role === "mentee") {
-            return <Navigate to="/dashboard" state={{ from: location }} replace />;
+    const navigate = useNavigate()
+
+    useEffect(() => {
+
+        if (token && role && !loading) {
+
+            if (role === "mentor") {
+                navigate("/mentor/dashboard", { replace: true })
+            } else if (role === "mentee") {
+                navigate("/dashboard", { replace: true })
+            }
         }
+    }, [token, role, loading, navigate])
+
+    if (loading) {
+        return children
     }
 
-    return children;
-};
+    return token ? children : children
+}
