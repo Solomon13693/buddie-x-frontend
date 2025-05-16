@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Footer, Header } from "../components"
-import { AppDispatch } from "../redux/store";
+import { AppDispatch, RootState } from "../redux/store";
 import { useEffect } from "react";
 import { fetchProfile } from "../redux/features/authSlice";
 import { Outlet } from "react-router-dom";
@@ -10,12 +10,19 @@ import { getFavourites } from "../redux/features/favouriteSlice";
 const LandingPageLayout = ({ children }: { children?: React.ReactNode }) => {
 
     const dispatch = useDispatch<AppDispatch>();
+    const { token, role } = useSelector((state: RootState) => state.auth)
 
     useEffect(() => {
         dispatch(fetchProfile());
         dispatch(fetchGeneralData());
-        dispatch(getFavourites());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (token && role === "mentee") {
+            dispatch(getFavourites());
+        }
+    }, [dispatch, token, role]);
+
 
     return (
         <>
