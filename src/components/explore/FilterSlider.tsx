@@ -46,7 +46,7 @@ const FilterSlider = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         <DrawerComponent
             isOpen={isOpen}
             onClose={onClose}
-            size="md"
+            size="sm"
             position="right"
             showCloseButton={false}
             header={
