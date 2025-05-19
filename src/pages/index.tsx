@@ -5,6 +5,8 @@ import { MenteeDashboard, MenteeChat, MenteeSettings, MenteeBookingView, MenteeT
 
 import ExploreView from "./ExploreView";
 import MentorDetailsPage from "./MentorDetailsPage";
+import MentorServicesBooking from "./MentorServicesBooking";
+import HomeView from "./HomeView";
 
 export {
     MentorDashboard,
@@ -32,5 +34,7 @@ export {
     WishListView,
 
     ExploreView,
-    MentorDetailsPage
+    MentorDetailsPage,
+    MentorServicesBooking,
+    HomeView
 }

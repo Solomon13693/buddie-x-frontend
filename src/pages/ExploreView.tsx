@@ -58,7 +58,7 @@ function ExploreView() {
     const { total, mentors } = response || {}
 
     return (
-        <>
+        <div className="pt-12">
 
             <Container>
 
@@ -119,7 +119,7 @@ function ExploreView() {
 
             <FilterSlider isOpen={opened} onClose={close} />
 
-        </>
+        </div>
     )
 }
 

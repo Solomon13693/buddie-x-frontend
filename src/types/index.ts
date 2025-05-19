@@ -7,7 +7,7 @@ import { AvailabilityDayType, PasswordResetValues } from "./profile";
 import { BookingType, ZoomDetailType, ResourcesType } from "./bookings";
 import { MentorType, FavouriteType, MentorProfileType, EducationType, WorkExperienceType } from "./mentor";
 
-import { SessionType } from "./session";
+import { SessionType, FrequencyType } from "./session";
 
 export type {
     AuthType,
@@ -35,6 +35,7 @@ export type {
     EducationType,
     WorkExperienceType,
 
-    SessionType
+    SessionType,
+    FrequencyType
 
 };

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { axiosNoAuth } from "../lib";
+import { axios, axiosNoAuth } from "../lib";
 
 export const getMentors = async (params = {}) => {
     const response = await axiosNoAuth.get('mentors', {
@@ -21,6 +21,7 @@ export const getMentorDetails = async (slug: string) => {
     const response = await axiosNoAuth.get(`mentors/${slug}`);
     return response?.data;
 };
+
 export const useGetMentorDetails = (slug: string) => {
     const { data: response, isLoading } = useQuery({
         queryKey: ['mentors', slug],
@@ -59,4 +60,65 @@ export const useGetSessions = (id: string) => {
     });
 
     return { response, isLoading };
+};
+
+
+export const getSessionDetails = async (mentorId: string, sessionId: string) => {
+    const response = await axiosNoAuth.get(`mentors/${mentorId}/sessions/${sessionId}`);
+    return response?.data?.session;
+};
+
+export const useGetSessionDetails = (mentorId: string, sessionId: string) => {
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['session_details', mentorId, sessionId],
+        queryFn: () => getSessionDetails(mentorId, sessionId),
+        enabled: !!mentorId && !!sessionId
+    });
+
+    return { response, isLoading };
+};
+
+
+// GET AVAILABLE DATES
+export const fetchVendorAvailableDate = async (params: {}) => {
+    const { data } = await axiosNoAuth.post('mentors/available/day', params);
+    return data?.data;
+};
+
+export const useAvailableDates = (mentorId: string, mentorSessionId: string) => {
+    return useQuery({
+        queryKey: ['available_date', mentorId, mentorSessionId],
+        queryFn: () =>
+            fetchVendorAvailableDate({
+                mentor_id: mentorId,
+                mentor_session_id: mentorSessionId,
+            }),
+        enabled: !!mentorId && !!mentorSessionId,
+    });
+};
+
+// GET AVAILABLE TIME
+export const fetchVendorAvailableTime = async (params: {}) => {
+    const { data } = await axiosNoAuth.post('mentors/available/time', params);
+    return data?.data;
+};
+
+export const useAvailableTime = (mentorId: string, mentorSessionId: string, date: string) => {
+    return useQuery({
+        queryKey: ['available_date', mentorId, mentorSessionId, date],
+        queryFn: () =>
+            fetchVendorAvailableTime({
+                mentor_id: mentorId,
+                mentor_session_id: mentorSessionId,
+                date: date,
+            }),
+        enabled: !!mentorId && !!mentorSessionId && !!date,
+        retry: 1
+    });
+};
+
+// BOOK SESSION
+export const bookSession = async (payload: { date_and_time: string; mentor_session_id: string }) => {
+    const { data } = await axios.post('user/session/book', payload);
+    return data;
 };

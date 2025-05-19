@@ -5,6 +5,8 @@ import EducationHistory from "./Education";
 import WorkExperienceHistory from "./WorkExperienceHistory";
 import MentorSessionCard from "./MentorSessionCard";
 import MentorSessions from "./MentorSessions";
+import BookMentorModal from "./BookMentorModal";
+import BookingWizard from "./BookingWizard";
 
 export {
     MentorBanner,
@@ -13,5 +15,7 @@ export {
     EducationHistory,
     WorkExperienceHistory,
     MentorSessionCard,
-    MentorSessions
+    MentorSessions,
+    BookMentorModal,
+    BookingWizard
 }

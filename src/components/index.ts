@@ -8,12 +8,13 @@ import { Tabs, DrawerComponent } from "./ui";
 import Container from "./Container";
 import FavouriteButton from "./FavouriteButton";
 
-import { Header, Footer } from "./landing";
+import { Header, Footer, Banner, FAQ, Features, Proccess } from "./landing";
 import { MentorBanner } from "./mentors";
 
 import StarRating from "./StarRating";
 
 import SocialLinks from "./SocialLink";
+import TimeSelector from "./TimeSelector";
 
 export{
     Error,
@@ -28,6 +29,10 @@ export{
 
     Header,
     Footer,
+    Banner,
+    FAQ,
+    Features,
+    Proccess,
 
     FavouriteButton,
 
@@ -35,5 +40,6 @@ export{
 
     StarRating,
 
-    SocialLinks
+    SocialLinks,
+    TimeSelector
 }

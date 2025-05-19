@@ -9,7 +9,7 @@ import { updateProfile, updateAvailability, updatePassword, uploadAvatar } from 
 
 import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist } from './mentee'
 
-import { useGetMentors, useGetMentorDetails, useGetMentorReviews, useGetSessions } from "./mentors";
+import { useGetMentors, useGetMentorDetails, useGetMentorReviews, useGetSessions, useGetSessionDetails, useAvailableDates, useAvailableTime, bookSession } from "./mentors";
 
 export {
 
@@ -66,6 +66,10 @@ export {
     useGetMentors,
     useGetMentorDetails,
     useGetMentorReviews,
-    useGetSessions
+    useGetSessions,
+    useGetSessionDetails,
+    useAvailableDates,
+    useAvailableTime,
+    bookSession
 
 }

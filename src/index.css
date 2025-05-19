@@ -23,6 +23,10 @@
     .form-control {
         @apply py-2.5 px-4 focus:outline-none focus:ring-0 block outline-none border border-input w-full rounded-2xl text-xs text-black focus:shadow-md focus:border-input-focus focus:border placeholder:text-xs
     }
+
+    .container{
+        @apply px-6
+    }
     
     label {
         @apply inline-block tracking-tight
