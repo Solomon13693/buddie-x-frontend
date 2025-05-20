@@ -17,7 +17,7 @@ const Header = () => {
 
     return (
 
-        <div className="bg-white py-4 sm:py-5 shadow sticky auto-scroll top-0 left-0 right-0 z-40">
+        <div className="bg-white py-4 sm:py-5 border-b sticky auto-scroll top-0 left-0 right-0 z-40">
 
             <Container>
 
