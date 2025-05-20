@@ -1,13 +1,13 @@
 const Features = () => {
     return (
-        <section id="features" className="pt-16">
+        <section id="features" className="py-16">
             <div className="container m-auto max-w-6xl">
                 <div className="text-center pb-14 fadeInUp">
                     <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
                         <i className="ri-arrow-right-up-line text-primary"></i>
                         Program Highlights
                     </h3>
-                    <h2 className="xl:text-[40px] font-lora md:text-[30px] text-black-100 font-medium">
+                    <h2 className="lg:text-xl text-[20px] font-semibold my-2 font-lora">
                         Mentorship Benefits
                     </h2>
                     <p className="text-sm md:leading-7 md:text-base mt-2">

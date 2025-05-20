@@ -33,7 +33,7 @@ const Banner = () => {
                         <img src="/img/shape1.png" alt="Shape" className="lg:max-w-[300px] max-w-[70px]" />
                     </div>
 
-                    <div className="absolute lg:-left-[30%] top-[0%] left-0">
+                    <div className="absolute lg:-left-[30%] top-[0%] left-0 hidden md:block">
                         <img src="/img/shape2.png" alt="Shape" className="lg:max-w-[200px] max-w-[60px]" />
                     </div>
 

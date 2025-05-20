@@ -54,10 +54,10 @@ const FAQ = () => {
             <div className="container max-w-6xl m-auto">
 
                 <div className="text-center pb-14 fadeInUp" data-delay="0.2">
-                   <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
+                    <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
                         <i className="ri-arrow-right-up-line text-primary"></i> FAQs
                     </h3>
-                    <h2 className="xl:text-[40px] font-lora md:text-[30px] text-[25px] text-black-100 font-medium">
+                    <h2 className="lg:text-xl text-[20px] font-semibold my-2 font-lora">
                         Frequently Asked Questions
                     </h2>
                     <p className="md:text-xl md:leading-7 text-sm mt-2">
