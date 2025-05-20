@@ -53,7 +53,7 @@ const FAQ = () => {
 
             <div className="container max-w-6xl m-auto">
 
-                <div className="text-center pb-14 fadeInUp" data-delay="0.2">
+                <div className="text-center pb-16 fadeInUp" data-delay="0.2">
                     <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
                         <i className="ri-arrow-right-up-line text-primary"></i> FAQs
                     </h3>

@@ -2,7 +2,7 @@ const Proccess = () => {
     return (
         <section id="how" className="py-16">
             <div className="container m-auto max-w-7xl">
-                <div className="text-center pb-15 fadeInUp">
+                <div className="text-center pb-16 fadeInUp">
                     <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
                         <i className="ri-arrow-right-up-line text-primary"></i>
                         Mentorship Process
@@ -17,7 +17,7 @@ const Proccess = () => {
 
                     {/* Step 1 */}
                     <div className="flex flex-col items-center text-center relative sm:px-[25px] px-0">
-                        <div className="lg:w-[65px] lg:h-[65px] w-12.5 h-12.5 rounded-full flex items-center justify-center border border-[rgba(0,0,0,.08)] relative">
+                        <div className="lg:w-[65px] lg:h-[65px] w-12 h-12 rounded-full flex items-center justify-center border border-[rgba(0,0,0,.08)] relative">
                             <i className="ri-user-add-line text-[25px]"></i>
                             <div className="overlay-list absolute -right-2 -top-2 bg-primary flex justify-center items-center text-white lg:w-8 lg:h-8 w-6 h-6 rounded-full">
                                 <span className="lg:font-medium text-xs">01</span>
@@ -42,7 +42,7 @@ const Proccess = () => {
                         <div className="absolute top-0 left-[-110px] opacity-50 lg:block hidden">
                             <img src="img/workprocess-shape2.png" alt="shapes" />
                         </div>
-                        <div className="lg:w-[65px] lg:h-[65px] w-12.5 h-12.5 rounded-full flex items-center justify-center border border-[rgba(0,0,0,.08)] relative">
+                        <div className="lg:w-[65px] lg:h-[65px] w-12 h-12 rounded-full flex items-center justify-center border border-[rgba(0,0,0,.08)] relative">
                             <i className="ri-team-line text-[25px]"></i>
                             <div className="overlay-list absolute -right-2 -top-2 bg-primary flex justify-center items-center text-white lg:w-8 lg:h-8 w-6 h-6 rounded-full">
                                 <span className="lg:font-medium text-xs">02</span>
@@ -67,7 +67,7 @@ const Proccess = () => {
                         <div className="absolute top-0 left-[-110px] opacity-50 lg:block hidden">
                             <img src="img/workprocess-shape1.png" alt="shapes" />
                         </div>
-                        <div className="lg:w-[65px] lg:h-[65px] w-12.5 h-12.5 rounded-full flex items-center justify-center border border-[rgba(0,0,0,.08)] relative">
+                        <div className="lg:w-[65px] lg:h-[65px] w-12 h-12 rounded-full flex items-center justify-center border border-[rgba(0,0,0,.08)] relative">
                             <i className="ri-lightbulb-flash-line text-[25px]"></i>
                             <div className="overlay-list absolute -right-2 -top-2 bg-primary flex justify-center items-center text-white lg:w-8 lg:h-8 w-6 h-6 rounded-full">
                                 <span className="lg:font-medium text-xs">03</span>

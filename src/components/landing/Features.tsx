@@ -2,7 +2,7 @@ const Features = () => {
     return (
         <section id="features" className="py-16">
             <div className="container m-auto max-w-6xl">
-                <div className="text-center pb-14 fadeInUp">
+                <div className="text-center pb-16 fadeInUp">
                     <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
                         <i className="ri-arrow-right-up-line text-primary"></i>
                         Program Highlights
