@@ -20,7 +20,7 @@ const MentorServicesBooking = () => {
     const { isLoading: isPending, data: availableDates } = useAvailableDates(mentor_id, sessionId);
 
     return (
-        <div className="pt-12">
+        <div className="">
 
             {isLoading ? (
                 <MentorBannerSkeleton />

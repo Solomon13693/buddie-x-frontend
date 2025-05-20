@@ -44,7 +44,7 @@ const MentorDetailsPage = () => {
   
 
   return (
-    <div className="pt-12">
+    <div className="">
 
       { isLoading ? (
         <MentorBannerSkeleton />
