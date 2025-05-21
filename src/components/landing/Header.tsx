@@ -28,10 +28,10 @@ const Header = () => {
                         <Link to='/'>
 
                             <img
-                                src='/images/logo/logo.svg'
-                                className='w-20'
-                                width={90}
-                                height={28}
+                                src='/logo/BX_1.png'
+                                className='w-20 md:w-24'
+                                width={100}
+                                height={90}
                                 alt='Logo'
                             />
 

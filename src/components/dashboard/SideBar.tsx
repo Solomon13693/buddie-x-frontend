@@ -48,14 +48,14 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile, basePath, lin
 
             <aside className={`sidebar fixed inset-y-0 left-0 flex flex-col overflow-x-hidden px-5 transition-all duration-200 -translate-x-full bg-black border-0 z-10 overflow-y-auto scrollbar-thin ${open && 'translate-x-0'} max-w-72 xl:translate-x-0 w-72 z-50`}>
                 <div className="sticky top-0 bg-black w-full z-10 pt-8 pb-4">
-                    <div className="flex items-center">
+                    <div className="flex items-center justify-center">
                         <Link to={basePath} className="block ml-2 m-auto text-center text-sm whitespace-nowrap" onClick={handleLinkClick}>
                             <img
-                                src='/images/logo.png'
-                                width={90}
-                                height={28}
+                                src='/logo/BX_4.png'
+                                width={100}
+                                height={80}
                                 alt="Logo"
-                                className="w-[75px] transition-all duration-200 ease-soft-in-out"
+                                className="w-20 md:w-24 transition-all duration-200 ease-soft-in-out"
                             />
                         </Link>
 

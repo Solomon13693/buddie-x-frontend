@@ -11,7 +11,7 @@ const MenteeChart = () => {
 
     const [timeRange, setTimeRange] = useState<TimeRange>('weekly');
     const { response, isLoading } = useGetMenteeChart
-    (timeRange);
+        (timeRange);
 
     const chartData = useMemo(() => {
 
@@ -38,7 +38,7 @@ const MenteeChart = () => {
 
             <div className="flex items-center justify-between">
 
-                <h2 className='text-lg font-semibold'>Session Overview</h2>
+                <h2 className='text-sm md:text-base font-semibold'>Session Overview</h2>
 
                 <Dropdown
                     className='mb-5'
