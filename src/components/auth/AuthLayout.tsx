@@ -11,10 +11,13 @@ const AuthLayout = ({ children }: { children: ReactElement }) => {
             <div className="w-full px-6 h-16 md:h-20 mx-auto flex items-center justify-between border-b border-gray-100">
 
                 <a className="h-6 flex-shrink-0" href="/">
-                    <img src='' alt="logo" className="w-full h-full object-contain" />
+                    <img src='/logo/BX_1.png'
+                        className='w-16 md:w-20'
+                        alt='Buddiex-x'
+                    />
                 </a>
 
-                <div className="flex justify-end items-center text-xs md:text-sm text-gray-700">
+                <div className="flex justify-end items-center text-xs 2xl:text-sm text-gray-700">
 
                     <span>Need help?</span>
 
