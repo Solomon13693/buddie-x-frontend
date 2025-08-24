@@ -1,5 +1,5 @@
 import { useState, useRef, ChangeEvent } from 'react'
-import { Image, Spinner } from '@heroui/react';
+import { Spinner } from '@heroui/react';
 
 interface ProfileImageProps {
     initialImage?: string;
@@ -31,8 +31,9 @@ export default function ProfileImage({ initialImage, onImageUpload, loading }: P
             onMouseLeave={() => setIsHovered(false)}>
 
             <div className="absolute inset-0 w-full h-full rounded-full overflow-hidden">
-                <Image
+                <img
                     width={500}
+                    height={500}
                     src={image}
                     alt="Profile picture"
                     className="object-cover w-full h-full"

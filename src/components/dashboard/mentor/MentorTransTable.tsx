@@ -10,6 +10,9 @@ const MentorTransTable = ({ transactions }: { transactions: MentorTransaction[] 
                 <TableHeader className='!bg-slate-100'>
                     <TableRow>
                         <TableHead className="px-6">
+                            ID
+                        </TableHead>
+                        <TableHead className="px-6">
                             Date
                         </TableHead>
                         <TableHead className="px-6">
@@ -33,6 +36,10 @@ const MentorTransTable = ({ transactions }: { transactions: MentorTransaction[] 
                 <TableBody>
                     {transactions.map((transaction, index) => (
                         <TableRow className="text-xs font-normal text-off-black" key={index}>
+
+                            <TableCell className="px-6">
+                                { transaction.id }
+                            </TableCell>
 
                             <TableCell className="px-6">
                                 {moment(transaction.created_at).format('LL')}

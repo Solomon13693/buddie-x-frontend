@@ -10,7 +10,7 @@ interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const formatCurrencyForDisplay = (value: number | string) => {
-    // Remove any non-numeric characters, and format it as a number with commas
+    
     const numberValue = parseFloat(value.toString().replace(/[^0-9.-]+/g, ''));
     if (isNaN(numberValue)) return '';
     return numberValue.toLocaleString('en-US');

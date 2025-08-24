@@ -22,7 +22,7 @@ const MentorReviews = ({ mentor_id }: { mentor_id: string }) => {
 
     if (!response?.length) {
         return (
-            <div className="px-4 py-6 space-y-4 flex flex-col items-center text-center bg-gray-50 rounded-lg">
+            <div className="max-w-4xl px-4 py-6 space-y-4 flex flex-col items-center text-center bg-gray-50 rounded-lg">
 
                 <i className="text-5xl ri-box-3-fill"></i>
 
@@ -35,7 +35,7 @@ const MentorReviews = ({ mentor_id }: { mentor_id: string }) => {
     }
 
     return (
-        <div className="space-y-5 -mt-3 divide-y max-w-3xl">
+        <div className="space-y-5 -mt-3 divide-y max-w-4xl">
             {response.map((item: ReviewType, index: number) => (
                 <div key={index} className="space-y-2 pt-5">
                     <User

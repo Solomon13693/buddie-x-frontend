@@ -10,6 +10,18 @@ import FavouriteButton from "./FavouriteButton";
 
 import { Header, Footer, Banner, FAQ, Features, Proccess } from "./landing";
 import { MentorBanner } from "./mentors";
+import {
+  CommunityCard,
+  CommunityBanner,
+  CommunityPosts,
+  CommunityMembers,
+  CommunityStats,
+  CreateCommunityModal,
+  CreatePostModal,
+  PostCard,
+  CommentCard,
+  CommunityRules,
+} from "./community";
 
 import StarRating from "./StarRating";
 
@@ -41,5 +53,17 @@ export{
     StarRating,
 
     SocialLinks,
-    TimeSelector
+    TimeSelector,
+
+    // Community Components
+    CommunityCard,
+    CommunityBanner,
+    CommunityPosts,
+    CommunityMembers,
+    CommunityStats,
+    CreateCommunityModal,
+    CreatePostModal,
+    PostCard,
+    CommentCard,
+    CommunityRules,
 }

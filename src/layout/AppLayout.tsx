@@ -12,6 +12,7 @@ import {
     ChatBubbleOvalLeftEllipsisIcon,
     Cog8ToothIcon,
     StarIcon,
+    UserGroupIcon,
 } from '@heroicons/react/24/solid';
 import { Alert } from '@heroui/react'
 
@@ -29,6 +30,7 @@ const AppLayout = () => {
 
     const mentorLinks = [
         { href: '', icon: Squares2X2Icon, text: 'Dashboard' },
+        { href: '/communities', icon: UserGroupIcon, text: 'Communities' },
         { href: '/sessions', icon: BookOpenIcon, text: 'Sessions' },
         { href: '/bookings', icon: BookOpenIcon, text: 'Bookings' },
         { href: '/wallet', icon: WalletIcon, text: 'Wallet' },

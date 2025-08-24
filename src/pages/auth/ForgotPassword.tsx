@@ -46,10 +46,11 @@ const ForgotPassword = () => {
                             toast.success(response?.message)
 
                             setCookie('email', values?.email || '')
-
+                            console.log("Navigrating", values.email)
                             navigate('/reset-password')
 
                         } catch (error: any) {
+                            console.log(error)
                             toast.error(getErrorMessage(error))
                         } finally {
                             setLoading(false)

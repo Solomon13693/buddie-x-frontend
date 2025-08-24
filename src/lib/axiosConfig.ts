@@ -40,9 +40,7 @@ axiosConfig.interceptors.response.use(
     async (error: AxiosError) => {
         if (error.response?.status === 401) {
             store.dispatch(logout());
-
             const callbackUrl = new URLSearchParams(window.location.search).get('callbackUrl') || '/';
-
             window.location.href = `/login?callbackUrl=${encodeURIComponent(callbackUrl)}`;
         }
 

@@ -6,8 +6,19 @@ import { RecentchatType, MessageType } from "./chat";
 import { AvailabilityDayType, PasswordResetValues } from "./profile";
 import { BookingType, ZoomDetailType, ResourcesType } from "./bookings";
 import { MentorType, FavouriteType, MentorProfileType, EducationType, WorkExperienceType } from "./mentor";
-
 import { SessionType, FrequencyType } from "./session";
+import { 
+  CommunityType, 
+  CommunityPostType, 
+  CommunityCommentType, 
+  CommunityMemberType,
+  CreateCommunityData,
+  UpdateCommunityData,
+  CreatePostData,
+  UpdatePostData,
+  CreateCommentData,
+  CommunityStatsType
+} from "./community";
 
 export type {
     AuthType,
@@ -36,6 +47,18 @@ export type {
     WorkExperienceType,
 
     SessionType,
-    FrequencyType
+    FrequencyType,
+
+    // COMMUNITY
+    CommunityType,
+    CommunityPostType,
+    CommunityCommentType,
+    CommunityMemberType,
+    CreateCommunityData,
+    UpdateCommunityData,
+    CreatePostData,
+    UpdatePostData,
+    CreateCommentData,
+    CommunityStatsType
 
 };

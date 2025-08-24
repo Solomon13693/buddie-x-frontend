@@ -131,4 +131,5 @@ export interface MentorProfileType {
     average_rating: number;
     average_attendance: string;
     is_top_rated: boolean;
+    availability: Availability[];
 }

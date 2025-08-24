@@ -6,6 +6,11 @@ export const getRecentChats = async () => {
     return response.data;
 };
 
+export const getAdminLists = async () => {
+    const response = await axios.get('chat/admin-lists');
+    return response.data?.data;
+};
+
 export const getMessagesByRoom = async (roomId: string) => {
     const response = await axios.get(`chat/${roomId}/messages`);
     return response.data;
@@ -26,6 +31,14 @@ export const useGetRecentChat = () => {
     const { data: response, isLoading } = useQuery({
         queryKey: ['recent_chat'],
         queryFn: () => getRecentChats(),
+    });
+
+    return { response, isLoading };
+};
+export const useGetAdminLists = () => {
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['admin_lists'],
+        queryFn: () => getAdminLists(),
     });
 
     return { response, isLoading };

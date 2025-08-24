@@ -10,6 +10,29 @@ import { updateProfile, updateAvailability, updatePassword, uploadAvatar } from 
 import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist } from './mentee'
 
 import { useGetMentors, useGetMentorDetails, useGetMentorReviews, useGetSessions, useGetSessionDetails, useAvailableDates, useAvailableTime, bookSession } from "./mentors";
+import {
+  useGetCommunities,
+  useGetMyCommunities,
+  useGetCommunityDetails,
+  useCreateCommunity,
+  useUpdateCommunity,
+  useDeleteCommunity,
+  useJoinCommunity,
+  useLeaveCommunity,
+  useGetCommunityMembers,
+  useGetCommunityPosts,
+  useGetPostDetails,
+  useCreatePost,
+  useUpdatePost,
+  useDeletePost,
+  useLikePost,
+  useGetPostComments,
+  useCreateComment,
+  useUpdateComment,
+  useDeleteComment,
+  useLikeComment,
+  useGetCommunityStats
+} from "./community";
 
 export {
 
@@ -70,6 +93,29 @@ export {
     useGetSessionDetails,
     useAvailableDates,
     useAvailableTime,
-    bookSession
+    bookSession,
+
+    // COMMUNITY
+    useGetCommunities,
+    useGetMyCommunities,
+    useGetCommunityDetails,
+    useCreateCommunity,
+    useUpdateCommunity,
+    useDeleteCommunity,
+    useJoinCommunity,
+    useLeaveCommunity,
+    useGetCommunityMembers,
+    useGetCommunityPosts,
+    useGetPostDetails,
+    useCreatePost,
+    useUpdatePost,
+    useDeletePost,
+    useLikePost,
+    useGetPostComments,
+    useCreateComment,
+    useUpdateComment,
+    useDeleteComment,
+    useLikeComment,
+    useGetCommunityStats
 
 }

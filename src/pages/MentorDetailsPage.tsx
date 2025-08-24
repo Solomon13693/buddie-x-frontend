@@ -30,7 +30,7 @@ const MentorDetailsPage = () => {
       case 1:
         return <MentorOverview isLoading={isLoading} mentor={response} />;
       case 2:
-        return <MentorSessions mentor_id={mentor_id} />; 
+        return <MentorSessions mentor_id={mentor_id} />;
       case 5:
         return <WorkExperienceHistory workExperiences={work_experience} />;
       case 4:
@@ -41,12 +41,12 @@ const MentorDetailsPage = () => {
         return null;
     }
   };
-  
+
 
   return (
     <div className="">
 
-      { isLoading ? (
+      {isLoading ? (
         <MentorBannerSkeleton />
       ) : (
         <MentorBanner mentor={response} />
@@ -58,7 +58,7 @@ const MentorDetailsPage = () => {
 
           <Tabs className="!text-xs md:!text-sm" items={navItems} onTabChange={setActive} />
 
-          <main className="py-10 max-w-4xl 2xl:max-w-5xl">
+          <main className="py-10">
             {getActiveComponent()}
           </main>
 

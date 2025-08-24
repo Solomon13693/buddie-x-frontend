@@ -15,7 +15,7 @@ const WorkExperienceHistory = ({ workExperiences }: { workExperiences: WorkExper
 
     if (sortedWorkExperiences.length === 0) {
         return (
-            <div className="px-4 py-6 space-y-4 flex flex-col items-center text-center bg-gray-50 rounded-lg">
+            <div className="max-w-4xl 2xl:max-w-5xl px-4 py-6 space-y-4 flex flex-col items-center text-center bg-gray-50 rounded-lg">
 
                 <i className="text-5xl ri-box-3-fill"></i>
 
@@ -28,7 +28,7 @@ const WorkExperienceHistory = ({ workExperiences }: { workExperiences: WorkExper
     }
 
     return (
-        <div className="space-y-5 divide-y px-2 -mt-4">
+        <div className="max-w-4xl 2xl:max-w-5xl space-y-5 divide-y px-2 -mt-4">
             {sortedWorkExperiences.map((item, index) => {
                 const start = formatDate(item.start_date);
                 const end = item.is_current || !item.end_date ? "Present" : formatDate(item.end_date);
@@ -38,7 +38,7 @@ const WorkExperienceHistory = ({ workExperiences }: { workExperiences: WorkExper
                         <div className="flex items-center justify-between pt-5">
                             <div className="flex flex-col">
                                 <h1 className="text-sm font-semibold">{item?.title}</h1>
-                                <p className="text-xs">@ {item?.employer}</p>
+                                {/* <p className="text-xs">@ {item?.employer}</p> */}
                             </div>
                             <Chip className="!text-[11px]">{`${start} - ${end}`}</Chip>
                         </div>

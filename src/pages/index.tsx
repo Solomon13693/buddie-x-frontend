@@ -7,6 +7,9 @@ import ExploreView from "./ExploreView";
 import MentorDetailsPage from "./MentorDetailsPage";
 import MentorServicesBooking from "./MentorServicesBooking";
 import HomeView from "./HomeView";
+import CommunitiesView from "./CommunitiesView";
+import CommunityDetailsView from "./CommunityDetailsView";
+import PostDetailsView from "./PostDetailsView";
 
 export {
     MentorDashboard,
@@ -36,5 +39,8 @@ export {
     ExploreView,
     MentorDetailsPage,
     MentorServicesBooking,
-    HomeView
+    HomeView,
+    CommunitiesView,
+    CommunityDetailsView,
+    PostDetailsView
 }

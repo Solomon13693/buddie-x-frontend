@@ -12,6 +12,7 @@ import {
     Cog8ToothIcon,
     HeartIcon,
     RectangleGroupIcon,
+    UserGroupIcon,
 } from '@heroicons/react/24/solid';
 import { Alert } from '@heroui/react'
 import { getFavourites } from '../redux/features/favouriteSlice'
@@ -32,6 +33,7 @@ const MenteeAppLayout = () => {
     const menteeLinks = [
         { href: '', icon: Squares2X2Icon, text: 'Dashboard' },
         { href: '/explore', icon: RectangleGroupIcon, text: 'Explore', isRoot: true },
+        { href: '/communities', icon: UserGroupIcon, text: 'Communities' },
         { href: '/bookings', icon: BookOpenIcon, text: 'Bookings' },
         { href: '/transactions', icon: BanknotesIcon, text: 'Transactions' },
         { href: '/wishlists', icon: HeartIcon, text: 'Wishlists' },

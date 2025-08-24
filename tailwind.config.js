@@ -45,7 +45,7 @@ export default {
         "success": "#019712",
       },
       fontSize: {
-        'xs': '0.75rem',
+        'xs': '13px',
         'sm': '0.875rem',
         'md': '1rem',
         'lg': '1.125rem',

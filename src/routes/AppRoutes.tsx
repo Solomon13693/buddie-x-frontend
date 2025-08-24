@@ -1,4 +1,4 @@
-import { MentorChats, MentorDashboard, MentorReviewsView, MentorSessions, MentorSettingsView, MentorTransaction, NotificationView, WalletView, BookingView } from "../pages";
+import { MentorChats, MentorDashboard, MentorReviewsView, MentorSessions, MentorSettingsView, MentorTransaction, NotificationView, WalletView, BookingView, CommunitiesView, CommunityDetailsView, PostDetailsView } from "../pages";
 
 export const AppRoutes = [
     {
@@ -36,5 +36,17 @@ export const AppRoutes = [
     {
         path: "settings",
         element: <MentorSettingsView />
+    },
+    {
+        path: "communities",
+        element: <CommunitiesView />
+    },
+    {
+        path: "communities/:communityId",
+        element: <CommunityDetailsView />
+    },
+    {
+        path: "communities/:communityId/posts/:postId",
+        element: <PostDetailsView />
     },
 ];

@@ -69,7 +69,20 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile, basePath, lin
                     <ul className="flex flex-col pl-0 mb-0 list-none space-y-2 2xl:space-y-3">
                         {links.map((link, index) => {
                             const fullHref = link.isRoot ? link.href : `${basePath}${link.href}`;
-                            const isActive = pathname === fullHref || (pathname.startsWith(fullHref) && !pathname.slice(fullHref.length).includes("/"));
+
+                            // Fixed isActive logic
+                            const isActive = React.useMemo(() => {
+                                if (pathname === fullHref) return true;
+
+                                // For exact base path matching
+                                if (fullHref === basePath) {
+                                    return pathname === basePath;
+                                }
+
+                                // For other paths, check if it's an exact match or a direct child
+                                return pathname.startsWith(fullHref) &&
+                                    (pathname.length === fullHref.length || pathname.charAt(fullHref.length) === '/');
+                            }, [pathname, fullHref, basePath]);
 
                             return (
                                 <li key={index} className="w-full">

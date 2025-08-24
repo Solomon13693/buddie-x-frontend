@@ -16,7 +16,7 @@ const EducationHistory = ({ education }: { education: EducationType[] }) => {
 
     if (sortedEducation?.length === 0) {
         return (
-            <div className="px-4 py-6 space-y-4 flex flex-col items-center text-center bg-gray-50 rounded-lg">
+            <div className="max-w-4xl 2xl:max-w-5xl px-4 py-6 space-y-4 flex flex-col items-center text-center bg-gray-50 rounded-lg">
 
                 <i className="text-5xl ri-box-3-fill"></i>
 
@@ -29,7 +29,7 @@ const EducationHistory = ({ education }: { education: EducationType[] }) => {
     }
 
     return (
-        <div className="space-y-5 divide-y px-2 -mt-4">
+        <div className="max-w-4xl 2xl:max-w-5xl space-y-5 divide-y px-2 -mt-4">
             {sortedEducation?.map((item, index) => {
                 const start = formatDate(item.start_date);
                 const end = !item.end_date ? "Present" : formatDate(item.end_date);

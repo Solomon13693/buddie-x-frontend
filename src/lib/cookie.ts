@@ -11,7 +11,7 @@ interface CookieOptions {
 // Default cookie options
 const defaultCookieOptions: CookieOptions = {
     expires: 7,       
-    secure: true,      
+    secure: import.meta.env.MODE === "production",  
     sameSite: 'Strict' 
 };
 
