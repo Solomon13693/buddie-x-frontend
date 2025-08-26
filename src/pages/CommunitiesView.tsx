@@ -94,7 +94,7 @@ const CommunitiesView = () => {
                 Communities
               </h1>
               <p className="text-gray-600 text-xs sm:text-sm">
-                Discover and join communities of mentors and mentees
+                Discover and join communities of mentors and admins
               </p>
             </div>
 
