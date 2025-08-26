@@ -16,11 +16,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
                 staleTime: 1000 * 60 * 10,
                 gcTime: 1000 * 60 * 60,
                 refetchOnWindowFocus: false,
-                retry: 2,
-                retryDelay: 2000
+                retry: (failureCount, error: any) => {
+                    if (error?.response?.status === 404) {
+                        return false;
+                    }
+                    return failureCount < 2;
+                },
+                retryDelay: 3000,
             },
-        }
+        },
     }));
+
 
     const theme = createTheme({
         colors: {

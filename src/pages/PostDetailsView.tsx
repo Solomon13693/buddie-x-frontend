@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { Container, GoBack, Pagination } from '../components';
 import { PostCard, CommentCard } from '../components/community';
 import { useGetPostDetails, useGetPostComments, useCreateComment, useGetCommunityDetails } from '../services';
 import { Button } from '../components/ui';
@@ -7,6 +6,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useGoBack } from '../lib';
 import { useQueryParams } from '../utils';
 import { useRef, useState } from 'react';
+import { Container, GoBack, Pagination } from '../components';
 
 const PostDetailsView = () => {
 
