@@ -5,7 +5,7 @@ import { useGetMentorSessions, useAddSession, useDeleteSession, useUpdateSession
 
 import { useGetNotifications, useGetUnReadNotifications, useMarkAllAsRead, useMarkAsRead } from "./notification";
 
-import { updateProfile, updateAvailability, updatePassword, uploadAvatar } from "./profile";
+import { updateProfile, updateAvailability, updatePassword, uploadAvatar, addDeviceToken } from "./profile";
 
 import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist } from './mentee'
 
@@ -86,6 +86,7 @@ export {
     updateAvailability,
     updatePassword,
     uploadAvatar,
+    addDeviceToken,
 
     useGetMentors,
     useGetMentorDetails,

@@ -6,6 +6,11 @@ export const updateProfile = async (payload: any) => {
     return response.data;
 };
 
+export const addDeviceToken = async (payload: any) => {
+    const response = await axios.post('profile/device-token', payload);
+    return response.data;
+};
+
 export const uploadAvatar = async (file: File) => {
     const formData = new FormData();
     formData.append('avatar', file);

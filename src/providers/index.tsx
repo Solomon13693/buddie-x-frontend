@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { createTheme, MantineProvider } from '@mantine/core'
 import { store } from "../redux/store";
 import { EchoProvider } from "../context/EchoContext";
+import FirebaseNotificationProvider from "../firebase/FirebaseProvider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
 
@@ -53,12 +54,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
                 <Provider store={store}>
 
-                    <MantineProvider withCssVariables withStaticClasses theme={theme}>
-                        <HeroUIProvider>
-                            {children}
-                        </HeroUIProvider>
-                        <ReactQueryDevtools initialIsOpen={false} />
-                    </MantineProvider>
+                    <FirebaseNotificationProvider>
+
+                        <MantineProvider withCssVariables withStaticClasses theme={theme}>
+                            <HeroUIProvider>
+                                {children}
+                            </HeroUIProvider>
+                            <ReactQueryDevtools initialIsOpen={false} />
+                        </MantineProvider>
+
+                    </FirebaseNotificationProvider>
 
                     <ToastProvider placement='top-right' toastOffset={20} />
 
