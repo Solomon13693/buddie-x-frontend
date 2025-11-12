@@ -99,3 +99,26 @@ export const useUploadSessionResources = () => {
         },
     });
 };
+
+export const rescheduleSession = async (sessionId: string, dateAndTime: string) => {
+    const response = await axios.post(`mentor/session/${sessionId}/reschedule`, {
+        date_and_time: dateAndTime
+    });
+    return response.data;
+};
+
+export const useRescheduleSession = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ sessionId, dateAndTime }: { sessionId: string; dateAndTime: string }) =>
+            rescheduleSession(sessionId, dateAndTime),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['bookings'] });
+            queryClient.invalidateQueries({ queryKey: ['session'] });
+        },
+        onError: (error: unknown) => {
+            return error;
+        },
+    });
+};

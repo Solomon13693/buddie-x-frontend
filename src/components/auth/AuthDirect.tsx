@@ -11,6 +11,7 @@ interface AuthDirectProps {
 }
 
 export const AuthDirect = ({ children }: AuthDirectProps) => {
+    
     const { token, role, loading } = useSelector((state: RootState) => state.auth)
 
     const navigate = useNavigate()

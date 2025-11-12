@@ -6,6 +6,7 @@ interface CustomFileInputProps {
     label: string;
     className?: string;
     formGroupClass?: string;
+    accept?: string;
 }
 
 const CustomFileInput: React.FC<CustomFileInputProps> = ({
@@ -13,6 +14,7 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
     label,
     className,
     formGroupClass,
+    accept,
 }) => {
     const [_, meta, helpers] = useField(name);
 
@@ -26,6 +28,7 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
             <label className="form-label text-xs mb-1">{label}</label>
             <input
                 type="file"
+                accept={accept}
                 className={`form-control shadow-none ${meta.touched && meta.error ? "is-invalid" : ""} ${className || ""}`}
                 onChange={handleChange}
             />

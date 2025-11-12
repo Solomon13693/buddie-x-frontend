@@ -21,9 +21,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
                     if (error?.response?.status === 404) {
                         return false;
                     }
-                    return failureCount < 2;
+                    return failureCount < 1;
                 },
-                retryDelay: 3000,
+                retryDelay: 2000,
             },
         },
     }));

@@ -34,3 +34,10 @@ export const updatePassword = async (payload: PasswordResetValues) => {
     const response = await axios.put('profile/password', payload);
     return response.data;
 };
+
+export const toggleOutOfOffice = async (outOfOffice: boolean) => {
+    const response = await axios.post('profile/out-of-office', {
+        out_of_office: outOfOffice
+    });
+    return response.data;
+};

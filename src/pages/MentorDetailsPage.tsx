@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Container, MentorBanner, Tabs } from "../components"
 import { useGetMentorDetails } from "../services";
 import { useState } from "react";
-import { EducationHistory, MentorOverview, MentorReviews, MentorSessions, WorkExperienceHistory } from "../components/mentors";
+import { EducationHistory, MentorOverview, MentorReviews, MentorSessions, MentorCommunities, WorkExperienceHistory } from "../components/mentors";
 import { MentorBannerSkeleton } from "../components/skeleton";
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
   { id: 5, name: "Experience" },
   { id: 4, name: "Education" },
   { id: 3, name: "Reviews" },
+  { id: 6, name: "Community" },
 ];
 
 
@@ -37,6 +38,8 @@ const MentorDetailsPage = () => {
         return <EducationHistory education={education} />;
       case 3:
         return <MentorReviews mentor_id={mentor_id} />;
+      case 6:
+        return <MentorCommunities mentor_id={mentor_id} />;
       default:
         return null;
     }

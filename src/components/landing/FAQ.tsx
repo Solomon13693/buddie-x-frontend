@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Container from '../Container';
 
 interface FAQItem {
     question: string;
@@ -51,7 +52,7 @@ const FAQ = () => {
     return (
         <section id="faqs" className="py-16">
 
-            <div className="container max-w-6xl m-auto">
+            <Container width="max-w-6xl">
 
                 <div className="text-center pb-16 fadeInUp" data-delay="0.2">
                     <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
@@ -93,7 +94,7 @@ const FAQ = () => {
                     </div>
                 </div>
 
-            </div>
+            </Container>
 
         </section>
     );

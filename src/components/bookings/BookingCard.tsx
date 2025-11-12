@@ -13,6 +13,8 @@ import { setSelectedChat } from "../../redux/features/chatSlice";
 import { useDispatch } from "react-redux";
 import UploadSessionResources from "./UploadSessionResources";
 import BookingResourcesModal from "./BookingResourcesModal";
+import ReviewModal from "./ReviewModal";
+import RescheduleModal from "./RescheduleModal";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "../../utils";
 
@@ -28,6 +30,8 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
     const [opened, { open, close }] = useDisclosure()
     const [openedR, { open: openR, close: closeR }] = useDisclosure()
     const [openedT, { open: openT, close: closeT }] = useDisclosure()
+    const [openedReview, { open: openReview, close: closeReview }] = useDisclosure()
+    const [openedReschedule, { open: openReschedule, close: closeReschedule }] = useDisclosure()
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -47,9 +51,11 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
         resources
     } = item;
 
-    const { fullname: mentorName, email: mentorEmail, avatar: mentorAvatar, slug } = mentor;
+    const { fullname: mentorName, email: mentorEmail, avatar: mentorAvatar, slug, mentor_id } = mentor as any;
     const { fullname: userName, email: userEmail, avatar: userAvatar } = user;
     const { title, sessions_count, frequency, duration } = session;
+    
+    const mentorRecordId = mentor_id;
 
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [confirmData, setConfirmData] = useState({
@@ -183,7 +189,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 {role === "mentor" ? (
                                     <span className="text-primary">{userName}</span>
                                 ) : (
-                                    <Link target='_blank' to={`/mentors/${slug}`}>
+                                    <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
                                     </Link>
                                 )}
@@ -194,7 +200,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 {role === "mentor" ? (
                                     <span className="text-primary">{userName}</span>
                                 ) : (
-                                    <Link target='_blank' to={`/mentors/${slug}`}>
+                                    <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
                                     </Link>
                                 )}
@@ -205,7 +211,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 {role === "mentor" ? (
                                     <span className="text-primary">{userName}</span>
                                 ) : (
-                                    <Link target='_blank' to={`/mentors/${slug}`}>
+                                    <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
                                     </Link>
                                 )}
@@ -216,7 +222,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 {role === "mentor" ? (
                                     <span className="text-primary">{userName}</span>
                                 ) : (
-                                    <Link target='_blank' to={`/mentors/${slug}`}>
+                                    <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
                                     </Link>
                                 )}
@@ -227,7 +233,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 {role === "mentor" ? (
                                     <span className="text-primary">{userName}</span>
                                 ) : (
-                                    <Link target='_blank' to={`/mentors/${slug}`}>
+                                    <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
                                     </Link>
                                 )}
@@ -288,8 +294,19 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             )}
 
                             {status === "confirmed" && (
-                                <Button color="success" onPress={handleMarkInProgress} size="sm" className="rounded-md !text-success" variant="light">
-                                    Mark as In Progress
+                                <>
+                                    <Button color="success" onPress={handleMarkInProgress} size="sm" className="rounded-md !text-success" variant="light">
+                                        Mark as In Progress
+                                    </Button>
+                                    <Button onPress={openReschedule} size="sm" color="primary" className="rounded-md" variant="light">
+                                        Reschedule
+                                    </Button>
+                                </>
+                            )}
+
+                            {status === "pending" && (
+                                <Button onPress={openReschedule} size="sm" color="primary" className="rounded-md" variant="light">
+                                    Reschedule
                                 </Button>
                             )}
                         </>
@@ -297,9 +314,14 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                         <>
 
                             {["pending", "confirmed"].includes(status) && (
-                                <Button onPress={openCancel} size="sm" color="danger" className="!bg-transparent text-error-500 rounded-md" variant="light">
-                                    Cancel
-                                </Button>
+                                <>
+                                    <Button onPress={openCancel} size="sm" color="danger" className="!bg-transparent text-error-500 rounded-md" variant="light">
+                                        Cancel
+                                    </Button>
+                                    <Button onPress={openReschedule} size="sm" color="primary" className="rounded-md" variant="light">
+                                        Reschedule
+                                    </Button>
+                                </>
                             )}
 
                             {status === "in_progress" && (
@@ -321,6 +343,18 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                     </Button>
                                 )
                             }
+
+                            {status === "completed" && (
+                                <Button
+                                    onPress={openReview}
+                                    size="sm"
+                                    color="primary"
+                                    className="rounded-md"
+                                    variant="solid"
+                                >
+                                    Review Mentor
+                                </Button>
+                            )}
 
                         </>
                     )}
@@ -453,6 +487,26 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                 close={closeRefund}
                 id={id}
                 type="refund"
+            />
+
+            {/* Review Modal */}
+            {role === "mentee" && mentorRecordId && (
+                <ReviewModal
+                    open={openedReview}
+                    close={closeReview}
+                    mentor_id={mentorRecordId}
+                />
+            )}
+
+            {/* Reschedule Modal */}
+            <RescheduleModal
+                open={openedReschedule}
+                close={closeReschedule}
+                booking={item}
+                role={role}
+                onSuccess={() => {
+                    // Bookings will be refreshed automatically via query invalidation
+                }}
             />
 
             <ConfirmationModal

@@ -11,6 +11,7 @@ import HomeView from "./HomeView";
 import CommunitiesView from "./CommunitiesView";
 import CommunityDetailsView from "./CommunityDetailsView";
 import PostDetailsView from "./PostDetailsView";
+import ContactView from "./ContactView";
 
 export {
     MentorDashboard,
@@ -44,5 +45,6 @@ export {
     
     CommunitiesView,
     CommunityDetailsView,
-    PostDetailsView
+    PostDetailsView,
+    ContactView
 }

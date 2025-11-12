@@ -19,6 +19,7 @@ interface StepNavigationProps {
     frequency: FrequencyType;
     mentorId: string;
     sessionId: string;
+    isOutOfOffice?: boolean;
 }
 
 interface Step {
@@ -37,13 +38,15 @@ const BookingWizard = ({
     sessions_count,
     frequency,
     sessionId,
-    mentorId
+    mentorId,
+    isOutOfOffice = false
 }: {
     availableDates: any;
     sessions_count: number;
     frequency: FrequencyType;
     sessionId: string;
     mentorId: string;
+    isOutOfOffice?: boolean;
 }) => {
 
     const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
@@ -130,6 +133,7 @@ const BookingWizard = ({
                 frequency={frequency}
                 mentorId={mentorId}
                 sessionId={sessionId}
+                isOutOfOffice={isOutOfOffice}
             />
 
         </div>

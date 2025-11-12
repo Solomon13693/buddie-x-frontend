@@ -1,4 +1,4 @@
-import { ExploreView, HomeView, MentorDetailsPage, MentorServicesBooking } from "../pages";
+import { ExploreView, HomeView, MentorDetailsPage, MentorServicesBooking, ContactView } from "../pages";
 
 export const LandingPageRoutes = [
     {
@@ -16,5 +16,9 @@ export const LandingPageRoutes = [
     {
         path: "mentor/:slug/:id",
         element: <MentorServicesBooking />
+    },
+    {
+        path: "contact",
+        element: <ContactView />
     },
 ];

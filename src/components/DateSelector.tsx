@@ -22,6 +22,7 @@ interface DateSelectorProps {
     disabledDays?: DaySpecifier[]
     frequency?: Frequency
     sessionsCount?: number
+    isOutOfOffice?: boolean
 }
 
 const dayMap: { [key: string]: number } = {
@@ -66,6 +67,7 @@ export default function DateSelector({
     disabledDays = [],
     frequency = "one-time",
     sessionsCount = 1,
+    isOutOfOffice = false,
 }: DateSelectorProps) {
     const [currentDate, setCurrentDate] = useState(new Date()) // Always show current month by default
     const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate || null)
@@ -82,6 +84,11 @@ export default function DateSelector({
     }, [initialDate])
 
     const isDisabled = (date: Date) => {
+        // If mentor is out of office, disable all dates
+        if (isOutOfOffice) {
+            return true
+        }
+
         const isPastDate = disablePastDates && date < today
         const dayNumber = date.getDay()
         const isDisabledDay = disabledDays.some((day) => {

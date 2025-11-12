@@ -10,6 +10,7 @@ interface DateStepProps {
     availableDates: any;
     sessions_count: number;
     frequency: FrequencyType;
+    isOutOfOffice?: boolean;
 }
 
 const DateStep: React.FC<DateStepProps> = ({
@@ -19,6 +20,7 @@ const DateStep: React.FC<DateStepProps> = ({
     availableDates,
     sessions_count,
     frequency,
+    isOutOfOffice = false,
 }) => {
 
     const handleDateSelect = (date: Date) => {
@@ -41,6 +43,7 @@ const DateStep: React.FC<DateStepProps> = ({
                 sessionsCount={sessions_count}
                 frequency={frequency}
                 onDateSelect={handleDateSelect}
+                isOutOfOffice={isOutOfOffice}
             />
 
             <Button className="bg-black text-white w-full py-6"

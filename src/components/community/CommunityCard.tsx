@@ -4,15 +4,21 @@ import { useJoinCommunity, useLeaveCommunity } from '../../services';
 import { UserGroupIcon, DocumentTextIcon, LockClosedIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { formatDistanceToNow } from 'date-fns';
 import { Button } from '@heroui/react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../redux/store';
 
 interface CommunityCardProps {
   community: CommunityType;
   onViewDetails?: (communityId: string) => void;
+  hideJoinLeave?: boolean;
 }
 
-const CommunityCard: React.FC<CommunityCardProps> = ({ community, onViewDetails }) => {
+const CommunityCard: React.FC<CommunityCardProps> = ({ community, onViewDetails, hideJoinLeave = false }) => {
+  
   const joinMutation = useJoinCommunity();
   const leaveMutation = useLeaveCommunity();
+  const { token } = useSelector((state: RootState) => state.auth);
+  const isAuthenticated = !!token;
 
   const handleJoin = () => joinMutation.mutate(community.id);
   const handleLeave = () => leaveMutation.mutate(community.id);
@@ -59,13 +65,13 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, onViewDetails 
         </div>
 
         {/* Join/Leave Button */}
-        {!community.is_member && (
+        {!hideJoinLeave && isAuthenticated && !community.is_member && (
           <Button size="sm" variant="light" onPress={handleJoin} isLoading={joinMutation.isPending} isDisabled={joinMutation.isPending}
             className="flex-shrink-0 ml-2">
             Join
           </Button>
         )}
-        {community.is_member && !community.is_admin && (
+        {!hideJoinLeave && isAuthenticated && community.is_member && !community.is_admin && (
           <Button size="sm" variant="light" onPress={handleLeave} isLoading={leaveMutation.isPending}
             isDisabled={leaveMutation.isPending} className="flex-shrink-0 ml-2">
             Leave

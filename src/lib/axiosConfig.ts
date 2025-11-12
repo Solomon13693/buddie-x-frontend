@@ -24,7 +24,7 @@ axiosConfig.interceptors.request.use(
 
         if (!token) {
             console.warn("No token available. Skipping request.");
-            return Promise.reject(new AxiosError("No token available", "AUTH_ERROR"));
+            return Promise.reject(new AxiosError("Please login to continue.", "AUTH_ERROR"));
         }
 
         config.headers.Authorization = `Bearer ${token}`;

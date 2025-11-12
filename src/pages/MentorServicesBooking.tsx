@@ -12,6 +12,7 @@ const MentorServicesBooking = () => {
     const { response, isLoading } = useGetMentorDetails(slug || '')
 
     const mentor_id = response?.user?.mentor?.id
+    const isOutOfOffice = response?.user?.mentor?.out_of_office || false
 
     const { response: data, isLoading: loading } = useGetSessionDetails(mentor_id, id || '')
 
@@ -46,7 +47,10 @@ const MentorServicesBooking = () => {
                                 <BookingWizard
                                     sessionId={sessionId}
                                     mentorId={mentor_id}
-                                    availableDates={availableDates} frequency={frequency} sessions_count={sessions_count} />
+                                    availableDates={availableDates} 
+                                    frequency={frequency} 
+                                    sessions_count={sessions_count}
+                                    isOutOfOffice={isOutOfOffice} />
 
                             )}
 

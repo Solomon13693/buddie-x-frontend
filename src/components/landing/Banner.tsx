@@ -1,48 +1,62 @@
-import { Button } from "@heroui/react"
-import { useNavigate } from "react-router-dom"
+import { Button, Chip } from "@heroui/react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 
 const Banner = () => {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
-        <section id="home" className="py-20 bg-[#FFF6EC]">
+        <div className="rounded-3xl lg:rounded-4xl relative overflow-hidden mx-2 md:mx-5">
 
-            <div className="container m-auto">
+            <div className="absolute inset-0 rounded-3xl lg:rounded-4xl bg-cover bg-center scale-x-[-1]"
+                style={{ backgroundImage: `url('/img/bg/hero_bg.webp')` }}
+            />
 
-                <div className="lg:w-[70%] !mx-auto text-center relative fadeInUp" data-delay="0.2" >
+            {/* Overlay */}
+            <div className="absolute inset-0 rounded-3xl lg:rounded-4xl bg-black/60 md:bg-[linear-gradient(89.59deg,rgba(0,0,0,0)_36.02%,rgba(0,0,0,0.53)_67.26%)] scale-x-[-1]" />
 
-                    <h3 className="border border-[#bebebe] py-2.5 px-5 rounded-3xl text-sm inline-block font-normal mb-[5px]">
-                        <i className="ri-lightbulb-line me-1"></i> Learn with guidance. Achieve with confidence.
-                    </h3>
+            <div className="container mx-auto py-12 sm:py-16 lg:py-18 relative flex flex-col justify-center h-full min-h-[47vh] sm:min-h-[65vh] lg:min-h-[75vh]">
+                
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="relative px-5 lg:px-6 z-10">
 
-                    <h2 className="py-10 font-semibold xl:leading-[70px] xl:text-[60px] md:leading-[50px] md:text-[40px] leading-[40px] text-[30px] font-lora">
-                        Unlock Your Potential with 1-on-1 Mentorship
-                    </h2>
+                    <div className="max-w-xl space-y-4 sm:space-y-5">
 
-                    <p className="text-sm md:text-base md:text-lg leading-7 mb-[5px] px-15 text-black max-w-2xl m-auto">
-                        Connect with experienced mentors in tech, design, and more.
-                        Build real-world skills, track your progress, and accelerate your growth — all in one platform.
-                    </p>
+                        <Chip className="text-white text-[10px] sm:text-xs bg-white/20">
+                            Learn with guidance. Achieve with confidence.
+                        </Chip>
 
-                    <div className="mt-10 flex justify-center">
-                        <Button onPress={() => navigate('/explore')} size="lg" color="primary" className="!text-xs">Find Your Mentor</Button>
+                        <h2 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-white leading-tight sm:leading-13 font-grotesk">
+                            Unlock Your Potential with 1-on-1 Mentorship
+                        </h2>
+
+                        <p className="text-white/80 text-sm sm:text-base leading-6 sm:leading-7">
+                            Connect with experienced mentors in tech, design, and more.
+                            Build real-world skills, track your progress, and accelerate your growth — all in one platform.
+                        </p>
+
+                        <div className="flex items-center gap-2 pt-2">
+                            <Button
+                                radius="sm"
+                                size="lg"
+                                className="bg-white text-[#0B1221] px-4 h-10 text-xs gap-x-2"
+                                onPress={() => navigate('/explore')}
+                                endContent={<ArrowUpRightIcon className="w-3.5 h-3.5 text-gray-800" />}>
+                                Find Your Mentor
+                            </Button>
+                        </div>
                     </div>
 
-                    <div className="absolute lg:right-[-25%] top-1/2 right-0">
-                        <img src="/img/shape1.png" alt="Shape" className="lg:max-w-[300px] max-w-[70px]" />
-                    </div>
-
-                    <div className="absolute lg:-left-[30%] top-[0%] left-0 hidden md:block">
-                        <img src="/img/shape2.png" alt="Shape" className="lg:max-w-[200px] max-w-[60px]" />
-                    </div>
-
-                </div>
+                </motion.div>
 
             </div>
 
-        </section>
-    )
-}
+        </div>
+    );
+};
 
-export default Banner
+export default Banner;

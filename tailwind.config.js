@@ -57,6 +57,8 @@ export default {
       },
       fontFamily: {
         lora: ['Lora'],
+        'cabinet-grotesk': ['Cabinet Grotesk', 'sans-serif'],
+        grotesk: ['Cabinet Grotesk', 'sans-serif'],
       },
     },
   },

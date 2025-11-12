@@ -203,6 +203,24 @@ export const profilePersonalInfoSchema = Yup.object().shape({
 });
 
 
+export const contactSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Full name is required')
+    .min(2, 'Name is too short'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  subject: Yup.string()
+    .required('Subject is required')
+    .min(3, 'Subject must be at least 3 characters'),
+  phone: Yup.string()
+    .required('Phone number is required')
+    .matches(/^\+?\d{7,15}$/, 'Enter a valid phone number'),
+  message: Yup.string()
+    .required('Message is required')
+    .min(10, 'Message must be at least 10 characters'),
+});
+
 export const educationSchema = Yup.object().shape({
   education: Yup.array().of(
     Yup.object().shape({
@@ -324,7 +342,7 @@ export const workExperienceSchema = Yup.object().shape({
 export const fileResourcesSchema = Yup.object().shape({
   type: Yup.string()
     .required("File type is required")
-    .oneOf(["pdf", "video", "link"], "Invalid file type"),
+    .oneOf(["pdf", "video", "image", "link"], "Invalid file type"),
 
   file_name: Yup.string()
     .required("File name is required")
@@ -332,7 +350,7 @@ export const fileResourcesSchema = Yup.object().shape({
 
     file: Yup.mixed()
     .when("type", {
-      is: (type: string) => type === "pdf" || type === "video",
+      is: (type: string) => type === "pdf" || type === "video" || type === "image",
       then: (schema) =>
         schema
           .required("File is required")
@@ -349,6 +367,8 @@ export const fileResourcesSchema = Yup.object().shape({
               return fileType === "pdf";
             } else if (mimeType.startsWith("video/")) {
               return fileType === "video"; 
+            } else if (mimeType.startsWith("image/")) {
+              return fileType === "image";
             }
             return false;
           }),

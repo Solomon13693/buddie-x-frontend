@@ -13,6 +13,7 @@ import {
     Cog8ToothIcon,
     StarIcon,
     UserGroupIcon,
+    EnvelopeIcon,
 } from '@heroicons/react/24/solid';
 import { Alert } from '@heroui/react'
 
@@ -38,6 +39,7 @@ const AppLayout = () => {
         { href: '/transactions', icon: BanknotesIcon, text: 'Transactions' },
         { href: '/messages', icon: ChatBubbleOvalLeftEllipsisIcon, text: 'Messages' },
         { href: '/settings', icon: Cog8ToothIcon, text: 'Settings' },
+        { href: '/contact', icon: EnvelopeIcon, text: 'Contact', isRoot: true },
     ];
 
     const { suspension, approval } = useSelector(getSuspensionAndApproval);

@@ -84,6 +84,7 @@ export interface Mentor {
     yrs_of_experience: number;
     months_of_experience: number;
     availability: Availability[];
+    out_of_office?: boolean;
     approval_status: string;
     rejection_reason?: string | null;
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { Form, Formik } from "formik";
 import { Button, PopupModal } from "../ui";
 import { CustomFileInput, CustomInput, CustomSelect } from "../form";
@@ -64,39 +65,86 @@ const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; clo
 
                     }}>
 
-                    {() => (
+                    {({ values, setFieldValue }) => {
 
-                        <Form className="space-y-4" autoComplete="off">
+                        const showFileInput = values.type === "pdf" || values.type === "video" || values.type === "image";
+                        const showLinkInput = values.type === "link";
 
-                            <CustomSelect label="File Type" name="type">
-                                <option value="">Select type</option>
-                                <option value="pdf">PDF</option>
-                                <option value="video">Video</option>
-                                <option value="link">Link</option>
-                            </CustomSelect>
+                        // Get accept attribute based on file type
+                        const getAcceptAttribute = () => {
+                            if (values.type === "pdf") {
+                                return ".pdf,application/pdf";
+                            } else if (values.type === "video") {
+                                return "video/*";
+                            } else if (values.type === "image") {
+                                return "image/*";
+                            }
+                            return undefined;
+                        };
 
-                            <CustomInput
-                                label="File name"
-                                name="file_name"
-                                type="text"
-                                placeholder="Enter file name"
-                            />
+                        const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+                            const newType = e.target.value;
+                            setFieldValue("type", newType);
+                            
+                            // Clear file when switching to link
+                            if (newType === "link") {
+                                setFieldValue("file", null);
+                            }
+                            
+                            // Clear link when switching to file types
+                            if (newType === "pdf" || newType === "video" || newType === "image") {
+                                setFieldValue("link", "");
+                            }
+                            
+                            // Clear both when no type is selected
+                            if (!newType) {
+                                setFieldValue("file", null);
+                                setFieldValue("link", "");
+                            }
+                        };
 
-                            <CustomFileInput name="file" label="Upload File" />
+                        return (
+                            <Form className="space-y-4" autoComplete="off">
 
-                            <CustomInput
-                                label="Link"
-                                name="link"
-                                type="url"
-                                placeholder="Enter url"
-                            />
+                                <CustomSelect label="File Type" name="type" onChange={handleTypeChange}>
+                                    <option value="">Select type</option>
+                                    <option value="pdf">PDF</option>
+                                    <option value="video">Video</option>
+                                    <option value="image">Image</option>
+                                    <option value="link">Link</option>
+                                </CustomSelect>
 
-                            <Button isLoading={isPending} type="submit" className="py-6 w-full" >
-                                Upload
-                            </Button>
+                                <CustomInput
+                                    label="File name"
+                                    name="file_name"
+                                    type="text"
+                                    placeholder="Enter file name"
+                                />
 
-                        </Form>
-                    )}
+                                {showFileInput && (
+                                    <CustomFileInput 
+                                        name="file" 
+                                        label="Upload File" 
+                                        accept={getAcceptAttribute()}
+                                    />
+                                )}
+
+                                {showLinkInput && (
+                                    <CustomInput
+                                        label="Link"
+                                        name="link"
+                                        type="url"
+                                        placeholder="Enter url"
+                                    />
+                                )}
+
+                                <Button isLoading={isPending} type="submit" className="py-6 w-full" >
+                                    Upload
+                                </Button>
+
+                            </Form>
+                        );
+                    }}
                 </Formik>
 
             </div>

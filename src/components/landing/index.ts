@@ -4,6 +4,7 @@ import Banner from "./Banner";
 import FAQ from "./FAQ";
 import Features from "./Features";
 import Proccess from "./Proccess";
+import TopMentors from "./TopMentors";
 
 export {
     Header,
@@ -11,5 +12,6 @@ export {
     Banner,
     FAQ,
     Features,
-    Proccess
+    Proccess,
+    TopMentors
 }

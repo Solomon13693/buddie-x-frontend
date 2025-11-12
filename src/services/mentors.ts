@@ -8,10 +8,26 @@ export const getMentors = async (params = {}) => {
     return response?.data;
 };
 
+export const getTopMentors = async (limit = 6) => {
+    const response = await axiosNoAuth.get('mentors/top', {
+        params: { limit }
+    });
+    return response?.data;
+};
+
 export const useGetMentors = (params = {}) => {
     const { data: response, isLoading } = useQuery({
         queryKey: ['mentors', params],
         queryFn: () => getMentors(params),
+    });
+
+    return { response, isLoading };
+};
+
+export const useGetTopMentors = (limit = 6) => {
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['topMentors', limit],
+        queryFn: () => getTopMentors(limit),
     });
 
     return { response, isLoading };
@@ -56,6 +72,21 @@ export const useGetSessions = (id: string) => {
     const { data: response, isLoading } = useQuery({
         queryKey: ['mentors_sessions', id],
         queryFn: () => getMentorsSessions(id),
+        enabled: !!id
+    });
+
+    return { response, isLoading };
+};
+
+export const getMentorCommunities = async (id: string) => {
+    const response = await axiosNoAuth.get(`mentors/${id}/communities`);
+    return response?.data?.communities;
+};
+
+export const useGetMentorCommunities = (id: string) => {
+    const { data: response, isLoading } = useQuery({
+        queryKey: ['mentor_communities', id],
+        queryFn: () => getMentorCommunities(id),
         enabled: !!id
     });
 

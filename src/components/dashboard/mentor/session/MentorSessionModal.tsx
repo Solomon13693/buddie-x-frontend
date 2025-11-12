@@ -95,9 +95,9 @@ const MentorSessionModal = ({
                                 <CustomSelect label="Frequency" name="frequency">
                                     <option value="">Select Frequency</option>
                                     <option value="one-time">One-Time</option>
-                                    <option value="weekly">Weekly</option>
+                                    {/* <option value="weekly">Weekly</option>
                                     <option value="fortnightly">Fortnightly</option>
-                                    <option value="monthly">Monthly</option>
+                                    <option value="monthly">Monthly</option> */}
                                 </CustomSelect>
 
                                 <CustomInput currency label="Price (USD)" name="price" placeholder="50.00" />

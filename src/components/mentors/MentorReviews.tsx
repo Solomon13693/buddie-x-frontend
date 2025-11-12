@@ -1,11 +1,18 @@
-import { User, Skeleton } from "@heroui/react";
+import { User, Skeleton, Button } from "@heroui/react";
 import { useGetMentorReviews } from "../../services";
 import StarRating from "../StarRating";
 import { ReviewType } from "../../types";
+import ReviewModal from "../bookings/ReviewModal";
+import { useDisclosure } from "@mantine/hooks";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../redux/store";
 
 const MentorReviews = ({ mentor_id }: { mentor_id: string }) => {
 
     const { response, isLoading } = useGetMentorReviews(mentor_id || '');
+    const [openedReview, { open: openReview, close: closeReview }] = useDisclosure();
+    const { role, token } = useSelector((state: RootState) => state.auth);
+    const isMentee = role === "mentee" && !!token;
 
     if (isLoading) {
         return (
@@ -35,27 +42,54 @@ const MentorReviews = ({ mentor_id }: { mentor_id: string }) => {
     }
 
     return (
-        <div className="space-y-5 -mt-3 divide-y max-w-4xl">
-            {response.map((item: ReviewType, index: number) => (
-                <div key={index} className="space-y-2 pt-5">
-                    <User
-                        avatarProps={{
-                            src: item?.user?.avatar || ''
-                        }}
-                        description={
-                            <StarRating initialValue={item.rating} />
-                        }
-                        name={item?.user?.fullname}
-                        classNames={{
-                            name: 'font-medium text-sm pb-0.5'
-                        }}
-                    />
-                    <p className="text-[13px] leading-5">
-                        {item?.review}
-                    </p>
-                </div>
-            ))}
-        </div>
+        <>
+            <div className="space-y-5 -mt-3 divide-y max-w-4xl">
+                {isMentee && (
+                    <div className="pb-4 mb-4 border-b">
+                        <Button
+                            onPress={openReview}
+                            color="primary"
+                            size="sm"
+                            className="rounded-md"
+                            variant="solid"
+                        >
+                            Write a Review
+                        </Button>
+                    </div>
+                )}
+
+                {response.map((item: ReviewType, index: number) => (
+                    <div key={index} className="space-y-2 pt-5">
+                        <User
+                            avatarProps={{
+                                src: item?.user?.avatar || ''
+                            }}
+                            description={
+                                <StarRating initialValue={item.rating} />
+                            }
+                            name={item?.user?.fullname}
+                            classNames={{
+                                name: 'font-medium text-sm pb-0.5'
+                            }}
+                        />
+                        <p className="text-[13px] leading-5">
+                            {item?.review}
+                        </p>
+                    </div>
+                ))}
+            </div>
+
+            {isMentee && mentor_id && (
+                <ReviewModal
+                    open={openedReview}
+                    close={closeReview}
+                    mentor_id={mentor_id}
+                    onSuccess={() => {
+                        // Reviews will be refreshed automatically via query invalidation
+                    }}
+                />
+            )}
+        </>
     );
 };
 

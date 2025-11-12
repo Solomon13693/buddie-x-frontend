@@ -13,6 +13,7 @@ import {
     HeartIcon,
     RectangleGroupIcon,
     UserGroupIcon,
+    EnvelopeIcon,
 } from '@heroicons/react/24/solid';
 import { Alert } from '@heroui/react'
 import { getFavourites } from '../redux/features/favouriteSlice'
@@ -39,6 +40,7 @@ const MenteeAppLayout = () => {
         { href: '/wishlists', icon: HeartIcon, text: 'Wishlists' },
         { href: '/messages', icon: ChatBubbleOvalLeftEllipsisIcon, text: 'Messages' },
         { href: '/settings', icon: Cog8ToothIcon, text: 'Settings' },
+        { href: '/contact', icon: EnvelopeIcon, text: 'Contact', isRoot: true },
     ];
 
     const { suspension } = useSelector(getSuspensionAndApproval);
