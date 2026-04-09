@@ -3,26 +3,9 @@ import moment from 'moment';
 import { Chip, User } from "@heroui/react";
 import { ReviewType } from "../../../types";
 import { getStatusStyles } from "../../../utils";
-import { Button } from "../../ui";
-import { useApproveReview } from "../../../services";
-import { getErrorMessage } from "../../../utils";
-import toast from "react-hot-toast";
 
 const ReviewTable = ({ reviews }: { reviews: ReviewType[] }) => {
-
-    const { mutate: approveReview, isPending } = useApproveReview();
-
-    const handleApprove = (reviewId: string) => {
-        approveReview(reviewId, {
-            onSuccess: (data) => {
-                toast.success(data?.message || 'Review approved successfully');
-            },
-            onError: (error) => {
-                toast.error(getErrorMessage(error));
-            }
-        });
-    };
-
+    // Mentors can only view reviews; only admin can approve them
     return (
         <>
 
@@ -50,10 +33,6 @@ const ReviewTable = ({ reviews }: { reviews: ReviewType[] }) => {
 
                         <TableHead className="px-6">
                             Created Date
-                        </TableHead>
-
-                        <TableHead className="px-6">
-                            Actions
                         </TableHead>
 
                     </TableRow>
@@ -100,24 +79,6 @@ const ReviewTable = ({ reviews }: { reviews: ReviewType[] }) => {
 
                             <TableCell className="px-6">
                                 {moment(item.created_at).format('LLL')}
-                            </TableCell>
-
-                            <TableCell className="px-6">
-                                {(item.status === 'pending' || item.status === '0') ? (
-                                    <Button
-                                        size="sm"
-                                        color="primary"
-                                        onClick={() => handleApprove(item.id)}
-                                        loading={isPending}
-                                        isDisabled={isPending}
-                                    >
-                                        Approve
-                                    </Button>
-                                ) : (
-                                    <Chip size="sm" color="success" variant="flat">
-                                        Approved
-                                    </Chip>
-                                )}
                             </TableCell>
 
                         </TableRow >

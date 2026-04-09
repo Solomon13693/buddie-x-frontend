@@ -1,10 +1,10 @@
-import { Button, Chip } from "@heroui/react";
-import { useNavigate } from "react-router-dom";
+import { Chip } from "@heroui/react";
+// import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
+// import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 
 const Banner = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     return (
         <div className="rounded-3xl lg:rounded-4xl relative overflow-hidden mx-2 md:mx-5">
@@ -39,7 +39,7 @@ const Banner = () => {
                             Build real-world skills, track your progress, and accelerate your growth — all in one platform.
                         </p>
 
-                        <div className="flex items-center gap-2 pt-2">
+                        {/* <div className="flex items-center gap-2 pt-2">
                             <Button
                                 radius="sm"
                                 size="lg"
@@ -48,7 +48,7 @@ const Banner = () => {
                                 endContent={<ArrowUpRightIcon className="w-3.5 h-3.5 text-gray-800" />}>
                                 Find Your Mentor
                             </Button>
-                        </div>
+                        </div> */}
                     </div>
 
                 </motion.div>

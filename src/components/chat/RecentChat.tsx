@@ -8,10 +8,12 @@ import { useEcho } from '../../context/EchoContext';
 import { setSelectedChat } from '../../redux/features/chatSlice';
 import { formatChatTime } from '../../utils';
 import { RecentChatSkeleton } from '../skeleton';
+import { useNavigate } from 'react-router-dom';
 
 const RecentChat = ({ searchQuery } : { searchQuery: string }) => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { selectedChat } = useSelector((state: any) => state.chat);
 
     const userId = useSelector(getUserId);
@@ -54,6 +56,15 @@ const RecentChat = ({ searchQuery } : { searchQuery: string }) => {
 
                 const active = selectedChat === chat.chat_id;
 
+                const handleProfileClick = (e: React.MouseEvent) => {
+                    e.stopPropagation();
+                    if (otherUser.role === 'mentor' && otherUser.slug) {
+                        navigate(`/mentor/${otherUser.slug}`);
+                    } else if (otherUser.role === 'mentee' && otherUser.handle) {
+                        navigate(`/mentee/${otherUser.handle}`);
+                    }
+                };
+
                 return (
                     <li key={index} className={`flex items-center justify-between py-3 px-4 relative rounded-lg gap-x-1 cursor-pointer ${active ? 'bg-slate-100' : 'hover:bg-gray-100'
                         }`} onClick={() => dispatch(setSelectedChat({
@@ -61,7 +72,9 @@ const RecentChat = ({ searchQuery } : { searchQuery: string }) => {
                             receiverUser: otherUser
                         }))}>
 
-                        <div className="flex items-center gap-3 flex-shrink-0">
+                        <div 
+                            className="flex items-center gap-3 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                        >
                             <Badge
                                 title={isOnline ? 'Online' : 'Offline'}
                                 color={isOnline ? 'success' : 'default'}
@@ -69,6 +82,7 @@ const RecentChat = ({ searchQuery } : { searchQuery: string }) => {
                                 placement="bottom-right"
                                 shape="circle">
                                 <Avatar
+                                    onClick={handleProfileClick}
                                     size="sm"
                                     isBordered
                                     color="primary"
@@ -78,7 +92,9 @@ const RecentChat = ({ searchQuery } : { searchQuery: string }) => {
                             </Badge>
                         </div>
 
-                        <div className="flex flex-col justify-center flex-grow overflow-hidden px-2">
+                        <div 
+                            className="flex flex-col justify-center flex-grow overflow-hidden px-2 cursor-pointer hover:opacity-80 transition-opacity"
+                        >
                             <h5 className="text-[13px] font-medium truncate">{otherUser.fullname}</h5>
                             <p className="text-gray-500 text-xs truncate capitalize">
                                 {chat.last_message}

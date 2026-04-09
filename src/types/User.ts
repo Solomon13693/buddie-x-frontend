@@ -47,6 +47,7 @@ export interface Suspension {
 export interface BaseUserProfile {
     id: string;
     fullname: string;
+    handle?: string;
     email: string;
     phone: string;
     slug: string;

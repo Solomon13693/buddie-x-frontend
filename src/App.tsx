@@ -68,6 +68,10 @@ const router = createBrowserRouter([
     children: LandingPageRoutes,
   },
   {
+    path: "/404",
+    element: <PageNotFound />,
+  },
+  {
     path: "*",
     element: <PageNotFound />,
   },

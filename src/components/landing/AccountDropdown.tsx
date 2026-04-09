@@ -19,7 +19,7 @@ const AccountDropdown = ({ profile }: { profile: BaseUserProfile }) => {
         { key: 'settings', label: 'Settings', url: '/mentor/dashboard/settings' }
     ] : [
         { key: 'dashboard', label: 'Dashboard', url: '/dashboard' },
-        { key: 'explore', label: 'Explore', url: '/explore' },
+        // { key: 'explore', label: 'Explore', url: '/explore' },
         { key: 'bookings', label: 'Bookings', url: '/dashboard/bookings' },
         { key: 'Wishlists', label: 'Wishlists', url: '/dashboard/wishlists' },
         { key: 'chats', label: 'Chats', url: '/dashboard/messages' },

@@ -3,6 +3,7 @@ import { ProtectedRoute } from './ProtectedRoute'
 import { AppDispatch } from '../redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProfile, getSuspensionAndApproval, getUserProfile } from '../redux/features/authSlice'
+import { useSyncTimezone } from '../hooks/useSyncTimezone'
 import { DashboardNav, SideBar } from '../components/dashboard'
 import {
     Squares2X2Icon,
@@ -28,6 +29,7 @@ const AppLayout = () => {
     }, [dispatch]);
 
     const profile = useSelector(getUserProfile)
+    useSyncTimezone();
 
     const mentorLinks = [
         { href: '', icon: Squares2X2Icon, text: 'Dashboard' },

@@ -12,7 +12,6 @@ import { MentorCardSkeleton } from "../components/skeleton"
 
 function ExploreView() {
 
-
     const [search, setSearchQuery] = useState('')
     const [opened, { open, close }] = useDisclosure();
 
@@ -61,7 +60,6 @@ function ExploreView() {
         <div className="pt-12">
 
             <Container>
-
                 <div className="flex items-center gap-4 mb-12">
 
                     <SearchBar className="!w-full" inputClassName="py-4 bg-white" placeholder="Search by name, company, role"

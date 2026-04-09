@@ -29,14 +29,14 @@ const TopMentors = () => {
                 </div>
 
                 {isLoading ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
                         {[...Array(6)].map((_, index) => (
                             <MentorCardSkeleton key={index} />
                         ))}
                     </div>
                 ) : mentors && mentors.length > 0 ? (
                     <>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
                             {mentors.slice(0, 6).map((mentor: MentorType) => (
                                 <Card
                                     key={mentor.mentor_id}

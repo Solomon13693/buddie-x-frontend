@@ -5,13 +5,14 @@ import { useQueryParams } from "../../utils";
 import { useGetMenteeBookings } from "../../services";
 import { BookingType } from "../../types";
 import { SessionCardSkeleton } from "../../components/skeleton";
-import { Button } from "@heroui/react";
-import { Link } from "react-router-dom";
+// import { Button } from "@heroui/react";
+// import { Link } from "react-router-dom";
 
 const navItems = [
     { id: "pending", name: "Pending" },
     { id: "upcoming", name: "Upcoming" },
     { id: "in_progress", name: "In Progress" },
+    { id: "rescheduled", name: "Rescheduled" },
     { id: "history", name: "History" },
 ];
 
@@ -77,9 +78,9 @@ const MenteeBookingView: React.FC = () => {
                                     No sessions available for the selected filter - start sharing a conversation with a mentor..
                                 </p>
 
-                                <Link className="w-full" to='/expore'>
+                                {/* <Link className="w-full" to='/explore'>
                                     <Button color='primary' className="text-xs w-full max-w-xs">Explore</Button>
-                                </Link>
+                                </Link> */}
 
                             </>
                         )}

@@ -1,17 +1,18 @@
 import { AuthLayout, AuthMessage, ResendCount } from "../../components/auth"
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "../../utils";
 import OtpInput from 'react-otp-input';
 import { Button } from "../../components/ui";
 import { ResendVerifyCode, verifyAccount } from "../../services";
-import { destroyCookie, getCookie } from "../../lib";
+import { destroyCookie, getCookie, setCookie } from "../../lib";
 
 const VerifyAccount = () => {
 
     const [pending, setPending] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [otp, setOtp] = useState('');
     const isOtpValid: boolean = otp.length === 6;
@@ -22,13 +23,18 @@ const VerifyAccount = () => {
     const [email, setEmail] = useState<string | undefined>(undefined);
 
     useEffect(() => {
+        const emailFromState = (location.state as { email?: string })?.email;
         const emailFromCookie = getCookie('email');
-        if (!emailFromCookie) {
+        const resolvedEmail = emailFromState || emailFromCookie;
+        if (!resolvedEmail) {
             navigate('/login');
         } else {
-            setEmail(emailFromCookie);
+            setEmail(resolvedEmail);
+            if (emailFromState && !emailFromCookie) {
+                setCookie('email', emailFromState);
+            }
         }
-    }, [navigate]);
+    }, [navigate, location.state]);
 
     const handleResendClick = async () => {
 

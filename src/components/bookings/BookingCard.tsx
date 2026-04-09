@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button, User } from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDownIcon, ChevronRightIcon, CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { BookingType } from "../../types";
 import RejectOrCancelBookings from "./RejectOrCancelBookings";
 import { useDisclosure } from "@mantine/hooks";
-import { useApproveBooking, useMarkAsCompleted, useMarkAsInProgress } from "../../services";
+import { useApproveBooking, useMarkAsCompleted, useMarkAsInProgress, useApproveSessionMentee, useCompleteSession } from "../../services";
 import ConfirmationModal from "../modal/ConfirmationModal";
+import moment from "moment";
 import BookingMeeting from "./BookingMeeting";
 import { Link, useNavigate } from "react-router-dom";
 import { setSelectedChat } from "../../redux/features/chatSlice";
@@ -17,6 +19,7 @@ import ReviewModal from "./ReviewModal";
 import RescheduleModal from "./RescheduleModal";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "../../utils";
+import { formatCurrency } from "../../lib/formatCurrency";
 
 type RoleType = "mentor" | "mentee";
 
@@ -35,24 +38,29 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const queryClient = useQueryClient()
 
     const {
         id,
         status,
+        has_reviewed,
         zoom_details,
         date_and_time,
         rejection_reason,
         cancellation_reason,
+        rescheduled_by,
         mentor,
         user,
         session,
         created_at,
         payment_status,
-        resources
+        price,
+        resources,
+        refund_request_status,
     } = item;
 
-    const { fullname: mentorName, email: mentorEmail, avatar: mentorAvatar, slug, mentor_id } = mentor as any;
-    const { fullname: userName, email: userEmail, avatar: userAvatar } = user;
+    const { fullname: mentorName, handle: mentorHandle, avatar: mentorAvatar, slug, mentor_id } = mentor as any;
+    const { fullname: userName, email: userEmail, avatar: userAvatar, handle: userHandle } = user;
     const { title, sessions_count, frequency, duration } = session;
     
     const mentorRecordId = mentor_id;
@@ -67,8 +75,53 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
     });
 
     const { mutate: approveBooking, isPending: approving } = useApproveBooking();
+    const { mutate: approveSessionMentee, isPending: approvingMentee } = useApproveSessionMentee();
     const { mutate: markAsInProgress, isPending: markingInProgress } = useMarkAsInProgress();
     const { mutate: markCompleted, isPending: markingCompleted } = useMarkAsCompleted();
+    const { mutate: completeSessionMentor, isPending: completingSessionMentor } = useCompleteSession();
+
+    // Mentors: can complete only after 24 hours since last session date. Mentees: can complete as soon as in_progress.
+    const canCompleteSession = (): boolean => {
+        if (status !== "in_progress" || !date_and_time || date_and_time.length === 0) return false;
+        if (role === "mentee") return true;
+        const lastSessionDate = moment(date_and_time[date_and_time.length - 1]);
+        return moment().diff(lastSessionDate, "hours") >= 24;
+    };
+
+    const canComplete = canCompleteSession();
+
+    const [completeCountdown, setCompleteCountdown] = useState<string>("");
+    const invalidatedRef = useRef(false);
+    
+    useEffect(() => {
+        if (role !== "mentor" || status !== "in_progress" || !date_and_time?.length) return;
+        invalidatedRef.current = false;
+        const lastSessionDate = moment(date_and_time[date_and_time.length - 1]);
+        const unlockAt = lastSessionDate.clone().add(24, "hours");
+        const update = () => {
+            const now = moment();
+            if (now.isSameOrAfter(unlockAt)) {
+                setCompleteCountdown("");
+                if (!invalidatedRef.current) {
+                    invalidatedRef.current = true;
+                    queryClient.invalidateQueries({ queryKey: ["bookings"] });
+                }
+                return;
+            }
+            const d = moment.duration(unlockAt.diff(now));
+            const days = Math.floor(d.asDays());
+            const hours = d.hours();
+            const mins = d.minutes();
+            const parts = [];
+            if (days > 0) parts.push(`${days}d`);
+            parts.push(`${hours}h`);
+            parts.push(`${mins}m`);
+            setCompleteCountdown(parts.join(" "));
+        };
+        update();
+        const id = setInterval(update, 60_000);
+        return () => clearInterval(id);
+    }, [role, status, date_and_time, queryClient]);
 
     const handleConfirmation = (
         title: string,
@@ -82,18 +135,39 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
     };
 
     const handleApprove = () => {
+        const isRescheduled = status === "rescheduled";
+        const approveAction = () => {
+            if (role === "mentor") {
+                approveBooking(id, {
+                    onSuccess: () => {
+                        toast.success(isRescheduled ? "Rescheduled session approved successfully." : "Booking approved successfully.");
+                        setConfirmOpen(false);
+                    },
+                    onError: (err) => {
+                        toast.error(getErrorMessage(err));
+                        setConfirmOpen(false);
+                    }
+                });
+            } else {
+                approveSessionMentee(id, {
+                    onSuccess: () => {
+                        toast.success("Rescheduled session approved successfully.");
+                        setConfirmOpen(false);
+                    },
+                    onError: (err) => {
+                        toast.error(getErrorMessage(err));
+                        setConfirmOpen(false);
+                    }
+                });
+            }
+        };
+
         handleConfirmation(
-            "Approve Booking",
-            "Are you sure you want to approve this booking?",
-            () => approveBooking(id, {
-                onSuccess: () => {
-                    toast.success("Booking approved successfully.");
-                    setConfirmOpen(false);
-                },
-                onError: (err) => {
-                    toast.error(getErrorMessage(err));
-                }
-            }),
+            isRescheduled ? "Approve Rescheduled Session" : "Approve Booking",
+            isRescheduled 
+                ? "Are you sure you want to approve this rescheduled session?"
+                : "Are you sure you want to approve this booking?",
+            approveAction,
             "Approve",
             "bg-primary text-white"
         );
@@ -187,7 +261,30 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             <>
                                 <span className="text-primary">{title}</span> mentorship session with{" "}
                                 {role === "mentor" ? (
-                                    <span className="text-primary">{userName}</span>
+                                    userHandle ? (
+                                        <Link target='_blank' to={`/mentee/${userHandle}`}>
+                                            <span className="text-primary">{userName}</span>
+                                        </Link>
+                                    ) : (
+                                        <span className="text-primary">{userName}</span>
+                                    )
+                                ) : (
+                                    <Link target='_blank' to={`/mentor/${slug}`}>
+                                        <span className="text-primary">{mentorName}</span>
+                                    </Link>
+                                )}
+                            </>
+                        ) : status === "rescheduled" ? (
+                            <>
+                                Rescheduled session with{" "}
+                                {role === "mentor" ? (
+                                    userHandle ? (
+                                        <Link target='_blank' to={`/mentee/${userHandle}`}>
+                                            <span className="text-primary">{userName}</span>
+                                        </Link>
+                                    ) : (
+                                        <span className="text-primary">{userName}</span>
+                                    )
                                 ) : (
                                     <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
@@ -198,7 +295,13 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             <>
                                 Approved session with{" "}
                                 {role === "mentor" ? (
-                                    <span className="text-primary">{userName}</span>
+                                    userHandle ? (
+                                        <Link target='_blank' to={`/mentee/${userHandle}`}>
+                                            <span className="text-primary">{userName}</span>
+                                        </Link>
+                                    ) : (
+                                        <span className="text-primary">{userName}</span>
+                                    )
                                 ) : (
                                     <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
@@ -209,7 +312,13 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             <>
                                 Completed session with{" "}
                                 {role === "mentor" ? (
-                                    <span className="text-primary">{userName}</span>
+                                    userHandle ? (
+                                        <Link target='_blank' to={`/mentee/${userHandle}`}>
+                                            <span className="text-primary">{userName}</span>
+                                        </Link>
+                                    ) : (
+                                        <span className="text-primary">{userName}</span>
+                                    )
                                 ) : (
                                     <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
@@ -220,7 +329,13 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             <>
                                 Rejected session with{" "}
                                 {role === "mentor" ? (
-                                    <span className="text-primary">{userName}</span>
+                                    userHandle ? (
+                                        <Link target='_blank' to={`/mentee/${userHandle}`}>
+                                            <span className="text-primary">{userName}</span>
+                                        </Link>
+                                    ) : (
+                                        <span className="text-primary">{userName}</span>
+                                    )
                                 ) : (
                                     <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
@@ -231,7 +346,13 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                             <>
                                 Cancelled session with{" "}
                                 {role === "mentor" ? (
-                                    <span className="text-primary">{userName}</span>
+                                    userHandle ? (
+                                        <Link target='_blank' to={`/mentee/${userHandle}`}>
+                                            <span className="text-primary">{userName}</span>
+                                        </Link>
+                                    ) : (
+                                        <span className="text-primary">{userName}</span>
+                                    )
                                 ) : (
                                     <Link target='_blank' to={`/mentor/${slug}`}>
                                         <span className="text-primary">{mentorName}</span>
@@ -260,6 +381,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                         <ClockIcon className="w-5 h-5" />
 
                         {(() => {
+                            // date_and_time from API is UTC; show in viewer's local timezone (UK mentor → 11am, Nigeria mentee → 12pm for same moment)
                             const startTime = new Date(date_and_time[0]);
                             const duration = Number(session.duration);
 
@@ -293,6 +415,18 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 </>
                             )}
 
+                            {status === "rescheduled" && rescheduled_by === "mentee" && (
+                                <>
+                                    <Button onPress={handleApprove} size="sm" className="!bg-transparent rounded-md !text-black" variant="light">
+                                        Approve
+                                    </Button>
+
+                                    <Button onPress={openReject} size="sm" className="!bg-transparent text-error-500 rounded-md" variant="light">
+                                        Reject
+                                    </Button>
+                                </>
+                            )}
+
                             {status === "confirmed" && (
                                 <>
                                     <Button color="success" onPress={handleMarkInProgress} size="sm" className="rounded-md !text-success" variant="light">
@@ -304,64 +438,146 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 </>
                             )}
 
-                            {status === "pending" && (
+                            {["pending", "rescheduled"].includes(status) && (
                                 <Button onPress={openReschedule} size="sm" color="primary" className="rounded-md" variant="light">
                                     Reschedule
+                                </Button>
+                            )}
+
+                            {status === "in_progress" && canComplete && (
+                                <Button
+                                    color="success"
+                                    onPress={() => handleConfirmation(
+                                        "Complete Session",
+                                        "Are you sure you want to mark this session as completed? Your wallet will be credited.",
+                                        () => completeSessionMentor(id, {
+                                            onSuccess: () => {
+                                                toast.success("Session marked as completed and your wallet has been credited.");
+                                                setConfirmOpen(false);
+                                            },
+                                            onError: (err: unknown) => {
+                                                toast.error(getErrorMessage(err));
+                                                setConfirmOpen(false);
+                                            }
+                                        }),
+                                        "Complete",
+                                        "bg-success"
+                                    )}
+                                    size="sm"
+                                    className="rounded-md !text-success"
+                                    variant="light"
+                                    isLoading={completingSessionMentor}
+                                >
+                                    Complete Session
+                                </Button>
+                            )}
+                            {status === "in_progress" && !canComplete && (
+                                <Button size="sm" className="rounded-md" variant="flat" isDisabled>
+                                    Complete Session {completeCountdown ? `(${completeCountdown} left)` : "(24h after end)"}
                                 </Button>
                             )}
                         </>
                     ) : (
                         <>
 
-                            {["pending", "confirmed"].includes(status) && (
+                            {status === "rescheduled" && rescheduled_by === "mentor" && (
                                 <>
-                                    <Button onPress={openCancel} size="sm" color="danger" className="!bg-transparent text-error-500 rounded-md" variant="light">
-                                        Cancel
+                                    <Button onPress={handleApprove} size="sm" className="!bg-transparent rounded-md !text-black" variant="light">
+                                        Approve
                                     </Button>
+                                </>
+                            )}
+
+                            {["pending", "confirmed", "rescheduled"].includes(status) && (
+                                <>
+                                    {status !== "rescheduled" && (
+                                        <Button onPress={openCancel} size="sm" color="danger" className="!bg-transparent text-error-500 rounded-md" variant="light">
+                                            Cancel
+                                        </Button>
+                                    )}
                                     <Button onPress={openReschedule} size="sm" color="primary" className="rounded-md" variant="light">
                                         Reschedule
                                     </Button>
                                 </>
                             )}
 
-                            {status === "in_progress" && (
+                            {status === "in_progress" && canComplete && (
                                 <Button color="success" onPress={handleMarkCompleted} size="sm" className="rounded-md !text-success" variant="light">
                                     Mark as Completed
+                                </Button>
+                            )}
+                            {status === "in_progress" && !canComplete && (
+                                <Button size="sm" className="rounded-md" variant="flat" isDisabled>
+                                    Mark as Completed (24h after end)
                                 </Button>
                             )}
 
                             {payment_status !== 'refunded' &&
                                 ["cancelled", "rejected"].includes(status) && (
-                                    <Button
-                                        onPress={openRefund}
-                                        size="sm"
-                                        color="danger"
-                                        className="!bg-transparent text-error-500 rounded-md"
-                                        variant="light"
-                                    >
-                                        Request Refund
-                                    </Button>
+                                    refund_request_status === 'pending' ? (
+                                        <Button
+                                            size="sm"
+                                            color="default"
+                                            className="rounded-md"
+                                            variant="flat"
+                                            isDisabled
+                                        >
+                                            Refund requested
+                                        </Button>
+                                    ) : refund_request_status === 'approved' ? (
+                                        <Button
+                                            size="sm"
+                                            color="default"
+                                            className="rounded-md"
+                                            variant="flat"
+                                            isDisabled
+                                        >
+                                            Refund approved
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onPress={openRefund}
+                                            size="sm"
+                                            color="danger"
+                                            className="!bg-transparent text-error-500 rounded-md"
+                                            variant="light"
+                                        >
+                                            Request Refund
+                                        </Button>
+                                    )
                                 )
                             }
 
                             {status === "completed" && (
-                                <Button
-                                    onPress={openReview}
-                                    size="sm"
-                                    color="primary"
-                                    className="rounded-md"
-                                    variant="solid"
-                                >
-                                    Review Mentor
-                                </Button>
+                                has_reviewed ? (
+                                    <Button
+                                        size="sm"
+                                        color="default"
+                                        className="rounded-md"
+                                        variant="flat"
+                                        isDisabled
+                                    >
+                                        Review submitted
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        onPress={openReview}
+                                        size="sm"
+                                        color="primary"
+                                        className="rounded-md"
+                                        variant="solid"
+                                    >
+                                        Review Mentor
+                                    </Button>
+                                )
                             )}
 
                         </>
                     )}
 
-                    {role === 'mentor' && ["confirmed", "in_progress", "completed"].includes(status) && (
+                    {["confirmed", "in_progress", "completed"].includes(status) && (
                         <Button onPress={openR} size="sm" className="rounded-md">
-                            Upload Resources
+                            {role === "mentee" ? "Upload document" : "Upload Resources"}
                         </Button>
                     )}
 
@@ -374,7 +590,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                         </Button>
                     )}
 
-                    {["in_progress", 'completed', 'confirmed'].includes(status) && (
+                    {["in_progress", 'completed', 'confirmed', 'rescheduled'].includes(status) && (
                         <Button onPress={openT} color="primary" size="sm" className="rounded-md">Session Resources</Button>
                     )}
 
@@ -393,14 +609,34 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                                 <label className="text-[#6E7E8D] text-xs">
                                     {role === "mentor" ? "Mentee" : "Mentor"}
                                 </label>
-                                <User
-                                    className="!justify-start"
-                                    avatarProps={{
-                                        src: (role === "mentor" ? userAvatar : mentorAvatar) ?? "",
-                                    }}
-                                    description={(role === "mentor" ? userEmail : mentorEmail) ?? ""}
-                                    name={(role === "mentor" ? userName : mentorName) ?? ""}
-                                />
+                                <div className="flex items-center justify-between">
+                                    <User
+                                        className="!justify-start"
+                                        avatarProps={{
+                                            src: (role === "mentor" ? userAvatar : mentorAvatar) ?? "",
+                                        }}
+                                        description={
+                                            role === "mentor"
+                                                ? (userHandle ? `@${userHandle}` : userEmail ?? "")
+                                                : (mentorHandle ? `@${mentorHandle}` : (mentor as any).email ?? "")
+                                        }
+                                        name={(role === "mentor" ? userName : mentorName) ?? ""}
+                                    />
+                                    {role === "mentor" && userHandle && (
+                                        <Link to={`/mentee/${userHandle}`}>
+                                            <Button size="sm" variant="flat" className="cursor-pointer text-xs">
+                                                View Profile
+                                            </Button>
+                                        </Link>
+                                    )}
+                                    {role === "mentee" && slug && (
+                                        <Link to={`/mentor/${slug}`} target="_blank">
+                                            <Button size="sm" variant="flat" className="cursor-pointer text-xs">
+                                                View Profile
+                                            </Button>
+                                        </Link>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="flex flex-col gap-1">
@@ -425,7 +661,14 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
 
                             <div className="flex flex-col gap-1">
                                 <label className="text-[#6E7E8D] text-xs">Payment Status</label>
-                                <h1 className="font-medium text-sm capitalize"> { payment_status } </h1>
+                                <h1 className="font-medium text-sm capitalize">
+                                    {payment_status} {' '}
+                                    {payment_status === "paid" && price != null && price !== "" && (
+                                        <span className="text-[#6E7E8D] font-normal text-xs">
+                                            { formatCurrency(price) }
+                                        </span>
+                                    )}
+                                </h1>
                             </div>
 
                             <div className="flex flex-col gap-1">
@@ -460,7 +703,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
             <BookingMeeting zoom_details={zoom_details} open={opened} close={close} />
 
             {/* UPLOAD SESSION RESOURCES */}
-            <UploadSessionResources sessionId={id} open={openedR} close={closeR} />
+            <UploadSessionResources sessionId={id} open={openedR} close={closeR} role={role} />
 
             {/* SESSION RESOURCES */}
             <BookingResourcesModal open={openedT} close={closeT} resources={resources ?? []} />
@@ -495,6 +738,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                     open={openedReview}
                     close={closeReview}
                     mentor_id={mentorRecordId}
+                    onSuccess={() => queryClient.invalidateQueries({ queryKey: ['mentee_bookings'] })}
                 />
             )}
 
@@ -510,7 +754,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
             />
 
             <ConfirmationModal
-                loading={approving || markingInProgress || markingCompleted}
+                loading={approving || approvingMentee || markingInProgress || markingCompleted || completingSessionMentor}
                 open={confirmOpen}
                 setOpen={setConfirmOpen}
                 title={confirmData.title}

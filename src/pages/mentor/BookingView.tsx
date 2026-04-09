@@ -10,6 +10,7 @@ const navItems = [
     { id: "pending", name: "Pending" },
     { id: "upcoming", name: "Upcoming" },
     { id: "in_progress", name: "In Progress" },
+    { id: "rescheduled", name: "Rescheduled" },
     { id: "history", name: "History" },
 ];
 

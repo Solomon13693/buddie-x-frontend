@@ -5,11 +5,17 @@ export type RecentchatType = {
             id: string;
             fullname: string;
             avatar: string | null;
+            role?: string;
+            handle?: string;
+            slug?: string;
         };
         user_two: {
             id: string;
             fullname: string;
             avatar: string | null;
+            role?: string;
+            handle?: string;
+            slug?: string;
         };
     };
     last_message: string;

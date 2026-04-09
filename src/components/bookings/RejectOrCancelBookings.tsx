@@ -104,9 +104,21 @@ const RejectOrCancelBookings = ({ open, close, id, type }: RejectOrCancelProps) 
                         <Form autoComplete="off" className="space-y-5">
 
                             <TextArea
-                                label={`${type === "reject" ? "Rejection" : "Cancellation"} reason`}
+                                label={
+                                    type === "reject"
+                                        ? "Rejection reason"
+                                        : type === "refund"
+                                            ? "Refund reason"
+                                            : "Cancellation reason"
+                                }
                                 name="reason"
-                                placeholder={`Enter ${type === "reject" ? "rejection" : "cancellation"} reason`}
+                                placeholder={
+                                    type === "reject"
+                                        ? "Enter rejection reason"
+                                        : type === "refund"
+                                            ? "Enter reason for requesting a refund"
+                                            : "Enter cancellation reason"
+                                }
                                 className="h-28" />
 
                             <Button

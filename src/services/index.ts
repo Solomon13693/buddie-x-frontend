@@ -1,14 +1,14 @@
 import { registerUser, loginUser, ResendVerifyCode, verifyAccount, forgotPassword, resetPassword } from "./auth";
 import { useGetStats, useGetViewChart } from "./overview";
 
-import { useGetMentorSessions, useAddSession, useDeleteSession, useUpdateSession, useGetMentorTransactions, useGetMentorWithdrawal, useGetWallet, usePlaceWithdrawal, useGetReviews, useApproveReview, useGetBookings, useRejectBookings, useApproveBooking, useMarkAsInProgress, useUploadSessionResources, useRescheduleSession as useRescheduleSessionMentor } from "./mentor";
+import { useGetMentorSessions, useAddSession, useDeleteSession, useUpdateSession, useGetMentorTransactions, useGetMentorWithdrawal, useGetWallet, usePlaceWithdrawal, useGetReviews, useGetBookings, useRejectBookings, useApproveBooking, useMarkAsInProgress, useUploadSessionResources, useRescheduleSession as useRescheduleSessionMentor, useCompleteSession, useGetPayoutStatus, useCreateOnboardingLink } from "./mentor";
 
 import { useGetNotifications, useGetUnReadNotifications, useMarkAllAsRead, useMarkAsRead } from "./notification";
 
-import { updateProfile, updateAvailability, updatePassword, uploadAvatar, addDeviceToken, toggleOutOfOffice } from "./profile";
+import { updateProfile, updateTimezone, updateAvailability, updatePassword, uploadAvatar, addDeviceToken, toggleOutOfOffice } from "./profile";
 import { submitContactForm } from "./contact";
 
-import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist, usePostReview, useRescheduleSession as useRescheduleSessionMentee } from './mentee'
+import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist, usePostReview, useRescheduleSession as useRescheduleSessionMentee, useApproveSession as useApproveSessionMentee, useUploadSessionResourcesMentee, useGetMenteeDetails } from './mentee'
 
 import { useGetMentors, useGetTopMentors, useGetMentorDetails, useGetMentorReviews, useGetSessions, useGetSessionDetails, useAvailableDates, useAvailableTime, bookSession, useGetMentorCommunities } from "./mentors";
 
@@ -57,13 +57,15 @@ export {
     useGetWallet,
     usePlaceWithdrawal,
     useGetReviews,
-    useApproveReview,
     useGetBookings,
     useRejectBookings,
     useApproveBooking,
     useMarkAsInProgress,
     useUploadSessionResources,
     useRescheduleSessionMentor,
+    useCompleteSession,
+    useGetPayoutStatus,
+    useCreateOnboardingLink,
 
     // MENTEE
     useCancelBookings,
@@ -71,6 +73,8 @@ export {
     useRequestRefund,
     useMarkAsCompleted,
     useRescheduleSessionMentee,
+    useApproveSessionMentee,
+    useUploadSessionResourcesMentee,
     useGetTransactions,
     useGetTransactionsStats,
     useGetMenteeChart,
@@ -88,6 +92,7 @@ export {
 
     // PROFILE
     updateProfile,
+    updateTimezone,
     updateAvailability,
     updatePassword,
     uploadAvatar,
@@ -105,6 +110,7 @@ export {
     useAvailableTime,
     bookSession,
     useGetMentorCommunities,
+    useGetMenteeDetails,
 
     // COMMUNITY
     useGetCommunities,

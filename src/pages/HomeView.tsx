@@ -1,4 +1,4 @@
-import { Banner, FAQ, Features, Proccess, TopMentors } from "../components"
+import { Banner, FAQ, Features, Proccess } from "../components"
 
 const HomeView = () => {
     return (
@@ -8,7 +8,7 @@ const HomeView = () => {
 
             <Proccess />
 
-            <TopMentors />
+            {/* <TopMentors /> */}
 
             <Features />
 

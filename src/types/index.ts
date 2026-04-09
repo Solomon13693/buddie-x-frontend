@@ -6,6 +6,7 @@ import { RecentchatType, MessageType } from "./chat";
 import { AvailabilityDayType, PasswordResetValues } from "./profile";
 import { BookingType, ZoomDetailType, ResourcesType } from "./bookings";
 import { MentorType, FavouriteType, MentorProfileType, EducationType, WorkExperienceType } from "./mentor";
+import { MenteeProfileType } from "./mentee";
 import { SessionType, FrequencyType } from "./session";
 import { 
   CommunityType, 
@@ -45,6 +46,7 @@ export type {
     MentorProfileType,
     EducationType,
     WorkExperienceType,
+    MenteeProfileType,
 
     SessionType,
     FrequencyType,

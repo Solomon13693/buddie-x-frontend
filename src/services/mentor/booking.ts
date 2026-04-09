@@ -122,3 +122,22 @@ export const useRescheduleSession = () => {
         },
     });
 };
+
+export const completeSession = async (id: string) => {
+    const response = await axios.post(`mentor/session/${id}/complete`);
+    return response.data;
+};
+
+export const useCompleteSession = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (id: string) => completeSession(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['bookings'] });
+        },
+        onError: (error: unknown) => {
+            return error;
+        },
+    });
+};

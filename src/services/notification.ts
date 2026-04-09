@@ -10,7 +10,9 @@ export const getNotifications = async (params = {}) => {
 
 export const getUnreadNotifications = async () => {
     const response = await axios.get('/notifications/unread');
-    return response.data?.data;
+    const data = response.data?.data;
+    const unreadCount = typeof data?.unread_count === 'number' ? data.unread_count : Number(data?.unread_count) || 0;
+    return { unread_count: unreadCount };
 };
 
 export const markAll = async () => {

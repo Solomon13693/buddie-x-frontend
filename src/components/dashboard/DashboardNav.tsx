@@ -15,6 +15,7 @@ const DashboardNav: React.FC<DashboardNavProps> = ({ setOpen, profile }) => {
 
     const navigate = useNavigate()
     const { response } = useGetUnReadNotifications()
+    const unreadCount = typeof response?.unread_count === 'number' ? response.unread_count : 0
 
     return (
         <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full py-3 !bg-white">
@@ -43,7 +44,7 @@ const DashboardNav: React.FC<DashboardNavProps> = ({ setOpen, profile }) => {
                         </Button>
                     </div>
 
-                    <Badge className='!text-[11px]' color="danger" content={response?.unread_count} placement="top-right">
+                    <Badge className='!text-[11px]' color="danger" content={unreadCount > 0 ? unreadCount : undefined} placement="top-right">
                         <Button onPress={() => navigate('notifications')} className='bg-gray-200 rounded-full' isIconOnly>
                             <BellIcon className='size-5' />
                         </Button>

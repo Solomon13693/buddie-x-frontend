@@ -12,6 +12,8 @@ import CommunitiesView from "./CommunitiesView";
 import CommunityDetailsView from "./CommunityDetailsView";
 import PostDetailsView from "./PostDetailsView";
 import ContactView from "./ContactView";
+import MenteeDetailsPage from "./MenteeDetailsPage";
+import ServicesView from "./ServicesView";
 
 export {
     MentorDashboard,
@@ -46,5 +48,7 @@ export {
     CommunitiesView,
     CommunityDetailsView,
     PostDetailsView,
-    ContactView
+    ContactView,
+    MenteeDetailsPage,
+    ServicesView
 }

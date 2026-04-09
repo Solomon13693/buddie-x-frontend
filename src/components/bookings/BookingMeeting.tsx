@@ -4,13 +4,6 @@ import { PopupModal } from "../ui";
 import moment from "moment";
 
 const BookingMeeting = ({ open, close, zoom_details }: { open: boolean; close: () => void; zoom_details: ZoomDetailType[] }) => {
-    const now = moment();
-
-    const isWithin10Minutes = (startTime: moment.Moment) => {
-        const diffMinutes = startTime.diff(now, "minutes");
-        return diffMinutes <= 10 && diffMinutes >= 0; // Meeting is within 10 minutes
-    };
-
     return (
         <PopupModal
             size="4xl"
@@ -24,11 +17,7 @@ const BookingMeeting = ({ open, close, zoom_details }: { open: boolean; close: (
 
                 {zoom_details.length > 0 ? (
                     zoom_details.map((detail) => {
-
                         const startTime = moment(detail.start_time);
-                        const isPast = now.isAfter(startTime);
-                        const isWithin10Min = isWithin10Minutes(startTime);
-                        const isWithinDay = now.diff(startTime, "days") >= 1;
 
                         return (
                             <div key={detail.meeting_id} className='grid grid-cols-2 gap-2 mb-2 p-3 border rounded-lg bg-white'>
@@ -52,11 +41,10 @@ const BookingMeeting = ({ open, close, zoom_details }: { open: boolean; close: (
 
                                 <div className="flex flex-col gap-1">
                                     <label className="text-[#6E7E8D] text-xs">Join URL</label>
-                                    <a href={isPast || isWithin10Min || isWithinDay ? undefined : detail.join_url}
+                                    <a href={detail.join_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`font-medium truncate text-xs underline ${isPast || isWithinDay ? "pointer-events-none text-gray-400" : ""
-                                            }`}>
+                                        className="font-medium truncate text-xs underline">
                                         {detail.join_url}
                                     </a>
                                 </div>

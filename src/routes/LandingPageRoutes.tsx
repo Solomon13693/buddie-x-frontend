@@ -1,14 +1,14 @@
-import { ExploreView, HomeView, MentorDetailsPage, MentorServicesBooking, ContactView } from "../pages";
+import { HomeView, MentorDetailsPage, MentorServicesBooking, ContactView, MenteeDetailsPage, ServicesView } from "../pages";
 
 export const LandingPageRoutes = [
     {
         path: "",
         element: <HomeView />
     },
-    {
-        path: "explore",
-        element: <ExploreView />
-    },
+    // {
+    //     path: "explore",
+    //     element: <ExploreView />
+    // },
     {
         path: "mentor/:slug",
         element: <MentorDetailsPage />
@@ -20,5 +20,13 @@ export const LandingPageRoutes = [
     {
         path: "contact",
         element: <ContactView />
+    },
+    {
+        path: "services",
+        element: <ServicesView />
+    },
+    {
+        path: "mentee/:slug",
+        element: <MenteeDetailsPage />
     },
 ];

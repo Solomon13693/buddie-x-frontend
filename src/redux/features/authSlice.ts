@@ -54,15 +54,16 @@ const authSlice = createSlice({
 
             state.token = null;
             state.user = null;
-            state.registration = {}; 
+            state.registration = {};
             state.role = null;
-            
+
             localStorage.removeItem('token');
             localStorage.removeItem('role');
             sessionStorage.removeItem('user');
+            sessionStorage.removeItem('registration');
+            sessionStorage.removeItem('settings');
 
-            destroyAllCookies()
-
+            destroyAllCookies();
         },
         updateRegData: (state, action: PayloadAction<Record<string, any>>) => {
             const incoming = action.payload;

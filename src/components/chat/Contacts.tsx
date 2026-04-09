@@ -52,7 +52,6 @@ const Contacts = ({ searchQuery }: { searchQuery: string }) => {
                                 receiverUser: admin
                             }))
                         }>
-                            
                         <div className="flex items-center gap-3 flex-shrink-0">
                             <Badge
                                 title={isOnline ? 'Online' : 'Offline'}
@@ -70,7 +69,6 @@ const Contacts = ({ searchQuery }: { searchQuery: string }) => {
                             </Badge>
                         </div>
 
-                        {/* Info */}
                         <div className="flex flex-col justify-center flex-grow overflow-hidden px-2">
                             <h5 className="text-[13px] font-medium truncate">{admin.fullname}</h5>
                             <p className="text-gray-500 text-xs truncate capitalize">

@@ -96,3 +96,46 @@ export const useRescheduleSession = () => {
         },
     });
 };
+
+export const approveSession = async (id: string) => {
+    const response = await axios.post(`user/session/${id}/approve`);
+    return response.data;
+};
+
+export const uploadSessionResources = async (id: string, formData: FormData) => {
+    const response = await axios.post(`user/session/${id}/resources`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return response.data;
+};
+
+export const useUploadSessionResources = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ id, formData }: { id: string; formData: FormData }) =>
+            uploadSessionResources(id, formData),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["mentee_bookings"] });
+        },
+        onError: (error: unknown) => {
+            return error;
+        },
+    });
+};
+
+export const useApproveSession = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (id: string) => approveSession(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['mentee_bookings'] });
+        },
+        onError: (error: unknown) => {
+            return error;
+        },
+    });
+};

@@ -26,6 +26,9 @@ const chatSlice = createSlice({
             state.receiverUser = null;
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase('auth/logout', () => initialState);
+    },
 });
 
 export const { setSelectedChat, clearSelectedChat } = chatSlice.actions;

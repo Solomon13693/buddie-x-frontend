@@ -47,9 +47,8 @@ const MentorCard = ({ mentor }: { mentor: MentorType }) => {
 
             <Link to={`/mentor/${mentor.slug}`} className="px-1 pt-3 pb-1 space-y-1 block">
 
-                <h2 className="text-sm font-semibold">
-                    <span className="truncate">{mentor.name} </span>{' '}
-                    <span className="text-gray-400 font-normal text-xs">{mentor.country.iso}</span>
+                <h2 className="text-sm font-semibold truncate">
+                    {mentor.name}
                 </h2>
 
                 <p className="text-xs line-clamp-1 text-gray-700">

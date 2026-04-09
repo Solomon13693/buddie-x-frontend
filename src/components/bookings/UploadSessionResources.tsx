@@ -3,11 +3,13 @@ import { Form, Formik } from "formik";
 import { Button, PopupModal } from "../ui";
 import { CustomFileInput, CustomInput, CustomSelect } from "../form";
 import { fileResourcesSchema } from "../../utils/schema";
-import { useUploadSessionResources } from "../../services";
+import { useUploadSessionResources, useUploadSessionResourcesMentee } from "../../services";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "../../utils";
 
-const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; close: () => void; sessionId: string }) => {
+type RoleType = "mentor" | "mentee";
+
+const UploadSessionResources = ({ open, close, sessionId, role = "mentor" }: { open: boolean; close: () => void; sessionId: string; role?: RoleType }) => {
 
     const initialValues = {
         id: sessionId || "",
@@ -17,7 +19,10 @@ const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; clo
         link: "",
     }
 
-    const { mutate: uploadResources, isPending } = useUploadSessionResources();
+    const { mutate: uploadResourcesMentor, isPending: isPendingMentor } = useUploadSessionResources();
+    const { mutate: uploadResourcesMentee, isPending: isPendingMentee } = useUploadSessionResourcesMentee();
+    const uploadResources = role === "mentee" ? uploadResourcesMentee : uploadResourcesMentor;
+    const isPending = role === "mentee" ? isPendingMentee : isPendingMentor;
 
     return (
         <PopupModal
@@ -29,7 +34,7 @@ const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; clo
 
             <div className="py-5">
 
-                <h1 className="text-xs sm:text-sm font-medium mb-5 uppercase">Meeting Details</h1>
+                <h1 className="text-xs sm:text-sm font-medium mb-5 uppercase">{role === "mentee" ? "Upload document for mentor" : "Meeting Details"}</h1>
 
                 <Formik
                     initialValues={initialValues}
@@ -55,7 +60,7 @@ const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; clo
                             { id, formData },
                             {
                                 onSuccess: () => {
-                                    toast.success("Session resources uploaded successfully!");
+                                    toast.success(role === "mentee" ? "Document uploaded. Your mentor will be notified." : "Session resources uploaded successfully!");
                                     close();
                                 },
                                 onError: (err) => {
@@ -67,17 +72,21 @@ const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; clo
 
                     {({ values, setFieldValue }) => {
 
-                        const showFileInput = values.type === "pdf" || values.type === "video" || values.type === "image";
+                        const showFileInput = values.type && values.type !== "link";
                         const showLinkInput = values.type === "link";
 
                         // Get accept attribute based on file type
                         const getAcceptAttribute = () => {
                             if (values.type === "pdf") {
                                 return ".pdf,application/pdf";
-                            } else if (values.type === "video") {
-                                return "video/*";
-                            } else if (values.type === "image") {
-                                return "image/*";
+                            } else if (values.type === "doc" || values.type === "docx") {
+                                return ".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                            } else if (values.type === "xls" || values.type === "xlsx") {
+                                return ".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                            } else if (values.type === "ppt" || values.type === "pptx") {
+                                return ".ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation";
+                            } else if (["image", "png", "jpg", "jpeg", "gif"].includes(values.type)) {
+                                return "image/*,.png,.jpg,.jpeg,.gif";
                             }
                             return undefined;
                         };
@@ -92,7 +101,7 @@ const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; clo
                             }
                             
                             // Clear link when switching to file types
-                            if (newType === "pdf" || newType === "video" || newType === "image") {
+                            if (newType && newType !== "link") {
                                 setFieldValue("link", "");
                             }
                             
@@ -109,8 +118,13 @@ const UploadSessionResources = ({ open, close, sessionId }: { open: boolean; clo
                                 <CustomSelect label="File Type" name="type" onChange={handleTypeChange}>
                                     <option value="">Select type</option>
                                     <option value="pdf">PDF</option>
-                                    <option value="video">Video</option>
-                                    <option value="image">Image</option>
+                                    <option value="doc">Word Document (.doc)</option>
+                                    <option value="docx">Word Document (.docx)</option>
+                                    <option value="xls">Excel Spreadsheet (.xls)</option>
+                                    <option value="xlsx">Excel Spreadsheet (.xlsx)</option>
+                                    <option value="ppt">PowerPoint (.ppt)</option>
+                                    <option value="pptx">PowerPoint (.pptx)</option>
+                                    <option value="image">Image (PNG, JPG, JPEG, GIF)</option>
                                     <option value="link">Link</option>
                                 </CustomSelect>
 

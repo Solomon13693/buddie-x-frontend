@@ -7,11 +7,14 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { fetchGeneralData } from "../redux/features/generalDataSlice";
 import { getFavourites } from "../redux/features/favouriteSlice";
 import { SuccessfulPayment } from "../components/modal";
+import { useSyncTimezone } from "../hooks/useSyncTimezone";
 
 const LandingPageLayout = ({ children }: { children?: React.ReactNode }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const { token, role } = useSelector((state: RootState) => state.auth);
+
+    useSyncTimezone();
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -25,7 +28,7 @@ const LandingPageLayout = ({ children }: { children?: React.ReactNode }) => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (token && role === "mentee") {
+        if (token && role == "mentee") {
             dispatch(getFavourites());
         }
     }, [dispatch, token, role]);

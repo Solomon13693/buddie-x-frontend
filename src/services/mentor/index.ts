@@ -1,7 +1,8 @@
 import { useGetMentorSessions, useAddSession, useUpdateSession, useDeleteSession } from "./sessions";
 import { useGetMentorTransactions, useGetMentorWithdrawal, useGetWallet, usePlaceWithdrawal } from "./wallet";
-import { useGetReviews, useApproveReview } from "./reviews";
-import { useGetBookings, useRejectBookings, useApproveBooking, useMarkAsInProgress, useUploadSessionResources, useRescheduleSession } from "./booking";
+import { useGetReviews } from "./reviews";
+import { useGetBookings, useRejectBookings, useApproveBooking, useMarkAsInProgress, useUploadSessionResources, useRescheduleSession, useCompleteSession } from "./booking";
+import { useGetPayoutStatus, useCreateOnboardingLink } from "./payout";
 
 export {
     useGetMentorSessions,
@@ -14,12 +15,15 @@ export {
     useGetWallet,
     usePlaceWithdrawal,
     useGetReviews,
-    useApproveReview,
 
     useGetBookings,
     useRejectBookings,
     useApproveBooking,
     useMarkAsInProgress,
     useUploadSessionResources,
-    useRescheduleSession
+    useRescheduleSession,
+    useCompleteSession,
+
+    useGetPayoutStatus,
+    useCreateOnboardingLink
 }

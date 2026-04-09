@@ -13,7 +13,7 @@ const WithdrawalModal = ({ open, onClose }: { open: boolean; onClose: () => void
         password: ""
     };
 
-    const { mutate, isPending } = usePlaceWithdrawal()
+    const { mutate: requestWithdrawal, isPending } = usePlaceWithdrawal();
 
     return (
         <PopupModal
@@ -29,23 +29,23 @@ const WithdrawalModal = ({ open, onClose }: { open: boolean; onClose: () => void
                 <h1 className="text-xs sm:text-sm font-medium mb-5">
                     Withdraw
                 </h1>
+                <p className="text-xs text-gray-600 mb-3">
+                    Your request will be reviewed by admin. Once approved, funds will be sent to your connected payout account (if set up) or as arranged.
+                </p>
 
                 <Formik
                     initialValues={initialValues}
                     validationSchema={withdrawalSchema}
-                    onSubmit={async (values) => {
-
-                        mutate(values, {
+                    onSubmit={(values) =>
+                        requestWithdrawal(values, {
                             onSuccess: () => {
-                                toast.success('Withdrawal request submitted successfully');
-                                onClose()
+                                toast.success("Withdrawal request submitted. You'll be notified when it's approved.");
+                                onClose();
                             },
-                            onError: (error) => {
-                                toast.error(getErrorMessage(error));
-                            }
-                        });
-
-                    }}>
+                            onError: (error) => toast.error(getErrorMessage(error)),
+                        })
+                    }
+                >
                     {() => (
                         <Form autoComplete="off" className="space-y-5">
 
@@ -57,7 +57,7 @@ const WithdrawalModal = ({ open, onClose }: { open: boolean; onClose: () => void
 
                                 <Button variant="light" fullWidth onPress={onClose}> Cancel </Button>
 
-                                <Button type="submit" loading={isPending} fullWidth color='success'> Withdraw </Button>
+                                <Button type="submit" loading={isPending} fullWidth className="bg-black text-white"> Withdraw </Button>
 
                             </div>
 

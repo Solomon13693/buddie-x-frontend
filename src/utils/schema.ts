@@ -43,6 +43,7 @@ export const personalInfoSchema = Yup.object().shape({
     .matches(/^\+?\d{7,15}$/, 'Enter a valid phone number'),
 
   gender: Yup.string()
+    .oneOf(["male", "female", "other"], "Select a valid gender")
     .required('Gender is required'),
 
   country: Yup.object({
@@ -182,7 +183,7 @@ export const profilePersonalInfoSchema = Yup.object().shape({
     .matches(/^\+?\d{7,15}$/, 'Enter a valid phone number'),
 
   gender: Yup.string()
-    .oneOf(["male", "female"], "Select a valid gender")
+    .oneOf(["male", "female", "other"], "Select a valid gender")
     .required("Gender is required"),
 
   country: Yup.object()
@@ -342,7 +343,7 @@ export const workExperienceSchema = Yup.object().shape({
 export const fileResourcesSchema = Yup.object().shape({
   type: Yup.string()
     .required("File type is required")
-    .oneOf(["pdf", "video", "image", "link"], "Invalid file type"),
+    .oneOf(["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "image", "png", "jpg", "jpeg", "gif", "link"], "Invalid file type"),
 
   file_name: Yup.string()
     .required("File name is required")
@@ -350,25 +351,42 @@ export const fileResourcesSchema = Yup.object().shape({
 
     file: Yup.mixed()
     .when("type", {
-      is: (type: string) => type === "pdf" || type === "video" || type === "image",
+      is: (type: string) => type !== "link",
       then: (schema) =>
         schema
           .required("File is required")
-          .test("fileSize", "File size must be less than 10MB", (value) => {
-            return value ? (value as File).size <= 10 * 1024 * 1024 : false;
+          .test("fileSize", "File size must be less than 5MB", (value) => {
+            return value ? (value as File).size <= 5 * 1024 * 1024 : false;
           })
           .test("fileFormat", "Unsupported file format", function (value) {
             if (!value) return true;
             
             const fileType = this.parent.type;
             const mimeType = (value as File).type;
-            const fileName = (value as File).name || "";
-            if (mimeType === "application/pdf" || fileName.toLowerCase().endsWith('.pdf')) {
+            const fileName = (value as File).name.toLowerCase() || "";
+            
+            // PDF
+            if (mimeType === "application/pdf" || fileName.endsWith('.pdf')) {
               return fileType === "pdf";
-            } else if (mimeType.startsWith("video/")) {
-              return fileType === "video"; 
-            } else if (mimeType.startsWith("image/")) {
-              return fileType === "image";
+            }
+            // Word documents
+            if (mimeType === "application/msword" || mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || 
+                fileName.endsWith('.doc') || fileName.endsWith('.docx')) {
+              return fileType === "doc" || fileType === "docx";
+            }
+            // Excel documents
+            if (mimeType === "application/vnd.ms-excel" || mimeType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ||
+                fileName.endsWith('.xls') || fileName.endsWith('.xlsx')) {
+              return fileType === "xls" || fileType === "xlsx";
+            }
+            // PowerPoint documents
+            if (mimeType === "application/vnd.ms-powerpoint" || mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation" ||
+                fileName.endsWith('.ppt') || fileName.endsWith('.pptx')) {
+              return fileType === "ppt" || fileType === "pptx";
+            }
+            // Images
+            if (mimeType.startsWith("image/") || fileName.match(/\.(png|jpg|jpeg|gif)$/)) {
+              return ["image", "png", "jpg", "jpeg", "gif"].includes(fileType);
             }
             return false;
           }),

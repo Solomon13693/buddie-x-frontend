@@ -6,6 +6,12 @@ export const updateProfile = async (payload: any) => {
     return response.data;
 };
 
+/** Update the current user's timezone (e.g. from realtime browser detection). */
+export const updateTimezone = async (timezone: string) => {
+    const response = await axios.patch('profile/timezone', { timezone });
+    return response.data;
+};
+
 export const addDeviceToken = async (payload: any) => {
     const response = await axios.post('profile/device-token', payload);
     return response.data;

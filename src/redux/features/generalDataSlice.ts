@@ -66,6 +66,10 @@ const generalDataSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase('auth/logout', () => ({
+                ...initialState,
+                settings: null,
+            }))
             .addCase(fetchGeneralData.pending, (state) => {
                 state.loading = true;
                 state.error = null;  // Reset error on pending

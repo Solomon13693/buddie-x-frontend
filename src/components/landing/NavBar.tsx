@@ -7,7 +7,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     const links = [
-        { key: 'find', label: 'Find a mentor', url: '/explore' },
+        // { key: 'find', label: 'Find a mentor', url: '/explore' },
         { key: 'mentor', label: 'Become a mentor', url: '/register' },
         { key: 'login', label: 'Login', url: '/login' },
         { key: 'register', label: 'Sign up', url: '/register' }

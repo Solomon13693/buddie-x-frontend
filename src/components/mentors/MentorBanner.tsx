@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { MentorProfileType } from "../../types";
 import { Availability } from "../../types/mentor";
-import SocialLinks from "../SocialLink";
 import { setSelectedChat } from "../../redux/features/chatSlice";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
@@ -20,7 +19,7 @@ const MentorBanner = ({ mentor }: { mentor: MentorProfileType }) => {
 
     const average_rating = mentor?.average_rating
 
-    const { fullname, avatar, employer, title, social_links, id } = mentor?.user || {}
+    const { fullname, avatar, employer, title, id } = mentor?.user || {}
 
     const goBack = useGoBack();
 
@@ -112,11 +111,11 @@ const MentorBanner = ({ mentor }: { mentor: MentorProfileType }) => {
 
                 </div>
 
-                <div className="absolute bottom-5 right-5 xl:right-14 2xl:right-28 items-center flex gap-x-3">
+                {/* <div className="absolute bottom-5 right-5 xl:right-14 2xl:right-28 items-center flex gap-x-3">
 
                     <SocialLinks socialLinks={social_links ?? {}} />
 
-                </div>
+                </div> */}
 
             </div>
 

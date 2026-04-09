@@ -57,13 +57,14 @@ const MenteeProfessionalInfo = () => {
                         setLoading(true)
 
                         try {
-                            
+
                             const response = await registerUser(payload)
                             toast.success(response?.message)
-                            setCookie('email', payload?.email || '')
+                            const email = payload?.email || ''
+                            setCookie('email', email)
                             dispatch(resetRegistrationData())
 
-                            navigate("/verify");
+                            navigate("/verify", { state: { email } });
 
                         } catch (error) {
                             toast.error(getErrorMessage(error))

@@ -1,33 +1,15 @@
 import { ToastProvider } from "@heroui/react";
 import { HeroUIProvider } from '@heroui/system'
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Provider } from 'react-redux';
 import { createTheme, MantineProvider } from '@mantine/core'
 import { store } from "../redux/store";
 import { EchoProvider } from "../context/EchoContext";
 import FirebaseNotificationProvider from "../firebase/FirebaseProvider";
+import { queryClient } from "../lib/queryClient";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-
-    const [queryClient] = useState(() => new QueryClient({
-        defaultOptions: {
-            queries: {
-                staleTime: 1000 * 60 * 10,
-                gcTime: 1000 * 60 * 60,
-                refetchOnWindowFocus: false,
-                retry: (failureCount, error: any) => {
-                    if (error?.response?.status === 404) {
-                        return false;
-                    }
-                    return failureCount < 1;
-                },
-                retryDelay: 2000,
-            },
-        },
-    }));
-
 
     const theme = createTheme({
         colors: {
