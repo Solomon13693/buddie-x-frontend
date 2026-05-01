@@ -8,7 +8,6 @@ import { Tabs, DrawerComponent } from "./ui";
 import Container from "./Container";
 import FavouriteButton from "./FavouriteButton";
 
-import { Header, Footer, Banner, FAQ, Features, Proccess, TopMentors } from "./landing";
 import { MentorBanner } from "./mentors";
 import {
   CommunityCard,
@@ -28,6 +27,7 @@ import StarRating from "./StarRating";
 import SocialLinks from "./SocialLink";
 import TimeSelector from "./TimeSelector";
 
+
 export{
     Error,
     PageNotFound,
@@ -38,14 +38,6 @@ export{
     Tabs,
     DrawerComponent,
     Container,
-
-    Header,
-    Footer,
-    Banner,
-    FAQ,
-    Features,
-    Proccess,
-    TopMentors,
 
     FavouriteButton,
 
@@ -68,3 +60,6 @@ export{
     CommentCard,
     CommunityRules,
 }
+
+export * from "./(nav)";
+export * from "./card";

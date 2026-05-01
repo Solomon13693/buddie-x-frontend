@@ -15,12 +15,6 @@
         @apply m-0 p-0 box-border overflow-x-hidden
     }
 
-    @layer components {
-        .board {
-            @apply flex flex-col p-4 mt-2 space-y-8 bg-white rounded-xl md:p-8;
-        }
-    }
-
     .form-control {
         @apply py-2.5 px-4 focus:outline-none focus:ring-0 block outline-none border border-input w-full rounded-2xl text-xs text-black focus:shadow-md focus:border-input-focus focus:border placeholder:text-xs
     }
@@ -75,6 +69,16 @@
     .form-control.is-invalid,
     .was-validated .form-control:invalid {
         @apply border-red-600
+    }
+}
+
+@layer components {
+    .container {
+        @apply w-full mx-auto px-6 sm:px-8 md:px-12 xl:px-6 max-w-screen-sm sm:max-w-3xl md:max-w-5xl lg:max-w-7xl xl:max-w-screen-xl;
+    }
+
+    .board {
+        @apply flex flex-col p-4 mt-2 space-y-8 bg-white rounded-xl md:p-8;
     }
 }
 

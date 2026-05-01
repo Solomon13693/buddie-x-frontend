@@ -45,9 +45,10 @@ export default {
         "success": "#019712",
       },
       fontSize: {
-        'xs': '13px',
+        'xs': '12.5px',
         'sm': '0.875rem',
         'md': '1rem',
+        'base': '15px',
         'lg': '1.125rem',
         'xl': '1.25rem',
         '2xl': '1.5rem',
@@ -59,6 +60,15 @@ export default {
         lora: ['Lora'],
         'cabinet-grotesk': ['Cabinet Grotesk', 'sans-serif'],
         grotesk: ['Cabinet Grotesk', 'sans-serif'],
+      },
+      keyframes: {
+        fadeInOut: {
+          "0%, 100%": { opacity: "0.45" },
+          "50%": { opacity: "1" },
+        },
+      },
+      animation: {
+        "fade-in-out": "fadeInOut 2.8s ease-in-out infinite",
       },
     },
   },
