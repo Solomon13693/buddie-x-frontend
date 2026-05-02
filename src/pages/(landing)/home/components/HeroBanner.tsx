@@ -10,7 +10,7 @@ const HeroBanner = () => {
 
                 <div className="relative bg-white pb-16 pt-36 md:pt-40 lg:pt-0 lg:pb-0">
 
-                    <div className="relative z-10 h-full flex items-center container px-6 lg:px-20">
+                    <div className="relative z-10 h-full flex items-center container px-6 lg:px-20 2xl:pl-52">
 
                         <div className="max-w-md space-y-5">
 
