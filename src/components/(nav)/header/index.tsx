@@ -1,9 +1,18 @@
 import HeaderOne from './HeaderOne'
+import HeaderTwo from './HeaderTwo'
+import { matchPath, useLocation } from 'react-router-dom'
 
-const Header = ({ variant = 'app' }: { variant?: 'landing' | 'app' }) => {
-    void variant
+const HEADER_TWO_PATHS = ['/explore', '/mentor/:id']
+
+const Header = () => {
+    const { pathname } = useLocation()
+
+    const shouldUseHeaderTwo = HEADER_TWO_PATHS.some((routePattern) =>
+        Boolean(matchPath({ path: routePattern, end: true }, pathname))
+    )
+
     return (
-        <HeaderOne />
+        shouldUseHeaderTwo ? <HeaderTwo /> : <HeaderOne />
     )
 }
 

@@ -2,28 +2,19 @@
 
 
 import { Button } from '@heroui/react'
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, matchPath, useLocation } from 'react-router-dom'
 import { NAV_LINKS } from '../../../constant'
 import SearchBarTwo from '../../SearchBarTwo'
 import { Bars2Icon } from '@heroicons/react/24/solid'
 import MobileNav from './MobileNav'
 
-const HeaderOne = () => {
+const HIDE_SEARCH_PATHS = ['/explore', '/mentor/:idOrSlug']
+
+const HeaderTwo = () => {
 
     const { pathname } = useLocation()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-    const [isSticky, setIsSticky] = useState(false)
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsSticky(window.scrollY > 0)
-        }
-
-        handleScroll()
-        window.addEventListener('scroll', handleScroll, { passive: true })
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
 
     const isActive = (href: string) => {
         if (href === '/') {
@@ -32,8 +23,13 @@ const HeaderOne = () => {
         return pathname.startsWith(href)
     }
 
+    const shouldHideSearch = HIDE_SEARCH_PATHS.some((routePattern) =>
+        Boolean(matchPath({ path: routePattern, end: true }, pathname))
+    )
+
     return (
-        <header className={`sticky top-0 z-50 transition-colors duration-200 ${isSticky ? 'bg-white' : 'bg-transparent'}`}>
+        <header className='sticky top-0 z-50 transition-colors duration-200 bg-white border-b 
+        border-[#E9ECF0]'>
 
             <div className="container mx-auto px-6 py-3">
 
@@ -44,14 +40,18 @@ const HeaderOne = () => {
                             width={94} height={72} />
                     </Link>
 
-                    <nav className="hidden lg:flex items-center gap-x-16 text-xs -ml-10 xl:-ml-16">
+                    {!shouldHideSearch && (
+                        <SearchBarTwo className='sm:block hidden' inputClassName="w-80 md:w-96 xl:w-[400px]" />
+                    )}
+
+                    <nav className="hidden lg:flex items-center gap-x-16 text-xs">
 
                         <div className="flex items-center gap-x-8">
                             {NAV_LINKS.map((link) => {
                                 const active = isActive(link.href)
                                 return (
                                     <div key={link.id} className="relative">
-                                        <Link to={link.href} className={`text-gray-900 hover:text-gray-700 transition-colors ${active ? 'font-medium text-primary' : 'font-normal'}`}>
+                                        <Link to={link.href} className={`text-[#74767E] hover:text-gray-700 transition-colors ${active ? 'font-medium' : 'font-normal'}`}>
                                             {link.label}
                                         </Link>
                                     </div>
@@ -59,13 +59,21 @@ const HeaderOne = () => {
                             })}
                         </div>
 
-                        <Button className="bg-primary text-[12px] h-9 text-white z-10" radius="sm">
-                            Get Started
-                        </Button>
+                        <div className="flex items-center gap-2 -ml-12">
+
+                            <Button variant='light' className="text-[12px] h-9 z-10 font-semibold text-[#74767E]"
+                                radius="full">
+                                Sign in
+                            </Button>
+
+                            <Button variant='bordered' className="border-1 border-[#29282B] text-[12px] h-9 z-10"
+                                radius="full">
+                                Sign up
+                            </Button>
+
+                        </div>
 
                     </nav>
-
-                    <SearchBarTwo className='sm:block hidden' inputClassName="w-80 md:w-96 xl:w-[500px]" />
 
                     <Button isIconOnly className='lg:hidden flex items-center justify-center bg-gray-50 text-gray-700 hover:bg-gray-100'
                         variant='light' onPress={() => setIsMobileMenuOpen(true)}>
@@ -82,4 +90,4 @@ const HeaderOne = () => {
     )
 }
 
-export default HeaderOne
+export default HeaderTwo

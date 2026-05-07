@@ -1,8 +1,20 @@
 import { Button, Chip } from "@heroui/react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 const HeroBanner = () => {
+    const heroImages = ["/img/home/1.svg", "/img/home/hero_2.png"]
+    const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+    useEffect(() => {
+        const intervalId = window.setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length)
+        }, 3500)
+
+        return () => window.clearInterval(intervalId)
+    }, [heroImages.length])
+
     return (
         <section className="min-h-screen -mt-20">
 
@@ -62,17 +74,29 @@ const HeroBanner = () => {
                     <div className="relative z-10">
 
                         {/* ======================== HERO BANNER ======================== */}
-                        <motion.img
-                            src="/img/home/1.svg"
-                            alt="Hero Banner"
-                            className="sm:w-[500px] md:w-[530px] max-w-full"
-                            width={633}
-                            height={658}
-                            initial={{ x: 80, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        />
+                        <AnimatePresence mode="wait">
+                            <motion.img
+                                key={heroImages[currentImageIndex]}
+                                src={heroImages[currentImageIndex]}
+                                alt="Hero Banner"
+                                className="sm:w-[500px] md:w-[530px] 2xl:w-[700px] max-w-full"
+                                width={633}
+                                height={658}
+                                initial={{ x: 80, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                exit={{ x: -80, opacity: 0 }}
+                                transition={{ duration: 0.7, ease: "easeOut" }}
+                            />
+                        </AnimatePresence>
 
+                    </div>
+
+                    <div className="absolute right-10 xl:right-24 2xl:right-40 top-1/2 
+                    -translate-y-1/2 z-20 flex flex-col gap-3">
+                        {heroImages.map((image, index) => (
+                            <button key={image} type="button" aria-label={`Go to hero slide ${index + 1}`} onClick={() => setCurrentImageIndex(index)} className={`size-2 rounded-full transition-colors duration-300 cursor-pointer ${currentImageIndex === index ? "bg-[#FFDEC8]" : "bg-[#FFB33E]"}`}
+                            />
+                        ))}
                     </div>
 
                     {/* ======================== HERO BANNER EFFECTS ======================== */}
@@ -92,7 +116,8 @@ const HeroBanner = () => {
                         </motion.div>
 
                         <motion.div
-                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs absolute top-40 sm:top-52 xl:right-40 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
+                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs 
+                            absolute top-10 sm:top-52 xl:right-40 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, 8, 0] }}
                             transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
                             <img src="/img/home/image-download.svg" alt="Face ID" width={24}

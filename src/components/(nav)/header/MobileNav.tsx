@@ -3,7 +3,7 @@ import { Button } from '@heroui/react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { AnimatePresence, motion } from 'framer-motion'
 import { NAV_LINKS } from '../../../constant'
-import NavSearchBar from './search'
+import SearchBarTwo from '../../SearchBarTwo'
 
 interface MobileNavProps {
     open: boolean
@@ -48,7 +48,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen }) => {
                         </div>
 
                         <div className="mt-12">
-                            <NavSearchBar inputClassName="w-full" />
+                            <SearchBarTwo inputClassName="w-full" />
                         </div>
 
                         <div className="space-y-2 py-5 mt-3">

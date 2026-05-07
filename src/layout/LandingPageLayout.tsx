@@ -61,7 +61,7 @@ const LandingPageLayout = ({ children }: { children?: React.ReactNode }) => {
     return (
         <>
 
-            <Header variant="landing" />
+            <Header />
 
             <main className="">{children ? children : <Outlet />}</main>
 

@@ -3,8 +3,6 @@ import {Registeration, LoginView, VerifyAccount, ForgotPassword, ResetPassword }
 
 import { MenteeDashboard, MenteeChat, MenteeSettings, MenteeBookingView, MenteeTransactionView, WishListView } from "./mentee";
 
-import ExploreView from "./ExploreView";
-
 import CommunitiesView from "./CommunitiesView";
 import CommunityDetailsView from "./CommunityDetailsView";
 import PostDetailsView from "./PostDetailsView";
@@ -35,8 +33,6 @@ export {
     MenteeBookingView,
     MenteeTransactionView,
     WishListView,
-
-    ExploreView,
     
     CommunitiesView,
     CommunityDetailsView,
