@@ -1,8 +1,12 @@
 import { StarIcon } from "@heroicons/react/24/solid"
 import { Avatar, Button, Chip } from "@heroui/react"
+import { useState } from "react"
 import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6"
+import MentorSideDrawer from "./MentorSideDrawer"
 
 const MentorProfile = () => {
+    const [isBookSessionOpen, setIsBookSessionOpen] = useState(false)
+
     return (
         <div className="pb-10 border-b border-[#DADADA]">
 
@@ -89,7 +93,8 @@ const MentorProfile = () => {
 
                 <div className="flex items-center justify-between gap-2 lg:px-5">
 
-                    <Button size="sm" color="primary" radius="sm" className="text-[12px] h-9 px-5">
+                    <Button size="sm" color="primary" radius="sm" className="text-[12px] h-9 px-5"
+                        onPress={() => setIsBookSessionOpen(true)}>
                         Book Session</Button>
 
                     <div className="inline-flex items-center gap-x-4">
@@ -110,6 +115,11 @@ const MentorProfile = () => {
                 </div>
 
             </div>
+
+            <MentorSideDrawer
+                isOpen={isBookSessionOpen}
+                onClose={() => setIsBookSessionOpen(false)}
+            />
 
         </div>
     )

@@ -25,7 +25,11 @@ const ReviewsMentor = () => {
 
                         <div key={review.id} className="max-w-3xl flex items-start gap-4 py-4">
 
-                            <Avatar name={review.reviewer} size="md" showFallback />
+                            <Avatar 
+                            classNames={{
+                                base: 'shrink-0',
+                                img: 'shrink-0'
+                            }} name={review.reviewer} size="md" showFallback />
 
                             <div className="max-w-2xl space-y-0.5">
 
