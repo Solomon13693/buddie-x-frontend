@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Button } from "@heroui/react"
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid"
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
 import { cn } from "../lib"
 
 type DaySpecifier = number | string
@@ -186,37 +186,40 @@ export default function DateSelector({
 
     return (
         <div className="w-full">
-            <div className="flex items-center justify-end gap-x-3 mb-6">
-                <div className="text-sm font-medium pt-1.5">
-                    {months[currentDate.getMonth()]} {currentDate.getFullYear()}
-                </div>
-
-                <div className="flex items-center gap-3">
+            <div className="mb-6 grid grid-cols-3 items-center">
+                <div className="justify-self-start">
                     <Button
-                        variant="bordered"
+                        variant="light"
                         isIconOnly
                         radius="full"
                         onPress={handlePrevMonth}
                         size="sm"
-                        className="border border-[#F6F6F6]"
-                    >
-                        <ArrowLeftIcon className="h-4 w-4" />
+                        className="text-[#B5BEC6]">
+                        <ChevronLeftIcon className="size-3.5" />
                     </Button>
+                </div>
+
+                <div className="text-center text-[12px] text-[#4A5660]">
+                    {months[currentDate.getMonth()]} {currentDate.getFullYear()}
+                </div>
+
+                <div className="justify-self-end">
                     <Button
-                        variant="bordered"
+                        variant="light"
                         isIconOnly
                         radius="full"
                         size="sm"
                         onPress={handleNextMonth}
-                        className="border border-[#F6F6F6]">
-                        <ArrowRightIcon className="h-4 w-4" />
+                        className="text-[#B5BEC6]">
+                        <ChevronRightIcon className="size-3.5" />
                     </Button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-7 w-full gap-5">
+            <div className="grid w-full grid-cols-7 gap-y-3">
                 {weekDays.map((day) => (
-                    <div key={day} className="text-center text-xs font-semibold py-2 border-b pb-4">
+                    <div key={day} className="pb-3 text-center text-[11px] uppercase 
+                    tracking-wider text-[#B5BEC6] border-b border-[#EDF1F5]">
                         {day}
                     </div>
                 ))}
@@ -239,14 +242,13 @@ export default function DateSelector({
                             onClick={() => handleDateClick(date)}
                             disabled={disabled}
                             className={cn(
-                                "h-10 w-10 flex items-center m-auto justify-center rounded-lg text-xs font-medium",
-                                "hover:bg-accent hover:text-accent-foreground",
+                                "mx-auto flex h-8 w-8 items-center justify-center rounded-full text-xs leading-none text-[#222730]",
+                                "transition-colors",
                                 {
-                                    "bg-primary text-white": isSelected,
-                                    "bg-primary/20": isRecurringSession,
-                                    "border-[1.8px] border-[#90A3A1]": isToday && !isSelected && !isRecurringSession,
-                                    "text-muted-foreground": disabled,
+                                    "bg-[#A5B3BF] text-white": isSelected || isRecurringSession,
+                                    "text-[#A5B3BF]": disabled || (isToday && !isSelected && !isRecurringSession && !disabled),
                                     "cursor-not-allowed opacity-50": disabled,
+                                    "hover:bg-[#EDF2F7]": !disabled && !isSelected && !isRecurringSession,
                                 },
                             )}
                         >
