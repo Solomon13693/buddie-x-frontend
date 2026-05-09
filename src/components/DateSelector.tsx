@@ -250,8 +250,7 @@ export default function DateSelector({
                                     "cursor-not-allowed opacity-50": disabled,
                                     "hover:bg-[#EDF2F7]": !disabled && !isSelected && !isRecurringSession,
                                 },
-                            )}
-                        >
+                            )}>
                             {date.getDate()}
                         </button>
                     )
