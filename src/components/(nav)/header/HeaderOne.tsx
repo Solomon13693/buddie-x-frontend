@@ -59,7 +59,7 @@ const HeaderOne = () => {
                             })}
                         </div>
 
-                        <Button className="bg-primary text-[12px] h-9 text-white z-10" radius="sm">
+                        <Button as={Link} to="/login" className="bg-primary text-[12px] h-9 text-white z-10" radius="sm">
                             Get Started
                         </Button>
 

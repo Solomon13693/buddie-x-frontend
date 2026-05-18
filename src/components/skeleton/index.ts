@@ -5,6 +5,7 @@ import SessionCardSkeleton from "./SessionCardSkeleton";
 import MentorCardSkeleton from "./MentorCardSkeleton";
 import MentorBannerSkeleton from "./MentorBannerSkeleton";
 import MentorSessionCardSkeleton from "./MentorSessionCardSkeleton";
+import MarketPlaceCardSkeleton from "./MarketPlaceCardSkeleton";
 
 export {
     RecentChatSkeleton,
@@ -13,5 +14,6 @@ export {
     SessionCardSkeleton,
     MentorCardSkeleton,
     MentorBannerSkeleton,
-    MentorSessionCardSkeleton
+    MentorSessionCardSkeleton,
+    MarketPlaceCardSkeleton
 }

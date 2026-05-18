@@ -1,5 +1,6 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { Button } from "@heroui/react";
+import { Link } from "react-router-dom";
 
 const highlights = ["Real mentors", "Real skills", "Real growth."];
 
@@ -17,7 +18,7 @@ const LearnDirectly = () => {
             <div className="relative overflow-hidden bg-[linear-gradient(180deg,_#191425_0%,_#0A031B_100%)] flex items-center h-[50vh]">
 
                 <img src="/img/effects/7.svg" alt="Effect 6" 
-                width={450} height={221} className="absolute top-0 left-0" />
+                width={450} height={221} className="absolute top-0 left-0 pointer-events-none" />
 
                 <div className="container max-w-xl space-y-6">
 
@@ -25,7 +26,7 @@ const LearnDirectly = () => {
                         Learn directly from experienced professionals who guide you step-by-step.
                     </h2>
 
-                    <Button className="text-xs" color="primary" radius="sm">
+                    <Button as={Link} to="/register" className="text-xs" color="primary" radius="sm">
                         Get Started for Free
                     </Button>
 

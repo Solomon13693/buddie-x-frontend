@@ -61,12 +61,12 @@ const HeaderTwo = () => {
 
                         <div className="flex items-center gap-2 -ml-12">
 
-                            <Button variant='light' className="text-[12px] h-9 z-10 font-semibold text-[#74767E]"
+                            <Button as={Link} to="/login" variant='light' className="text-[12px] h-9 z-10 font-semibold text-[#74767E]"
                                 radius="full">
                                 Sign in
                             </Button>
 
-                            <Button variant='bordered' className="border-1 border-[#29282B] text-[12px] h-9 z-10"
+                            <Button as={Link} to="/register" variant='bordered' className="border-1 border-[#29282B] text-[12px] h-9 z-10"
                                 radius="full">
                                 Sign up
                             </Button>

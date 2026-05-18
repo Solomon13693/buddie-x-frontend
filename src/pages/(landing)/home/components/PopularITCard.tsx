@@ -4,11 +4,12 @@ interface PopularITCardProps {
     title: string
     description: string
     image: string
+    href?: string
 }
 
-const PopularITCard = ({ title, description, image }: PopularITCardProps) => {
+const PopularITCard = ({ title, description, image, href = "#" }: PopularITCardProps) => {
     return (
-        <Link to="#" className="flex flex-col gap-y-4 w-[230px] shrink-0 snap-start">
+        <Link to={href} className="flex flex-col gap-y-4 w-[230px] shrink-0 snap-start">
 
             <div className="rounded-2xl aspect-[7/7] overflow-hidden bg-gray-100">
                 <img src={image} alt={title} className="w-full h-full object-cover"

@@ -1,49 +1,12 @@
 import { PopularITCard } from "../components"
-
-const popularRoles = [
-    {
-        title: "Find 45 Buddies Specialized in Software Engineering",
-        description: "Learn from mentors who help you strengthen core development fundamentals and practical delivery.",
-        image: "/img/home/popular-it/1.png",
-    },
-    {
-        title: "Find 32 Buddies Specialized in Product Management",
-        description: "Build product thinking, roadmap planning, and stakeholder communication with expert guidance.",
-        image: "/img/home/popular-it/2.png",
-    },
-    {
-        title: "Find 28 Buddies Specialized in Data Analyst",
-        description: "Improve analytical thinking, dashboard storytelling, and data-driven decision making skills.",
-        image: "/img/home/popular-it/3.png",
-    },
-    {
-        title: "Find 36 Buddies Specialized in UI/UX Development",
-        description: "Design better user experiences with practical feedback on layouts, interactions, and product flows.",
-        image: "/img/home/popular-it/4.png",
-    },
-    {
-        title: "Find 18 Buddies Specialized in DevOps Engineer",
-        description: "Level up CI/CD, cloud deployment, and platform reliability with hands-on mentoring support.",
-        image: "/img/home/popular-it/5.png",
-    },
-    {
-        title: "Find 28 Buddies Specialized in Data Analyst",
-        description: "Improve analytical thinking, dashboard storytelling, and data-driven decision making skills.",
-        image: "/img/home/popular-it/3.png",
-    },
-    {
-        title: "Find 36 Buddies Specialized in UI/UX Development",
-        description: "Design better user experiences with practical feedback on layouts, interactions, and product flows.",
-        image: "/img/home/popular-it/4.png",
-    },
-    {
-        title: "Find 18 Buddies Specialized in DevOps Engineer",
-        description: "Level up CI/CD, cloud deployment, and platform reliability with hands-on mentoring support.",
-        image: "/img/home/popular-it/5.png",
-    },
-]
+import { useGetPopularIndustries } from "../../../../services"
+import { CategoryType } from "../../../../types"
 
 const PopularITRoles = () => {
+
+    const { response: industries = [], isLoading } = useGetPopularIndustries(8)
+    const popularRoles = (industries as CategoryType[]).filter((industry) => industry.name)
+
     return (
         <div className="relative">
 
@@ -59,12 +22,24 @@ const PopularITRoles = () => {
 
                 <div className="overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent w-full">
                     <div className="flex gap-4 min-w-max pb-2">
-                        {popularRoles.map((role) => (
+                        {isLoading && Array.from({ length: 5 }).map((_, index) => (
+                            <div key={index} className="flex flex-col gap-y-4 w-[230px] shrink-0 snap-start">
+                                <div className="rounded-2xl aspect-[7/7] animate-pulse bg-gray-100" />
+                                <div className="space-y-2">
+                                    <div className="h-4 w-4/5 animate-pulse rounded bg-gray-100" />
+                                    <div className="h-3 w-full animate-pulse rounded bg-gray-100" />
+                                    <div className="h-3 w-3/4 animate-pulse rounded bg-gray-100" />
+                                </div>
+                            </div>
+                        ))}
+
+                        {popularRoles.map((role, index) => (
                             <PopularITCard
-                                key={role.title}
-                                title={role.title}
-                                description={role.description}
-                                image={role.image}
+                                key={role.id || role.name}
+                                title={`Find ${role.mentor_count || 0} Buddies Specialized in ${role.name}`}
+                                description={role.description || `Learn from mentors specialized in ${role.name}.`}
+                                image={role.image || `/img/home/popular-it/${(index % 5) + 1}.png`}
+                                href={`/explore?industry=${encodeURIComponent(role.name || "")}`}
                             />
                         ))}
                         <div className="w-5 lg:w-14 shrink-0" aria-hidden="true" />

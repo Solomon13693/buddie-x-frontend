@@ -1,4 +1,5 @@
 import { Button } from "@heroui/react"
+import { Link } from "react-router-dom"
 
 const HowItWorks = () => {
 
@@ -66,7 +67,7 @@ const HowItWorks = () => {
                     </div>
 
                     <div className="flex items-center justify-center">
-                        <Button size="sm" className="text-xs h-10 px-6" color="primary"
+                        <Button as={Link} to="/explore" size="sm" className="text-xs h-10 px-6" color="primary"
                             radius="sm">Get Started for Free</Button>
                     </div>
 
