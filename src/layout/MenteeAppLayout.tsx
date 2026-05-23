@@ -18,6 +18,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { Alert } from '@heroui/react'
 import { getFavourites } from '../redux/features/favouriteSlice'
+import ScrollToTop from '../components/ScrollToTop'
 
 const MenteeAppLayout = () => {
 
@@ -50,6 +51,7 @@ const MenteeAppLayout = () => {
 
     return (
         <>
+            <ScrollToTop />
 
             <SideBar links={menteeLinks} basePath="/dashboard"
                 profile={profile} open={open} setOpen={setOpen} />

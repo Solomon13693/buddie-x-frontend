@@ -1,5 +1,6 @@
-import AuthBg from "./AuthBg";
 import RegLayout from "./RegLayout";
+import AuthReviewCarousel from "./AuthReviewCarousel";
+import RegisterFirstStep from "./RegisterFirstStep";
 import SelectRoleForm from "./SelectRoleForm";
 import { PersonnalInfo, MenteeProfessionalInfo, MentorProInfo, MentorExpertises } from "./steps";
 import AuthRedirect from "./AuthRedirect";
@@ -9,8 +10,9 @@ import ResendCount from "./ResendCount";
 import { AuthDirect } from "./AuthDirect";
 
 export {
-    AuthBg,
     RegLayout,
+    AuthReviewCarousel,
+    RegisterFirstStep,
     SelectRoleForm,
     PersonnalInfo,
     MenteeProfessionalInfo,

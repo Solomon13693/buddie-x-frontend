@@ -2,7 +2,7 @@ import HeaderOne from './HeaderOne'
 import HeaderTwo from './HeaderTwo'
 import { matchPath, useLocation } from 'react-router-dom'
 
-const HEADER_TWO_PATHS = ['/explore', '/mentor/:id']
+const HEADER_TWO_PATHS = ['/explore', '/mentors', '/mentor/:idOrSlug', '/mentor/:id']
 
 const Header = () => {
     const { pathname } = useLocation()

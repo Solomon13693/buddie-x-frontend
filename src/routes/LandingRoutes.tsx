@@ -1,4 +1,4 @@
-import { ExploreView, HomeView, MentorDetailsView } from "../pages";
+import { ExploreView, HomeView, MentorDetailsView, MentorsView } from "../pages";
 
 export const LandingRoutes = [
     {
@@ -8,6 +8,10 @@ export const LandingRoutes = [
     {
         path: "explore",
         element: <ExploreView />
+    },
+    {
+        path: "mentors",
+        element: <MentorsView />
     },
     {
         path: "mentor/:idOrSlug",

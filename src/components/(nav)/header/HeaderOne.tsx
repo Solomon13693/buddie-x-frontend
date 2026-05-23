@@ -8,10 +8,16 @@ import { NAV_LINKS } from '../../../constant'
 import SearchBarTwo from '../../SearchBarTwo'
 import { Bars2Icon } from '@heroicons/react/24/solid'
 import MobileNav from './MobileNav'
+import HeaderAuthActions from './HeaderAuthActions'
+import { useMentorSearchNavigate } from '../../../hooks/useMentorSearchNavigate'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../redux/store'
 
 const HeaderOne = () => {
 
     const { pathname } = useLocation()
+    const navigateToMentorSearch = useMentorSearchNavigate()
+    const { token } = useSelector((state: RootState) => state.auth)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isSticky, setIsSticky] = useState(false)
 
@@ -59,13 +65,21 @@ const HeaderOne = () => {
                             })}
                         </div>
 
-                        <Button as={Link} to="/login" className="bg-primary text-[12px] h-9 text-white z-10" radius="sm">
-                            Get Started
-                        </Button>
+                        {token ? (
+                            <HeaderAuthActions />
+                        ) : (
+                            <Button as={Link} to="/login" className="bg-primary text-[12px] h-9 text-white z-10" radius="sm">
+                                Get Started
+                            </Button>
+                        )}
 
                     </nav>
 
-                    <SearchBarTwo className='sm:block hidden' inputClassName="w-80 md:w-96 xl:w-[500px]" />
+                    <SearchBarTwo
+                        className="sm:block hidden"
+                        inputClassName="w-80 md:w-96 xl:w-[500px]"
+                        onSearch={navigateToMentorSearch}
+                    />
 
                     <Button isIconOnly className='lg:hidden flex items-center justify-center bg-gray-50 text-gray-700 hover:bg-gray-100'
                         variant='light' onPress={() => setIsMobileMenuOpen(true)}>

@@ -17,6 +17,7 @@ import {
     EnvelopeIcon,
 } from '@heroicons/react/24/solid';
 import { Alert } from '@heroui/react'
+import ScrollToTop from '../components/ScrollToTop'
 
 const AppLayout = () => {
 
@@ -49,6 +50,7 @@ const AppLayout = () => {
 
     return (
         <>
+            <ScrollToTop />
 
             <SideBar links={mentorLinks} basePath="/mentor/dashboard"
                 profile={profile} open={open} setOpen={setOpen} />

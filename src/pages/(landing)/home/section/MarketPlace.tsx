@@ -37,13 +37,19 @@ const MarketPlace = () => {
 
                 </div>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
                     {isLoading &&
-                        Array.from({ length: 4 }).map((_, index) => <MarketPlaceCardSkeleton key={index} />)}
+                        Array.from({ length: 4 }).map((_, index) => (
+                            <div key={index} className="flex min-h-0 h-full">
+                                <MarketPlaceCardSkeleton />
+                            </div>
+                        ))}
 
                     {!isLoading && mentors.map((mentor) => (
-                        <MarketPlaceCard key={mentor.mentor_id} mentor={mentor} />
+                        <div key={mentor.mentor_id} className="flex min-h-0 h-full">
+                            <MarketPlaceCard mentor={mentor} />
+                        </div>
                     ))}
 
                 </div>

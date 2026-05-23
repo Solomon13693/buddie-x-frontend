@@ -41,7 +41,7 @@ const HeroBanner = () => {
 
                             <div className="flex items-center flex-wrap gap-3 pt-5">
 
-                                <Button as={Link} to="/explore" className="text-xs" color="primary"
+                                <Button as={Link} to="/mentors" className="text-xs" color="primary"
                                     radius="sm">
                                     Find a Mentor
                                 </Button>

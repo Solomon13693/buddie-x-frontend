@@ -4,6 +4,8 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 import { AnimatePresence, motion } from 'framer-motion'
 import { NAV_LINKS } from '../../../constant'
 import SearchBarTwo from '../../SearchBarTwo'
+import HeaderAuthActions from './HeaderAuthActions'
+import { useMentorSearchNavigate } from '../../../hooks/useMentorSearchNavigate'
 
 interface MobileNavProps {
     open: boolean
@@ -12,7 +14,13 @@ interface MobileNavProps {
 
 const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen }) => {
     const { pathname } = useLocation()
+    const navigateToMentorSearch = useMentorSearchNavigate()
     const onClose = () => setOpen(false)
+
+    const handleSearch = (value: string) => {
+        navigateToMentorSearch(value)
+        onClose()
+    }
 
     const isActive = (href: string) => {
         if (href === '/') {
@@ -48,7 +56,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen }) => {
                         </div>
 
                         <div className="mt-12">
-                            <SearchBarTwo inputClassName="w-full" />
+                            <SearchBarTwo inputClassName="w-full" onSearch={handleSearch} />
                         </div>
 
                         <div className="space-y-2 py-5 mt-3">
@@ -66,17 +74,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ open, setOpen }) => {
                         </div>
 
                         <div className="mt-2 border-t border-gray-200 pt-5 grid grid-cols-2 gap-2.5">
-
-                            <Button as={Link} to="/login" onPress={onClose} variant='light' 
-                            className='text-xs font-medium'>
-                                Sign in
-                            </Button>
-
-                            <Button as={Link} to="/register" onPress={onClose} variant='flat' color='primary' 
-                            className='text-xs font-medium text-black'>
-                                Sign up
-                            </Button>
-
+                            <HeaderAuthActions variant="mobile" onNavigate={onClose} />
                         </div>
 
                     </motion.div>

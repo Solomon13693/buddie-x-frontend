@@ -8,10 +8,11 @@ import { useGetNotifications, useGetUnReadNotifications, useMarkAllAsRead, useMa
 import { updateProfile, updateTimezone, updateAvailability, updatePassword, uploadAvatar, addDeviceToken, toggleOutOfOffice } from "./profile";
 import { submitContactForm } from "./contact";
 import { useGetPopularIndustries } from "./industries";
+import { useGetExplorePage, useExploreCategories, useExploreCertifiedMentors } from "./explore";
 
 import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist, usePostReview, useRescheduleSession as useRescheduleSessionMentee, useApproveSession as useApproveSessionMentee, useUploadSessionResourcesMentee, useGetMenteeDetails } from './mentee'
 
-import { useGetMentors, useGetTopMentors, useGetMentorDetails, useGetMentorReviews, useGetSessions, useGetSessionDetails, useAvailableDates, useAvailableTime, bookSession, useGetMentorCommunities } from "./mentors";
+import { useGetMentors, useInfiniteMentors, useGetTopMentors, useGetMentorDetails, useGetMentorReviews, useGetSessions, useGetSessionDetails, useAvailableDates, useAvailableTime, bookSession, useGetMentorCommunities } from "./mentors";
 
 import {
   useGetCommunities,
@@ -101,8 +102,12 @@ export {
     toggleOutOfOffice,
     submitContactForm,
     useGetPopularIndustries,
+    useGetExplorePage,
+    useExploreCategories,
+    useExploreCertifiedMentors,
 
     useGetMentors,
+    useInfiniteMentors,
     useGetTopMentors,
     useGetMentorDetails,
     useGetMentorReviews,

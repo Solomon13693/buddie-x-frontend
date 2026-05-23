@@ -5,6 +5,7 @@ import { Button } from "../../components/ui";
 import { resetPasswordSchema } from "../../utils/schema";
 import { AuthType } from "../../types";
 import { useEffect, useState } from "react";
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "../../utils";
@@ -17,6 +18,8 @@ const ResetPassword = () => {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState<string | undefined>(undefined);
+
+    usePageTitle("Reset password");
 
     useEffect(() => {
         const emailFromCookie = getCookie('email');
@@ -82,21 +85,24 @@ const ResetPassword = () => {
                                 name="token"
                                 type="text"
                                 placeholder="*********"
+                                className="rounded-md border-[#CBCAD7]"
                             />
 
                             <CustomPassword
                                 label="Password"
                                 name="password"
                                 placeholder="*************"
+                                className="rounded-md border-[#CBCAD7]"
                             />
 
                             <CustomPassword
                                 label="Confirm Password"
                                 name="password_confirmation"
                                 placeholder="*************"
+                                className="rounded-md border-[#CBCAD7]"
                             />
 
-                            <Button loading={loading} type="submit" className="py-6 w-full" >
+                            <Button loading={loading} type="submit" className="py-6 w-full rounded-md" >
                                 Submit
                             </Button>
 

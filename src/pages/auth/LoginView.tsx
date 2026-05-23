@@ -1,36 +1,36 @@
-import { Form, Formik } from "formik";
+import { Form, Formik } from "formik"
+import { useState } from "react"
+import { usePageTitle } from "../../hooks/usePageTitle"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
+import { useDispatch } from "react-redux"
 import { AuthLayout, AuthMessage, AuthRedirect } from "../../components/auth"
-import { CustomInput, CustomPassword } from "../../components/form";
-import { Button } from "../../components/ui";
-import { LoginSchema } from "../../utils/schema";
-import { AuthType } from "../../types";
-import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { getErrorMessage } from "../../utils";
-import { loginUser } from "../../services";
-import { setCookie } from "../../lib";
-import { AppDispatch } from "../../redux/store";
-import { useDispatch } from "react-redux";
-import { fetchProfile, setCredentials } from "../../redux/features/authSlice";
+import { CustomInput, CustomPassword } from "../../components/form"
+import { Button } from "../../components/ui"
+import { setCookie } from "../../lib"
+import { fetchProfile, setCredentials } from "../../redux/features/authSlice"
+import { AppDispatch } from "../../redux/store"
+import { loginUser } from "../../services"
+import { AuthType } from "../../types"
+import { getErrorMessage } from "../../utils"
+import { LoginSchema } from "../../utils/schema"
 
 const LoginView = () => {
+    const dispatch = useDispatch<AppDispatch>()
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const queryParams = new URLSearchParams(location.search)
 
-    const dispatch = useDispatch<AppDispatch>();
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const queryParams = new URLSearchParams(location.search);
+    usePageTitle("Log in")
 
     const initialValues: AuthType = {
-        email: '',
-        password: '',
-    };
+        email: "",
+        password: "",
+    }
 
     const handleRedirection = (role: string | undefined) => {
-
-        const callbackUrl = queryParams.get('callbackUrl');
+        const callbackUrl = queryParams.get("callbackUrl")
 
         if (callbackUrl) {
             navigate(callbackUrl)
@@ -39,26 +39,23 @@ const LoginView = () => {
 
         switch (role) {
             case "mentor":
-                navigate("/mentor/dashboard");
-                break;
+                navigate("/mentor/dashboard")
+                break
             case "mentee":
-                navigate("/dashboard");
-                break;
+                navigate("/dashboard")
+                break
             default:
-                navigate("/");
-                break;
+                navigate("/")
+                break
         }
-
-    };
+    }
 
     return (
         <AuthLayout>
-
             <div>
-
                 <AuthMessage
-                    heading="Welcome Back!"
-                    description="Enter your email and password to access your account."
+                    heading="Welcome back!"
+                    description="Login to access all your account"
                 />
 
                 <Formik
@@ -66,70 +63,72 @@ const LoginView = () => {
                     validationSchema={LoginSchema}
                     enableReinitialize
                     onSubmit={async (values) => {
-
                         setLoading(true)
 
                         try {
-
                             const response = await loginUser(values)
-
                             const { message, token, data } = response
 
                             toast.success(message)
 
                             dispatch(setCredentials({ token }))
-                            dispatch(fetchProfile());
+                            dispatch(fetchProfile())
 
-                            handleRedirection(data?.role);
+                            handleRedirection(data?.role)
+                        } catch (error: unknown) {
+                            const err = error as { response?: { data?: { redirect_to_verification?: boolean } } }
 
-                        } catch (error: any) {
-
-                            if (error?.response?.data?.redirect_to_verification as boolean) {
-                                setCookie('email', values?.email || '')
-                                navigate('/verify');
+                            if (err?.response?.data?.redirect_to_verification) {
+                                setCookie("email", values?.email || "")
+                                navigate("/verify")
                             }
 
                             toast.error(getErrorMessage(error))
-
                         } finally {
                             setLoading(false)
                         }
-
-                    }}>
-
+                    }}
+                >
                     {() => (
-
                         <Form className="space-y-4" autoComplete="off">
 
                             <CustomInput
-                                label="Email address"
+                                label="Email Address"
                                 name="email"
                                 type="email"
-                                placeholder="jonedoe@example.com"
+                                className="rounded-md border-[#CBCAD7]"
+                                placeholder="Enter your email address"
                             />
 
                             <CustomPassword
                                 label="Password"
                                 name="password"
-                                placeholder="*************"
+                                className="rounded-md border-[#CBCAD7]"
+                                placeholder="Enter your password"
                             />
 
-                            <Link to='/forgot-password' className="underline text-xs pb-5 float-end">
-                                Forget password?
-                            </Link>
+                            <div className="flex justify-end pt-1">
+                                <Link
+                                    to="/forgot-password"
+                                    className="text-xs text-[#62646A] underline-offset-2 hover:text-[#1B1D21] hover:underline"
+                                >
+                                    Forgot password?
+                                </Link>
+                            </div>
 
-                            <Button loading={loading} type="submit" className="py-6 w-full" >
-                                Log In
+                            <Button loading={loading} type="submit" className="rounded-md w-full py-6">
+                                Log in
                             </Button>
-
                         </Form>
                     )}
                 </Formik>
 
-                <AuthRedirect text='Don’t have an account?' linkText='Sign Up' linkHref='/register' />
-
+                <AuthRedirect
+                    text="Don't have an account?"
+                    linkText="Register"
+                    linkHref="/register"
+                />
             </div>
-
         </AuthLayout>
     )
 }

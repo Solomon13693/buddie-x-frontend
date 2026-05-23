@@ -2,7 +2,7 @@ import { Skeleton } from "@heroui/react"
 
 const MarketPlaceCardSkeleton = () => {
     return (
-        <div className="space-y-3.5 rounded-2xl border border-[#E6E8EC80] bg-white p-5">
+        <div className="flex w-full flex-1 flex-col gap-3.5 rounded-2xl border border-[#E6E8EC80] bg-white p-5">
             <div className="flex items-start gap-3">
                 <Skeleton className="h-12 w-12 shrink-0 rounded-full" />
                 <div className="flex min-w-0 flex-1 flex-col gap-1.5">
@@ -33,6 +33,9 @@ const MarketPlaceCardSkeleton = () => {
                 </div>
             </div>
 
+            <div className="flex-1" aria-hidden="true" />
+
+            <div className="flex shrink-0 flex-col gap-3.5">
             <div className="flex flex-wrap gap-2">
                 <Skeleton className="size-5 rounded" />
                 <Skeleton className="h-4 w-40 rounded" />
@@ -46,6 +49,7 @@ const MarketPlaceCardSkeleton = () => {
                     <Skeleton className="mb-1 h-3 w-16 rounded" />
                 </div>
                 <Skeleton className="h-9 w-[88px] rounded-md" />
+            </div>
             </div>
         </div>
     )

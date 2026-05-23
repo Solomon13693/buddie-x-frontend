@@ -245,7 +245,8 @@ export default function DateSelector({
                                 "mx-auto flex h-8 w-8 items-center justify-center rounded-full text-xs leading-none text-[#222730]",
                                 "transition-colors",
                                 {
-                                    "bg-[#A5B3BF] text-white": isSelected || isRecurringSession,
+                                    "bg-black text-white": isSelected,
+                                    "bg-[#A5B3BF] text-white": isRecurringSession,
                                     "text-[#A5B3BF]": disabled || (isToday && !isSelected && !isRecurringSession && !disabled),
                                     "cursor-not-allowed opacity-50": disabled,
                                     "hover:bg-[#EDF2F7]": !disabled && !isSelected && !isRecurringSession,

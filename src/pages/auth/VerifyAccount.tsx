@@ -1,5 +1,6 @@
 import { AuthLayout, AuthMessage, ResendCount } from "../../components/auth"
 import React, { useEffect, useState } from "react";
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "../../utils";
@@ -21,6 +22,8 @@ const VerifyAccount = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const [email, setEmail] = useState<string | undefined>(undefined);
+
+    usePageTitle("Verify account");
 
     useEffect(() => {
         const emailFromState = (location.state as { email?: string })?.email;
@@ -84,7 +87,6 @@ const VerifyAccount = () => {
             <div>
 
                 <AuthMessage
-                    className="text-center"
                     heading="Verify Your Account!"
                     description="Please enter the verification code sent to your email to verify your account."
                 />
@@ -97,16 +99,16 @@ const VerifyAccount = () => {
                         inputType="tel"
                         numInputs={6}
                         inputStyle={{ width: '90px', height: '90px' }}
-                        containerStyle="flex items-center gap-x-1 sm:gap-x-2 justify-center"
+                        containerStyle="flex items-center gap-x-1 sm:gap-x-2 justify-start"
                         renderInput={(props, index) => (
                             <React.Fragment key={index}>
-                                <input {...props} className="form-control max-w-12 max-h-12 text-sm font-semibold text-dark rounded-full" />
+                                <input {...props} className="form-control max-w-12 max-h-12 text-sm font-semibold text-dark rounded-md border-[#CBCAD7]" />
                                 {index === 2 && <span className="mx-2 hidden md:block">-</span>}
                             </React.Fragment>
                         )}
                     />
 
-                    <Button onPress={handleVerifyAccount} loading={pending} type="submit" className="mt-6 py-6 w-full" isDisabled={!isOtpValid}>
+                    <Button onPress={handleVerifyAccount} loading={pending} type="submit" className="mt-6 py-6 w-full rounded-md" isDisabled={!isOtpValid}>
                         Continue
                     </Button>
 

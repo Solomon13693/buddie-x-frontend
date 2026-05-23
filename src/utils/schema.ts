@@ -87,16 +87,40 @@ export const mentorProInfo = Yup.object().shape({
     .notRequired(),
 
   yrs_of_experience: Yup.number()
-    .nullable()
-    .typeError('Years of experience must be a number')
-    .min(0, 'Must be at least 0')
-    .max(50, 'Must be 50 or less'),
+    .transform((value, originalValue) =>
+      originalValue === '' || originalValue === null ? undefined : value,
+    )
+    .typeError('Years of experience is required')
+    .required('Years of experience is required')
+    .min(0, 'Must be 0 or more')
+    .max(50, 'Must be 50 or less')
+    .test(
+      'years-not-zero-without-months',
+      'Years of experience cannot be 0 when months is 0',
+      function (value) {
+        const months = Number(this.parent.months_of_experience ?? 0)
+        if (months > 0) return true
+        return Number(value ?? 0) > 0
+      },
+    ),
 
   months_of_experience: Yup.number()
-    .nullable()
-    .typeError('Months of experience must be a number')
-    .min(0, 'Must be at least 0')
-    .max(11, 'Must be less than 12'),
+    .transform((value, originalValue) =>
+      originalValue === '' || originalValue === null ? undefined : value,
+    )
+    .typeError('Months of experience is required')
+    .required('Months of experience is required')
+    .min(0, 'Must be 0 or more')
+    .max(11, 'Must be 11 or less')
+    .test(
+      'months-not-zero-without-years',
+      'Months of experience cannot be 0 when years is 0',
+      function (value) {
+        const years = Number(this.parent.yrs_of_experience ?? 0)
+        if (years > 0) return true
+        return Number(value ?? 0) > 0
+      },
+    ),
 
   level: Yup.string()
     .required('Experience level is required'),

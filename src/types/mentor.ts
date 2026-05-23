@@ -78,6 +78,16 @@ export interface Availability {
     end_time: string;
 }
 
+export interface NextAvailability {
+    day: string;
+    date: string;
+    start_time: string;
+    end_time: string;
+    display: string;
+    is_today: boolean;
+    timezone: string;
+}
+
 export interface Mentor {
     id: string;
     tools: string[];
@@ -133,4 +143,5 @@ export interface MentorProfileType {
     average_attendance: string;
     is_top_rated: boolean;
     availability: Availability[];
+    next_availability?: NextAvailability | null;
 }

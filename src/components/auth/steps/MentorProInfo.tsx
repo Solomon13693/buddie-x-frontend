@@ -1,122 +1,126 @@
-import { Form, Formik } from "formik";
-import { CustomInput, CustomSelect, TextArea } from "../../form";
-import { Button } from "../../ui";
-import { AuthType } from "../../../types";
-import { mentorProInfo } from "../../../utils/schema";
-import { useDispatch, useSelector } from "react-redux";
-import { getRegistrationData, updateRegData } from "../../../redux/features/authSlice";
+import { Form, Formik } from "formik"
+import { CustomInput, CustomSelect, TextArea } from "../../form"
+import { Button } from "../../ui"
+import { AuthType } from "../../../types"
+import { mentorProInfo } from "../../../utils/schema"
+import { useDispatch, useSelector } from "react-redux"
+import { getRegistrationData, updateRegData } from "../../../redux/features/authSlice"
 
+const inputClass = "rounded-md border-[#CBCAD7]"
 
 const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
-
     const regData = useSelector(getRegistrationData)
     const dispatch = useDispatch()
 
     const initialValues: AuthType = {
-        title: regData?.title || '',
-        employer: regData?.employer || '',
-        level: regData?.level || '',
-        linkedin_url: regData?.linkedin_url || '',
-        yrs_of_experience: regData?.yrs_of_experience || 1,
-        months_of_experience: regData?.months_of_experience || 1,
-        bio: regData?.bio || '',
-    };
-
+        title: regData?.title || "",
+        employer: regData?.employer || "",
+        level: regData?.level || "",
+        linkedin_url: regData?.linkedin_url || "",
+        yrs_of_experience:
+            regData?.yrs_of_experience !== undefined && regData?.yrs_of_experience !== null
+                ? regData.yrs_of_experience
+                : "",
+        months_of_experience:
+            regData?.months_of_experience !== undefined && regData?.months_of_experience !== null
+                ? regData.months_of_experience
+                : "",
+        bio: regData?.bio || "",
+    }
 
     return (
-        <>
+        <div className="w-full">
+            <div className="mb-6 space-y-1">
+                <h2 className="font-lora text-xl font-bold text-[#1B1D21]">Professional Information</h2>
+                <p className="text-sm font-light text-[#62646A]">Please provide the required details</p>
+            </div>
 
-            <div className="flex-col flex justify-center">
+            <Formik
+                initialValues={initialValues}
+                validationSchema={mentorProInfo}
+                enableReinitialize
+                onSubmit={(values) => {
+                    dispatch(
+                        updateRegData({
+                            ...values,
+                            yrs_of_experience: Number(values.yrs_of_experience),
+                            months_of_experience: Number(values.months_of_experience),
+                        }),
+                    )
+                    onNextStep()
+                }}
+            >
+                {() => (
+                    <Form className="space-y-5" autoComplete="off">
+                        <CustomInput
+                            label="Title"
+                            name="title"
+                            type="text"
+                            placeholder="Eg. Product Designer, Student"
+                            className={inputClass}
+                        />
 
-                <div className="pb-6">
+                        <CustomInput
+                            label="Company/School"
+                            name="employer"
+                            type="text"
+                            placeholder="eg. Apple, UCLA, etc"
+                            className={inputClass}
+                        />
 
-                    <h3 className='pt-3 font-bold text-lg font-lora'>Professional Information</h3>
+                        <CustomInput
+                            label="LinkedIn URL"
+                            name="linkedin_url"
+                            type="url"
+                            placeholder="linkedin.com/in/example"
+                            className={inputClass}
+                        />
 
-                    <p className='pt-1 text-slate-400 font-light text-sm'>Please provide the required deatils</p>
-
-                </div>
-
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={mentorProInfo}
-                    enableReinitialize
-                    onSubmit={async (values) => {
-
-                        dispatch(updateRegData(values))
-                        onNextStep()
-
-                    }}>
-
-                    {() => (
-
-                        <Form className="space-y-4" autoComplete="off">
+                        <div className="grid grid-cols-2 gap-3">
+                            <CustomInput
+                                label="Years of experience"
+                                name="yrs_of_experience"
+                                type="number"
+                                min={0}
+                                max={50}
+                                placeholder="1 year"
+                                className={inputClass}
+                                required
+                            />
 
                             <CustomInput
-                                label="Title"
-                                name="title"
-                                type="text"
-                                placeholder="Eg. Product Designer, Student"
+                                label="Months of experience"
+                                name="months_of_experience"
+                                type="number"
+                                min={0}
+                                max={11}
+                                placeholder="3 months"
+                                className={inputClass}
+                                required
                             />
+                        </div>
 
-                            <CustomInput
-                                label="Company/School"
-                                name="employer"
-                                type="text"
-                                placeholder="Eg. Apple, UCLA, etc"
-                            />
+                        <CustomSelect label="Level of experience" name="level" className={inputClass}>
+                            <option value="">Select Level</option>
+                            <option value="Entry Level">Entry Level</option>
+                            <option value="Mid Level">Mid Level</option>
+                            <option value="Senior">Senior</option>
+                        </CustomSelect>
 
-                            <CustomInput
-                                label="LinkedIn URL"
-                                name="linkedin_url"
-                                type="url"
-                                placeholder="inkedin.com/in/example"
-                            />
+                        <TextArea
+                            label="Brief Introduction"
+                            name="bio"
+                            className={`h-28 ${inputClass}`}
+                            placeholder="Write a brief introduction about yourself"
+                        />
 
-                            <div className="grid grid-cols-2 gap-3">
-
-                                <CustomInput
-                                    label="Years of experience"
-                                    name="yrs_of_experience"
-                                    type="number"
-                                    min={1}
-                                    max={30}
-                                />
-
-                                <CustomInput
-                                    label="Months of experience"
-                                    name="months_of_experience"
-                                    type="number"
-                                    min={1}
-                                    max={12}
-                                />
-
-                            </div>
-
-                            <CustomSelect label="Level of experience" name="level">
-                                <option value="">Select Level</option>
-                                <option value="Entry Level">Entry Level</option>
-                                <option value="Mid Level">Mid Level</option>
-                                <option value="Senior">Senior</option>
-                            </CustomSelect>
-
-                            <TextArea
-                                label="Short Bio"
-                                name="bio"
-                                className="h-24"
-                                placeholder="Write a brief introduction about yourself"
-                            />
-
-                            <Button type="submit" className="py-6 w-full" >
-                                Continue
-                            </Button>
-
-                        </Form>
-                    )}
-                </Formik>
-
-            </div >
-
-        </>
+                        <Button type="submit" className="px-20 rounded-md py-6">
+                            Continue
+                        </Button>
+                    </Form>
+                )}
+            </Formik>
+        </div>
     )
 }
 

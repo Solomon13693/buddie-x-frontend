@@ -52,16 +52,18 @@ const MarketPlaceCard = ({ mentor }: { mentor: MarketplaceMentor }) => {
     ], mentor.mentor_id || mentor.slug)
 
     return (
-        <div className="bg-white p-5 border border-[#E6E8EC80] rounded-2xl space-y-3.5 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0px_12px_56px_0px_#454F5D1F]">
+        <div className="flex w-full flex-1 flex-col gap-3.5 rounded-2xl border border-[#E6E8EC80] bg-white p-5 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0px_12px_56px_0px_#454F5D1F]">
 
             <User
+                className="justify-start"
                 avatarProps={{
                     src: mentor.avatar,
                 }}
                 description={mentor.title || mentor.employer || "Mentor"}
                 name={mentor.name}
                 classNames={{
-                    name: "text-sm text-[#222222] font-semibold",
+                    name: "line-clamp-2 text-sm text-[#222222] font-semibold",
+                    description: "line-clamp-2",
                 }}
             />
 
@@ -73,7 +75,7 @@ const MarketPlaceCard = ({ mentor }: { mentor: MarketplaceMentor }) => {
                     {category}
                 </Chip>
 
-                <p className="text-[12px] text-[#676767] line-clamp-3">
+                <p className="line-clamp-3 min-h-[3.75rem] text-[12px] leading-5 text-[#676767]">
                     {session?.description || mentor.bio || `Get expert guidance from ${mentor.name}.`}
                 </p>
 
@@ -97,7 +99,7 @@ const MarketPlaceCard = ({ mentor }: { mentor: MarketplaceMentor }) => {
 
                 <h3 className="text-xs font-medium text-[#222222]">You'll receive:</h3>
 
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex min-h-[52px] flex-wrap items-start gap-2">
                     {(skills.length ? skills : ["Mentorship"]).map((skill) => (
                         <Chip key={skill} size="sm" className="text-[11px]" radius="sm">
                             {skill}
@@ -107,8 +109,11 @@ const MarketPlaceCard = ({ mentor }: { mentor: MarketplaceMentor }) => {
 
             </div>
 
+            <div className="flex-1" aria-hidden="true" />
+
+            <div className="flex shrink-0 flex-col gap-3.5">
             {/* =============== RATINGS =============== */}
-            <div className="inline-flex flex-wrap items-center gap-2 text-[11px]">
+            <div className="inline-flex min-h-5 flex-wrap items-center gap-2 text-[11px]">
                 <StarIcon className="size-5 text-[#FF9900]" />
                 <span className="text-black font-medium">{mentor.average_rating || 0} ({mentor.total_reviews || 0} reviews)</span>
                 <span className="text-[#62646A]">{mentor.total_sessions || 0} Sessions / {mentor.total_reviews || 0} reviews</span>
@@ -129,6 +134,7 @@ const MarketPlaceCard = ({ mentor }: { mentor: MarketplaceMentor }) => {
                     Book Now
                 </Button>
 
+            </div>
             </div>
 
         </div>

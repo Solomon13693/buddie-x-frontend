@@ -1,126 +1,182 @@
 import { StarIcon } from "@heroicons/react/24/solid"
 import { Avatar, Button, Chip } from "@heroui/react"
-import { useState } from "react"
-import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6"
-import MentorSideDrawer from "./MentorSideDrawer"
+import { FaLinkedin, FaXTwitter } from "react-icons/fa6"
+import { HiOutlineGlobeAlt } from "react-icons/hi2"
+import { formatCurrency } from "../../../lib/formatCurrency"
+import { MentorProfileType, SessionType } from "../../../types"
 
-const MentorProfile = () => {
-    const [isBookSessionOpen, setIsBookSessionOpen] = useState(false)
+type MentorProfileProps = {
+    mentor: MentorProfileType
+    sessions?: SessionType[]
+    isSessionsLoading?: boolean
+    onBookSession: () => void
+}
+
+const formatJoinedDate = (dateString?: string) => {
+    if (!dateString) return ""
+    const date = new Date(dateString)
+    if (Number.isNaN(date.getTime())) return ""
+    return date.toLocaleDateString("en-US", { month: "long", year: "numeric" })
+}
+
+const MentorProfile = ({
+    mentor,
+    sessions = [],
+    isSessionsLoading = false,
+    onBookSession,
+}: MentorProfileProps) => {
+    const { user, next_availability, average_rating, total_sessions, total_reviews } = mentor
+    const { fullname, avatar, title, employer, country, timezone, social_links, created_at } = user
+    const isOutOfOffice = user.mentor?.out_of_office ?? false
+
+    const durationChips = [...new Set(sessions.map((session) => session.duration))].sort((a, b) => a - b)
+
+    const lowestPrice = sessions.reduce<number | null>((min, session) => {
+        const price = parseFloat(String(session.price))
+        if (Number.isNaN(price)) return min
+        return min === null ? price : Math.min(min, price)
+    }, null)
+
+    const locationParts = [
+        timezone,
+        country?.name ? `from ${country.name}` : "",
+        created_at ? `Joined ${formatJoinedDate(created_at)}` : "",
+    ].filter(Boolean)
+
+    const socialEntries = [
+        { href: social_links?.twitter, icon: FaXTwitter },
+        { href: social_links?.linkedin, icon: FaLinkedin },
+        { href: social_links?.website, icon: HiOutlineGlobeAlt },
+    ].filter((entry) => Boolean(entry.href))
 
     return (
-        <div className="pb-10 border-b border-[#DADADA]">
+        <div className="border-b border-[#DADADA] pb-10">
 
-            <div className="container max-w-4xl mx-auto space-y-5">
+            <div className="container mx-auto max-w-4xl space-y-5">
 
                 <div className="space-y-0.5 text-center">
 
-                    <Avatar src="https://i.pravatar.cc/150?u=a04224d"
-                        size='lg' className="size-28 mx-auto mb-3" />
+                    <Avatar src={avatar} size="lg" className="mx-auto mb-3 size-28" />
 
-                    <h1 className="text-xl font-semibold text-[#141B34] pb-1.5">Charles Johnson</h1>
+                    <h1 className="pb-1.5 text-xl font-semibold text-[#141B34]">{fullname}</h1>
 
                     <p className="text-xs text-[#141B34]">
-                        Senior Web Developer | JavaScript, React & Node | High-Performance Web Experiences
+                        {title}
+                        {employer ? ` | ${employer}` : ""}
                     </p>
-                    <span className="text-[11px] text-[#74767E]">
-                        West Africa Time (WAT) English, from Lagos, Nigeria  Joined August, 2022
-                    </span>
+
+                    {locationParts.length > 0 && (
+                        <span className="text-[11px] text-[#74767E]">{locationParts.join(" · ")}</span>
+                    )}
                 </div>
 
-                <div className="w-full border border-[#C2C2C3] rounded-xl lg:rounded-2xl">
+                <div className="w-full rounded-xl border border-[#C2C2C3] lg:rounded-2xl">
 
-                    <div className="flex flex-wrap gap-3 items-center justify-between px-5 py-4 border-b border-[#C2C2C3]">
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#C2C2C3] px-5 py-4">
 
-                        <div className="">
-                            <h2 className="text-baselg:text-xl font-medium">Free</h2>
-                            <p className="text-xs text-[#62646A] -mt-1">Price per hour</p>
+                        <div>
+                            <h2 className="text-baselg:text-xl font-medium">
+                                {lowestPrice !== null ? formatCurrency(lowestPrice) : "—"}
+                            </h2>
+                            <p className="-mt-1 text-xs text-[#62646A]">Starting price</p>
                         </div>
 
                         <div className="space-y-0.5">
-
-                            <div className="flex items-center gap-2">
-                                <Chip size="sm" className="text-[11px] bg-[#F6D7A7B2] text-[#EF7420]" radius="full">15 min</Chip>
-                                <Chip size="sm" className="text-[11px] bg-[#F6D7A7B2] text-[#EF7420]" radius="full">40 min</Chip>
+                            <div className="flex flex-wrap items-center gap-2">
+                                {isSessionsLoading && (
+                                    <Chip size="sm" className="text-[11px]" radius="full">
+                                        Loading...
+                                    </Chip>
+                                )}
+                                {!isSessionsLoading &&
+                                    durationChips.map((duration) => (
+                                        <Chip
+                                            key={duration}
+                                            size="sm"
+                                            className="bg-[#F6D7A7B2] text-[11px] text-[#EF7420]"
+                                            radius="full"
+                                        >
+                                            {duration} min
+                                        </Chip>
+                                    ))}
+                                {!isSessionsLoading && durationChips.length === 0 && (
+                                    <Chip size="sm" className="text-[11px]" radius="full" variant="bordered">
+                                        No sessions
+                                    </Chip>
+                                )}
                             </div>
-
-                            <span className="text-[11px] font-light text-[#62646A]">
-                                Time Blocks Available
-                            </span>
-
+                            <span className="text-[11px] font-light text-[#62646A]">Time Blocks Available</span>
                         </div>
 
-                        <div className="flex flex-col items-start sm:items-end gap-y-0.5">
+                        <div className="flex flex-col items-start gap-y-0.5 sm:items-end">
                             <div className="inline-flex items-center gap-2">
                                 <StarIcon className="size-4 text-[#FF9900]" />
-                                <h4 className="text-sm font-medium">4.91</h4>
+                                <h4 className="text-sm font-medium">{average_rating?.toFixed(2) ?? "0"}</h4>
                             </div>
-                            <p className="text-[#62646A] font-light text-[12px]">55 Sessions / 41 reviews</p>
+                            <p className="text-[12px] font-light text-[#62646A]">
+                                {total_sessions} Sessions / {total_reviews} reviews
+                            </p>
                         </div>
-
                     </div>
 
                     <div className="flex items-center justify-between px-5 py-4">
-
                         <div className="flex items-center gap-2">
-
-                            <div className="bg-[#D0D6DF] p-0.5 rounded-md flex flex-col items-center gap-y-0.5 pt-1">
-                                <p className="text-[10px] text-[#74767E]">THU</p>
-                                <div className="flex items-center justify-center bg-white py-1 px-2.5 
-                                font-medium text-[10px] rounded-md">
-                                    31
+                            {next_availability && (
+                                <div className="flex flex-col items-center gap-y-0.5 rounded-md bg-[#D0D6DF] p-0.5 pt-1">
+                                    <p className="text-[10px] text-[#74767E]">
+                                        {next_availability.day.slice(0, 3).toUpperCase()}
+                                    </p>
+                                    <div className="flex items-center justify-center rounded-md bg-white px-2.5 py-1 text-[10px] font-medium">
+                                        {next_availability.date
+                                            ? new Date(next_availability.date).getDate()
+                                            : next_availability.start_time?.slice(0, 5) || "—"}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             <div className="space-y-0.5">
-                                <h2 className="font-medium text-xs text-[#141B34]">Next availability</h2>
+                                <h2 className="text-xs font-medium text-[#141B34]">Next availability</h2>
                                 <p className="text-[11px] text-[#74767E]">
-                                    Thursday, 31 March |  6:30 AM
+                                    {next_availability?.display || "No availability set"}
                                 </p>
                             </div>
-
                         </div>
 
                         <div className="space-y-0.5 text-right">
-                            <h2 className="font-medium text-xs text-[#141B34]">Check availability</h2>
-                            <p className="text-[11px] text-[#74767E]">
-                                Select a time slot that works for you
-                            </p>
+                            <h2 className="text-xs font-medium text-[#141B34]">Check availability</h2>
+                            <p className="text-[11px] text-[#74767E]">Select a time slot that works for you</p>
                         </div>
-
                     </div>
-
                 </div>
 
                 <div className="flex items-center justify-between gap-2 lg:px-5">
+                    <Button
+                        size="sm"
+                        color="primary"
+                        radius="sm"
+                        className="h-9 px-5 text-[12px]"
+                        onPress={onBookSession}
+                        isDisabled={isOutOfOffice || (!isSessionsLoading && sessions.length === 0)}
+                    >
+                        {isOutOfOffice ? "Out of Office" : "Book Session"}
+                    </Button>
 
-                    <Button size="sm" color="primary" radius="sm" className="text-[12px] h-9 px-5"
-                        onPress={() => setIsBookSessionOpen(true)}>
-                        Book Session</Button>
-
-                    <div className="inline-flex items-center gap-x-4">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">
-                            <FaXTwitter className="size-4 text-[#74767E]" />
-                        </a>
-                        <a href="http://" target="_blank" rel="noopener noreferrer">
-                            <FaFacebook className="size-4 text-[#74767E]" />
-                        </a>
-                        <a href="http://" target="_blank" rel="noopener noreferrer">
-                            <FaLinkedin className="size-4 text-[#74767E]" />
-                        </a>
-                        <a href="http://" target="_blank" rel="noopener noreferrer">
-                            <FaInstagram className="size-4 text-[#74767E]" />
-                        </a>
-                    </div>
-
+                    {socialEntries.length > 0 && (
+                        <div className="inline-flex items-center gap-x-4">
+                            {socialEntries.map(({ href, icon: Icon }, index) => (
+                                <a
+                                    key={`${href}-${index}`}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <Icon className="size-4 text-[#74767E]" />
+                                </a>
+                            ))}
+                        </div>
+                    )}
                 </div>
-
             </div>
-
-            <MentorSideDrawer
-                isOpen={isBookSessionOpen}
-                onClose={() => setIsBookSessionOpen(false)}
-            />
-
         </div>
     )
 }

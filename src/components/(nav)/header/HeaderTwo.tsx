@@ -8,12 +8,15 @@ import { NAV_LINKS } from '../../../constant'
 import SearchBarTwo from '../../SearchBarTwo'
 import { Bars2Icon } from '@heroicons/react/24/solid'
 import MobileNav from './MobileNav'
+import HeaderAuthActions from './HeaderAuthActions'
+import { useMentorSearchNavigate } from '../../../hooks/useMentorSearchNavigate'
 
-const HIDE_SEARCH_PATHS = ['/explore', '/mentor/:idOrSlug']
+const HIDE_SEARCH_PATHS = ['/explore', '/mentors', '/mentor/:idOrSlug']
 
 const HeaderTwo = () => {
 
     const { pathname } = useLocation()
+    const navigateToMentorSearch = useMentorSearchNavigate()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     const isActive = (href: string) => {
@@ -41,7 +44,11 @@ const HeaderTwo = () => {
                     </Link>
 
                     {!shouldHideSearch && (
-                        <SearchBarTwo className='sm:block hidden' inputClassName="w-80 md:w-96 xl:w-[400px]" />
+                        <SearchBarTwo
+                            className="sm:block hidden"
+                            inputClassName="w-80 md:w-96 xl:w-[400px]"
+                            onSearch={navigateToMentorSearch}
+                        />
                     )}
 
                     <nav className="hidden lg:flex items-center gap-x-16 text-xs">
@@ -60,17 +67,7 @@ const HeaderTwo = () => {
                         </div>
 
                         <div className="flex items-center gap-2 -ml-12">
-
-                            <Button as={Link} to="/login" variant='light' className="text-[12px] h-9 z-10 font-semibold text-[#74767E]"
-                                radius="full">
-                                Sign in
-                            </Button>
-
-                            <Button as={Link} to="/register" variant='bordered' className="border-1 border-[#29282B] text-[12px] h-9 z-10"
-                                radius="full">
-                                Sign up
-                            </Button>
-
+                            <HeaderAuthActions />
                         </div>
 
                     </nav>
