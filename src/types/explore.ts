@@ -3,6 +3,8 @@ import { NextAvailability } from "./mentor"
 export type ExploreCategory = {
     label: string
     value: string
+    type?: string
+    group?: string
 }
 
 export type ExploreCertifiedMentor = {
@@ -34,6 +36,8 @@ export type ExploreMentor = {
 
 export type ExploreSection = {
     title: string
+    type?: string
+    filter_value?: string
     industry: string
     mentor_count: number
     mentors: ExploreMentor[]

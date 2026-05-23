@@ -22,9 +22,7 @@ const ExploreTechSections = ({ section, isLoading = false }: ExploreTechSections
         <div className="space-y-4 rounded-xl border border-[#E4E5E7] bg-white p-5">
             <div className="flex items-center justify-between gap-2">
                 <div className="inline-flex items-center gap-x-1.5">
-                    <h2 className="text-base font-semibold">
-                        {section.industry ? `Explore ${section.title}` : section.title}
-                    </h2>
+                    <h2 className="text-base font-semibold">{section.title}</h2>
                     <ArrowRightIcon className="size-4" />
                 </div>
 

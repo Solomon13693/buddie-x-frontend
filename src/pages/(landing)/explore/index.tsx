@@ -25,7 +25,6 @@ function ExploreView() {
     return (
         <div className="space-y-10 pt-10">
             <div className="container space-y-10">
-                
                 <ExploreCategories />
 
                 <CertifiedByBuddie />
@@ -44,7 +43,7 @@ function ExploreView() {
                         <p className="text-xs text-[#525252]">Most Popular in:</p>
                         <div className="flex flex-wrap items-center justify-center gap-2">
                             {isLoading &&
-                                Array.from({ length: 7 }).map((_, index) => (
+                                Array.from({ length: 5 }).map((_, index) => (
                                     <div
                                         key={`topic-skeleton-${index}`}
                                         className="h-7 w-20 animate-pulse rounded-full border border-[#EBEBEB] bg-gray-100"
@@ -77,7 +76,10 @@ function ExploreView() {
 
                 {!isLoading &&
                     sections.map((section) => (
-                        <ExploreTechSections key={section.industry} section={section} />
+                        <ExploreTechSections
+                            key={`${section.type ?? "topic"}-${section.filter_value ?? section.industry}-${section.title}`}
+                            section={section}
+                        />
                     ))}
 
                 {!isLoading && sections.length === 0 && (
