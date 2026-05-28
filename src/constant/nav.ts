@@ -1,5 +1,6 @@
 export const NAV_LINKS: NavGroup[] = [
     { id: 'home', label: 'Home', href: '/' },
+    { id: 'about', label: 'About', href: '/about' },
     { id: 'explore', label: 'Explore', href: '/explore' },
     { id: 'community', label: 'Community', href: '#' },
 ]

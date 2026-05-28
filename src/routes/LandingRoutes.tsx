@@ -1,9 +1,13 @@
-import { ExploreView, HomeView, MentorDetailsView, MentorsView } from "../pages";
+import { AboutView, ExploreView, HomeView, MentorDetailsView, MentorsView } from "../pages";
 
 export const LandingRoutes = [
     {
         path: "",
         element: <HomeView />
+    },
+    {
+        path: "about",
+        element: <AboutView />
     },
     {
         path: "explore",
