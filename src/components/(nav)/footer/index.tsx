@@ -8,39 +8,50 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 
+type FooterLink = {
+  label: string;
+  href: string;
+};
+
 type FooterSection = {
   title: string;
-  links: string[];
+  links: FooterLink[];
 };
 
 const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Categories",
     links: [
-      "Product Design",
-      "Digital Marketing",
-      "Web Development",
-      "Programming & Tech",
-      "Data & Business Analytics",
-      "Marketing",
+      { label: "Product Design", href: "/explore" },
+      { label: "Digital Marketing", href: "/explore" },
+      { label: "Web Development", href: "/explore" },
+      { label: "Programming & Tech", href: "/explore" },
+      { label: "Data & Business Analytics", href: "/explore" },
+      { label: "Marketing", href: "/explore" },
     ],
   },
   {
-    title: "About",
+    title: "Company",
     links: [
-      "Careers",
-      "Partnerships",
-      "Privacy Policy",
-      "Terms of Service",
+      { label: "About Us", href: "/about" },
+      { label: "Careers", href: "#" },
+      { label: "Partnerships", href: "#" },
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms of Service", href: "#" },
     ],
   },
   {
     title: "Support",
-    links: ["Help & Support"],
+    links: [{ label: "Help & Support", href: "#" }],
   },
   {
     title: "Community",
-    links: ["Community Hub", "Blog", "Affiliates", "Community Standards"],
+    links: [
+      { label: "Community Hub", href: "#" },
+      { label: "Blog", href: "#" },
+      { label: "Affiliates", href: "#" },
+      { label: "Community Standards", href: "#" },
+    ],
   },
 ];
 
@@ -78,8 +89,8 @@ const Footer = () => {
               </h4>
               <div className="grid gap-3 text-xs text-[#5E5F6E]">
                 {section.links.map((link) => (
-                  <Link key={link} to="/" className="transition hover:text-[#74767E]">
-                    {link}
+                  <Link key={link.label} to={link.href} className="transition hover:text-[#74767E]">
+                    {link.label}
                   </Link>
                 ))}
               </div>
