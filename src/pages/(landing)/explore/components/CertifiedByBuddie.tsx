@@ -22,12 +22,11 @@ const CertifiedByBuddie = () => {
             <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
                 <div className="space-y-3 text-center lg:text-left">
                     <h2 className="text-xl font-medium sm:text-2xl">
-                        In-Demand Skills,
-                        <span className="text-primary"> Expert Mentors</span>
+                        Explore,
+                        <span className="text-primary">  In-Demand Expertise</span>
                     </h2>
                     <p className="mx-auto max-w-xl text-xs text-[#74767E] lg:mx-0">
-                        Learn directly from professionals shaping today’s most valuable industries, get
-                        guidance that’s practical, relevant, and immediately applicable.
+                      Find mentors with practical experience across career, technology, business, product, data, and personal growth, and get the guidance, clarity, and support you need to make your next move with confidence.
                     </p>
                 </div>
 
@@ -62,7 +61,7 @@ const CertifiedByBuddie = () => {
                         </div>
                     </div>
 
-                    <p className="text-center text-xs text-[#B5B6BA]">Our amazing mentors, certified by Buddie-X</p>
+                    <p className="text-center text-xs text-[#B5B6BA]">Featured mentors across Buddie-X</p>
                 </div>
             </div>
         </div>
