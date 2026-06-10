@@ -1,33 +1,39 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import { ChevronRightIcon } from "@heroicons/react/24/solid"
 import { Button } from "@heroui/react"
+import {
+    CheckBadgeIcon,
+    GlobeAltIcon,
+    UserGroupIcon,
+    CalendarDaysIcon,
+} from "@heroicons/react/24/outline"
 
 const coreServices = [
     {
-        title: "BA Mock Interview",
-        description: "Practice with experienced Business Analysts",
+        title: " Career Acceleration",
+        description: "Move with confidence into your next role, promotion, or professional chapter",
         points: [
-            "Confidence in technical questions",
-            "STAR method mastery",
-            "Real-time feedback",
+            "Career Direction",
+            "Interview preparation",
+            "Proof of work",
         ],
     },
     {
-        title: "Build a Work Portfolio",
-        description: "Create a compelling professional portfolio",
+        title: "Technology & Digital Growth",
+        description: "Build the confidence and practical know-how to grow in technology, data, and digital roles",
         points: [
-            "Showcase your best work",
-            "Stand out to recruiters",
-            "Professional presentation",
+            "AI, data, and cybersecurity",
+            "Product and digital skills",
+            "Technical career direction",
         ],
     },
     {
-        title: "Fix Your CV for UK Employers",
-        description: "Get your CV professionally reviewed",
+        title: "Business Growth",
+        description: "Shape your idea, sharpen your strategy, and move from thinking to execution.",
         points: [
-            "ATS-optimized format",
-            "UK market standards",
-            "Keyword optimization",
+            "Business strategy",
+            "Idea validation",
+            "Growth planning",
         ],
     },
 ]
@@ -43,8 +49,8 @@ const CoreServices = () => {
                 <div className="space-y-5 relative z-10">
 
                     <div className="space-y-1.5 text-center max-w-md mx-auto">
-                        <h2 className="text-base font-medium text-[#0E0E0E]">Core Services</h2>
-                        <p className="text-base md:text-xl text-[#0E0E0E] font-light leading-7">Everything you need to succeed in your IT career journey</p>
+                        <h2 className="text-base font-medium text-[#0E0E0E]">Mentorship Designed for Your Next Move</h2>
+                        <p className="text-base md:text-xl text-[#0E0E0E] font-light leading-7">Get focused support from experienced mentors across career, technology, business, and personal growth.</p>
                     </div>
 
                     {/* ======================== CORE SERVICES ======================== */}
@@ -92,25 +98,59 @@ const CoreServices = () => {
 
                     {/* ======================== STATS ======================== */}
                     <div className="max-w-5xl mx-auto pt-6">
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8">
-                            {[
-                                { value: "782+", label: "Active Buddies" },
-                                { value: "10,000+", label: "Success Stories" },
-                                { value: "50,000", label: "Success Stories" },
-                                { value: "32%", label: "Average Salary Increase" },
-                            ].map((stat, index) => (
-                                <div key={stat.value}
-                                    className="relative space-y-1.5 flex flex-col items-center justify-center">
-                                    {index > 0 && (
-                                        <span className="hidden lg:block absolute -left-0.5 top-1/2 -translate-y-1/2 w-px h-8 bg-[#FF9900]" />
-                                    )}
-                                    <h2 className="text-xl md:text-2xl font-medium text-[#0E0E0E]">{stat.value}</h2>
-                                    <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light uppercase text-center">
-                                        {stat.label}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
+                       <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10">
+    {[
+        {
+            title: "Verified Mentors",
+            description: "Reviewed for experience and expertise",
+            icon: CheckBadgeIcon,
+        },
+        {
+            title: "Global Access",
+            description: "Connect from wherever you are",
+            icon: GlobeAltIcon,
+        },
+        {
+            title: "Community Support",
+            description: "Learn with mentors and peers",
+            icon: UserGroupIcon,
+        },
+        {
+            title: "Flexible Sessions",
+            description: "Pay only for mentor time",
+            icon: CalendarDaysIcon,
+        },
+    ].map((item, index) => {
+        const Icon = item.icon
+
+        return (
+            <div
+                key={item.title}
+                className="relative space-y-2 flex flex-col items-center justify-center text-center"
+            >
+                {/* vertical divider */}
+                {index > 0 && (
+                    <span className="hidden lg:block absolute -left-0.5 top-1/2 -translate-y-1/2 w-px h-8 bg-[#FF9900]" />
+                )}
+
+                {/* ICON (no background, bigger size) */}
+                <div className="flex items-center justify-center mb-2">
+                    <Icon className="w-10 h-10 text-[#FF9900]" />
+                </div>
+
+                {/* TITLE */}
+                <h2 className="text-base md:text-lg font-medium text-[#0E0E0E]">
+                    {item.title}
+                </h2>
+
+                {/* DESCRIPTION */}
+                <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light">
+                    {item.description}
+                </p>
+            </div>
+        )
+    })}
+</div>
                     </div>
 
                 </div>

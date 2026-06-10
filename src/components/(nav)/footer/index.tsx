@@ -22,18 +22,19 @@ const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Categories",
     links: [
-      { label: "Product Design", href: "/explore" },
-      { label: "Digital Marketing", href: "/explore" },
-      { label: "Web Development", href: "/explore" },
-      { label: "Programming & Tech", href: "/explore" },
-      { label: "Data & Business Analytics", href: "/explore" },
-      { label: "Marketing", href: "/explore" },
+      { label: "Career Growth", href: "/explore" },
+      { label: "Technology", href: "/explore" },
+      { label: "Product", href: "/explore" },
+      { label: "Data", href: "/explore" },
+      { label: "Business Stretegy", href: "/explore" },
+      { label: "Personal Growth", href: "/explore" },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About Us", href: "/about" },
+      { label: "Become a Mentor", href: "#" },
       { label: "Careers", href: "#" },
       { label: "Partnerships", href: "#" },
       { label: "Privacy Policy", href: "#" },
@@ -42,14 +43,19 @@ const FOOTER_SECTIONS: FooterSection[] = [
   },
   {
     title: "Support",
-    links: [{ label: "Help & Support", href: "#" }],
+    links: [
+      { label: "Help Centre", href: "#" },
+      { label: "Contact Us", href: "#" },
+      { label: "Refund Policy", href: "#" },
+      { label: "Trust & Safety", href: "#" }
+    ],
   },
   {
     title: "Community",
     links: [
       { label: "Community Hub", href: "#" },
+      { label: "Ask a Question", href: "#" },
       { label: "Blog", href: "#" },
-      { label: "Affiliates", href: "#" },
       { label: "Community Standards", href: "#" },
     ],
   },

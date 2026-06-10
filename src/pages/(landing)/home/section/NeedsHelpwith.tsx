@@ -58,9 +58,9 @@ const NeedsHelpwith = () => {
     return (
         <div className="container mx-auto max-w-2xl space-y-6">
             <div className="space-y-1.5 text-center">
-                <h2 className="text-xl font-semibold text-[#141B34]">What Do You Need Help With?</h2>
+                <h2 className="text-xl font-semibold text-[#141B34]">Find the Right Mentor Faster</h2>
                 <p className="text-xs text-[#29282B]">
-                    We offer a wide range of services to help you achieve your goals.
+                    Answer a few quick questions and we’ll help match you with mentors who fit your goals.
                 </p>
             </div>
 

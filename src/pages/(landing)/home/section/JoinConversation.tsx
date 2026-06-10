@@ -40,8 +40,8 @@ const JoinConversation = () => {
                             Join the Conversation
                         </h2>
                         <p className="text-sm text-[#404145]">
-                            Connect with like-minded professionals, ask questions, and
-                            learn from experienced buddies in our thriving community.
+                            Ask questions, exchange insights, learn from mentors and connect with peers across career, 
+                            technology, business, and personal growth.
                         </p>
                     </div>
 

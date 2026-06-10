@@ -2,7 +2,7 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { Button } from "@heroui/react";
 import { Link } from "react-router-dom";
 
-const highlights = ["Real mentors", "Real skills", "Real growth."];
+const highlights = ["Zero subscription", "Pay only for mentor time", "Join a thriving community"];
 
 const LearnDirectly = () => {
     return (
@@ -23,7 +23,7 @@ const LearnDirectly = () => {
                 <div className="container max-w-xl space-y-6">
 
                     <h2 className="text-2xl md:text-3xl text-[#FFFFFF]">
-                        Learn directly from experienced professionals who guide you step-by-step.
+                        Access global expertise and move forward with confidence.
                     </h2>
 
                     <Button as={Link} to="/register" className="text-xs" color="primary" radius="sm">

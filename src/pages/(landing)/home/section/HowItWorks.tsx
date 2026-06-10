@@ -6,27 +6,27 @@ const HowItWorks = () => {
     const steps = [
         {
             id: "01",
-            title: "Tell Us Your Goals",
+            title: "Share Your Goal",
             description:
-                "Share what you need help with through our quick assessment and connect instantly with a mentor.",
+                "Tell us what you want to achieve, where you need clarity, and the kind of support you’re looking for",
         },
         {
             id: "02",
             title: "Get Matched",
             description:
-                "Our AI recommends the perfect buddy for your specific challenge in seconds.",
+                "Discover mentors aligned to your goals, pathway, experience level, and preferred support style.",
         },
         {
             id: "03",
-            title: "Book & Prepare",
+            title: "Book Your Session",
             description:
-                "Schedule your session and fill out the pre-session form. No awkward Zoom links or calendar juggling.",
+                "Choose a time that works, share context in advance, and meet your mentor 1-on-1..",
         },
         {
             id: "04",
-            title: "Achieve Results",
+            title: "Move Farward",
             description:
-                "Get actionable deliverables and follow-up recommendations to keep your progress moving.",
+                "Leave with practical insight, clear next steps, and confidence to succeed.",
         },
     ]
 
@@ -46,7 +46,7 @@ const HowItWorks = () => {
                         How It Works
                     </h2>
                     <p className="text-sm font-light">
-                        Your journey to career success in 4 simple steps
+                        From goal to guidance in four simple steps
                     </p>
                 </div>
 
