@@ -1,33 +1,33 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
-import { ChevronRightIcon } from "@heroicons/react/24/solid"
+import { ArrowTrendingUpIcon, ChevronRightIcon, GlobeAltIcon, ShieldCheckIcon, TrophyIcon } from "@heroicons/react/24/solid"
 import { Button } from "@heroui/react"
 
 const coreServices = [
     {
-        title: "BA Mock Interview",
-        description: "Practice with experienced Business Analysts",
+        title: "Why We Exist",
+        description: "Big decisions should never be made alone. Buddie-X connects you with mentors, experts, and communities that help you move forward.",
         points: [
-            "Confidence in technical questions",
-            "STAR method mastery",
-            "Real-time feedback",
+            "Access to real guidance",
+            "Clarity for important decisions",
+            "Support beyond your network",
         ],
     },
     {
-        title: "Build a Work Portfolio",
-        description: "Create a compelling professional portfolio",
+        title: "Who We Support",
+        description: "Buddie-X is built for those seeking clarity, growth, and direction. Whether you're a career changer, professional, founder, student, entrepreneur, or lifelong learner.",
         points: [
-            "Showcase your best work",
-            "Stand out to recruiters",
-            "Professional presentation",
+            "Career changers",
+            "Professionals and founders",
+            "Students and lifelong learners",
         ],
     },
     {
-        title: "Fix Your CV for UK Employers",
-        description: "Get your CV professionally reviewed",
+        title: "How We Help",
+        description: "We connect people with trusted mentors, community insight, and real conversations. Turning uncertainty into clarity, decisions, and next steps.",
         points: [
-            "ATS-optimized format",
-            "UK market standards",
-            "Keyword optimization",
+            "1:1 mentorship",
+            "Community questions",
+            "Practical next steps",
         ],
     },
 ]
@@ -43,8 +43,8 @@ const CoreServices = () => {
                 <div className="space-y-5 relative z-10">
 
                     <div className="space-y-1.5 text-center max-w-md mx-auto">
-                        <h2 className="text-base font-medium text-[#0E0E0E]">Core Services</h2>
-                        <p className="text-base md:text-xl text-[#0E0E0E] font-light leading-7">Everything you need to succeed in your IT career journey</p>
+                        <h2 className="text-base font-medium text-[#0E0E0E]">Our Purpose</h2>
+                        <p className="text-base md:text-xl text-[#0E0E0E] font-light leading-7">Built for People Making Their Next Move</p>
                     </div>
 
                     {/* ======================== CORE SERVICES ======================== */}
@@ -94,18 +94,21 @@ const CoreServices = () => {
                     <div className="max-w-5xl mx-auto pt-6">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8">
                             {[
-                                { value: "782+", label: "Active Buddies" },
-                                { value: "10,000+", label: "Success Stories" },
-                                { value: "50,000", label: "Success Stories" },
-                                { value: "32%", label: "Average Salary Increase" },
+                                { value: "Verified Mentors", label: "Reviewed for experience", icon: <ShieldCheckIcon className="size-6 text-primary" /> },
+                                { value: "Global Access", label: "Connect from wherever you are", icon: <GlobeAltIcon className="size-6 text-primary" /> },
+                                { value: "Community Support", label: "Ask questions before you book", icon: <TrophyIcon className="size-6 text-primary" /> },
+                                { value: "Flexible sessions", label: "Pay only for mentor time", icon: <ArrowTrendingUpIcon className="size-6 text-primary" /> },
                             ].map((stat, index) => (
                                 <div key={stat.value}
                                     className="relative space-y-1.5 flex flex-col items-center justify-center">
                                     {index > 0 && (
                                         <span className="hidden lg:block absolute -left-0.5 top-1/2 -translate-y-1/2 w-px h-8 bg-[#FF9900]" />
                                     )}
-                                    <h2 className="text-xl md:text-2xl font-medium text-[#0E0E0E]">{stat.value}</h2>
-                                    <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light uppercase text-center">
+                                    <span className="flex size-10 items-center justify-center rounded-xl bg-[#E8E4D4]">
+                                        {stat.icon}
+                                    </span>
+                                    <h2 className="text-base md:text-lg font-medium text-[#0E0E0E]">{stat.value}</h2>
+                                    <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light text-center">
                                         {stat.label}
                                     </p>
                                 </div>
