@@ -32,21 +32,21 @@ const SuccessStory = () => {
             role: "Data Analyst",
             avatar: "https://i.pravatar.cc/150?img=23",
             content:
-                "After one mentorship cycle, I improved my portfolio case studies and landed three interview invitations within two weeks.",
+                "After one mentorship cycle, I improved my portfolio case studies and secured three interview invitations within two weeks.",
         },
         {
             name: "Chika Eze",
             role: "Frontend Engineer",
             avatar: "https://i.pravatar.cc/150?img=31",
             content:
-                "The guidance helped me structure my learning roadmap, prepare for technical interviews, and confidently switch into tech.",
+                "My mentor helped me structure my learning roadmap, prepare for technical interviews, and transition into tech with confidence",
         },
         {
             name: "Mohammed Bello",
             role: "Cybersecurity Analyst",
             avatar: "https://i.pravatar.cc/150?img=48",
             content:
-                "My mentor gave practical feedback on my CV and projects, and I got clear next steps that improved my applications immediately.",
+                "My mentor gave practical feedback on my CV and projects, helping me improve my applications and take clearer next steps",
         },
     ]
 

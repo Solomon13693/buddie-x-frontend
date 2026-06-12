@@ -28,22 +28,22 @@ const HeroBanner = () => {
 
                             <Chip className="border-1 border-black/15 text-[#0E0E0E] text-xs"
                                 variant="bordered" size="md">
-                                Learn with guidance. Achieve with confidence.
+                                Access expertise. Gain clarity. Move forward.
                             </Chip>
 
                             <h2 className="text-3xl lg:text-4xl font-medium text-[#141B34] leading-tight">
-                                Unlock Your Potential with 1-on-1 <span className="text-primary">Mentorship</span>
+                                Find the Right Mentor for Your Next <span className="text-primary">Big Move</span>
                             </h2>
 
                             <p className="text-sm text-[#29282B]">
-                                Connect with world-class mentors in tech, design, and more. Take transformative courses, and join a thriving community of learners and professionals.
+                                 Buddie-X connects you with trusted mentors across business, technology, careers, education, and personal development, helping you access real expertise, gain clarity, and make your next move with confidence.
                             </p>
 
                             <div className="flex items-center flex-wrap gap-3 pt-5">
 
                                 <Button as={Link} to="/mentors" className="text-xs" color="primary"
                                     radius="sm">
-                                    Find a Mentor
+                                    Find your Mentor
                                 </Button>
 
                                 <Button as={Link} to="/register" className="border-1 border-[#FFB33E] text-xs text-[#0E0E0E]" variant="bordered" color="primary"
@@ -107,22 +107,34 @@ const HeroBanner = () => {
                     <div className="pointer-events-none">
 
                         <motion.div
-                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs absolute top-20 left-12 md:-left-8 shadow-[4px_4px_58px_0px_#0000001F]"
+                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs 
+                            absolute top-20 left-12 md:-left-8 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, -8, 0] }}
                             transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}>
                             <img src="/img/home/face-id.svg" alt="Face ID" width={24}
                                 height={24} className="size-4" />
-                            <span>IT Experts</span>
+                            <span>Tech Experts</span>
                         </motion.div>
 
                         <motion.div
                             className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs 
-                            absolute top-10 sm:top-52 xl:right-40 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
+                            absolute top-10 sm:top-52 xl:right-10 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, 8, 0] }}
                             transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
                             <img src="/img/home/image-download.svg" alt="Face ID" width={24}
                                 height={24} className="size-4" />
-                            <span>Monitor</span>
+                            <span>Personal Growth Mentors</span>
+                        </motion.div>
+
+
+                        <motion.div
+                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs 
+                            absolute top-20 sm:top-19 xl:right-10 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
+                            animate={{ y: [0, 8, 0] }}
+                            transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
+                            <img src="/img/home/image-download.svg" alt="Face ID" width={24}
+                                height={24} className="size-4" />
+                            <span>Growth Mentors</span>
                         </motion.div>
 
                     </div>
