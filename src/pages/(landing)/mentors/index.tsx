@@ -61,6 +61,7 @@ const MentorsView = () => {
     return (
         <div className="container space-y-10 pt-10">
             <div className="grid min-h-0 grid-cols-1 items-start gap-x-6 gap-y-10 lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr]">
+                
                 <MentorsFilterSidebar />
 
                 <div className={isFullCatalog ? "min-w-0" : "min-w-0 space-y-3"}>

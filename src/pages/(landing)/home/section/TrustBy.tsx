@@ -1,16 +1,14 @@
 const TrustBy = () => {
 
-    const brands = [1, 2, 3, 4, 5, 6, 7]
-
     return (
         <div className="container flex flex-col items-center justify-center space-y-6">
 
             <h2 className="text-sm md:text-sm text-[#141B34] font-light text-center leading-7">
-                Mentors with  <span className="font-medium">experience </span>{' '} 
+                Mentors with  <span className="font-medium">experience </span>{' '}
                 across leading organisations
             </h2>
 
-           {/* 
+            {/* 
 <div className="flex items-center gap-x-16 gap-y-4 flex-wrap justify-center">
     {brands.map((brand) => (
         <div key={brand} className="md:w-20 w-14 h-10 flex items-center justify-center">
@@ -20,14 +18,14 @@ const TrustBy = () => {
 </div>
 */}
 
-<div className="flex items-center gap-x-16 gap-y-4 flex-wrap justify-center text-lg md:text-xl font-semibold text-gray-700">
-    <span>NHS</span>
-    <span>Microsoft</span>
-    <span>Shell</span>
-    <span>Deloitte</span>
-    <span>Barclays</span>
-    <span>PwC</span>
-</div>
+            <div className="flex items-center gap-x-16 gap-y-4 flex-wrap justify-center text-lg md:text-xl font-semibold text-gray-700">
+                <span>NHS</span>
+                <span>Microsoft</span>
+                <span>Shell</span>
+                <span>Deloitte</span>
+                <span>Barclays</span>
+                <span>PwC</span>
+            </div>
 
         </div>
     )

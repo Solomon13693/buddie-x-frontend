@@ -53,9 +53,9 @@ const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Community",
     links: [
-      { label: "Community Hub", href: "#" },
+      { label: "Community Hub", href: "/community" },
       { label: "Ask a Question", href: "#" },
-      { label: "Blog", href: "#" },
+      { label: "Blog", href: "/blog" },
       { label: "Community Standards", href: "#" },
     ],
   },

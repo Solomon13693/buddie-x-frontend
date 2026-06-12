@@ -1,4 +1,4 @@
-import { AboutView, ExploreView, HomeView, MentorDetailsView, MentorsView } from "../pages";
+import { AboutView, BlogListView, BlogView, CommunityView, ExploreView, HomeView, MentorDetailsView, MentorsView } from "../pages";
 
 export const LandingRoutes = [
     {
@@ -8,6 +8,18 @@ export const LandingRoutes = [
     {
         path: "about",
         element: <AboutView />
+    },
+    {
+        path: "community",
+        element: <CommunityView />
+    },
+    {
+        path: "blog",
+        element: <BlogListView />
+    },
+    {
+        path: "blog/:slug",
+        element: <BlogView />
     },
     {
         path: "explore",
