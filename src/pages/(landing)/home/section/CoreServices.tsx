@@ -1,39 +1,39 @@
-import { CheckCircleIcon } from "@heroicons/react/24/outline"
-import { ChevronRightIcon } from "@heroicons/react/24/solid"
-import { Button } from "@heroui/react"
 import {
+    CheckCircleIcon,
     CheckBadgeIcon,
     GlobeAltIcon,
     UserGroupIcon,
     CalendarDaysIcon,
 } from "@heroicons/react/24/outline"
+import { ChevronRightIcon } from "@heroicons/react/24/solid"
+import { Button } from "@heroui/react"
 
 const coreServices = [
     {
-        title: " Career Acceleration",
-        description: "Move with confidence into your next role, promotion, or professional chapter",
+        title: "Why We Exist",
+        description: "Big decisions should never be made alone. Buddie-X connects you with mentors, experts, and communities that help you move forward.",
         points: [
-            "Career Direction",
-            "Interview preparation",
-            "Proof of work",
+            "Access to real guidance",
+            "Clarity for important decisions",
+            "Support beyond your network",
         ],
     },
     {
-        title: "Technology & Digital Growth",
-        description: "Build the confidence and practical know-how to grow in technology, data, and digital roles",
+        title: "Who We Support",
+        description: "Buddie-X is built for those seeking clarity, growth, and direction. Whether you're a career changer, professional, founder, student, entrepreneur, or lifelong learner.",
         points: [
-            "AI, data, and cybersecurity",
-            "Product and digital skills",
-            "Technical career direction",
+            "Career changers",
+            "Professionals and founders",
+            "Students and lifelong learners",
         ],
     },
     {
-        title: "Business Growth",
-        description: "Shape your idea, sharpen your strategy, and move from thinking to execution.",
+        title: "How We Help",
+        description: "We connect people with trusted mentors, community insight, and real conversations. Turning uncertainty into clarity, decisions, and next steps.",
         points: [
-            "Business strategy",
-            "Idea validation",
-            "Growth planning",
+            "1:1 mentorship",
+            "Community questions",
+            "Practical next steps",
         ],
     },
 ]
@@ -49,8 +49,8 @@ const CoreServices = () => {
                 <div className="space-y-5 relative z-10">
 
                     <div className="space-y-1.5 text-center max-w-md mx-auto">
-                        <h2 className="text-base font-medium text-[#0E0E0E]">Mentorship Designed for Your Next Move</h2>
-                        <p className="text-base md:text-xl text-[#0E0E0E] font-light leading-7">Get focused support from experienced mentors across career, technology, business, and personal growth.</p>
+                        <h2 className="text-base font-medium text-[#0E0E0E]">Our Purpose</h2>
+                        <p className="text-base md:text-xl text-[#0E0E0E] font-light leading-7">Built for People Making Their Next Move</p>
                     </div>
 
                     {/* ======================== CORE SERVICES ======================== */}
@@ -98,59 +98,55 @@ const CoreServices = () => {
 
                     {/* ======================== STATS ======================== */}
                     <div className="max-w-5xl mx-auto pt-6">
-                       <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10">
-    {[
-        {
-            title: "Verified Mentors",
-            description: "Reviewed for experience and expertise",
-            icon: CheckBadgeIcon,
-        },
-        {
-            title: "Global Access",
-            description: "Connect from wherever you are",
-            icon: GlobeAltIcon,
-        },
-        {
-            title: "Community Support",
-            description: "Learn with mentors and peers",
-            icon: UserGroupIcon,
-        },
-        {
-            title: "Flexible Sessions",
-            description: "Pay only for mentor time",
-            icon: CalendarDaysIcon,
-        },
-    ].map((item, index) => {
-        const Icon = item.icon
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10">
+                            {[
+                                {
+                                    title: "Verified Mentors",
+                                    description: "Reviewed for experience",
+                                    icon: CheckBadgeIcon,
+                                },
+                                {
+                                    title: "Global Access",
+                                    description: "Connect from wherever you are",
+                                    icon: GlobeAltIcon,
+                                },
+                                {
+                                    title: "Community Support",
+                                    description: "Ask questions before you book",
+                                    icon: UserGroupIcon,
+                                },
+                                {
+                                    title: "Flexible sessions",
+                                    description: "Pay only for mentor time",
+                                    icon: CalendarDaysIcon,
+                                },
+                            ].map((item, index) => {
+                                const Icon = item.icon
 
-        return (
-            <div
-                key={item.title}
-                className="relative space-y-2 flex flex-col items-center justify-center text-center"
-            >
-                {/* vertical divider */}
-                {index > 0 && (
-                    <span className="hidden lg:block absolute -left-0.5 top-1/2 -translate-y-1/2 w-px h-8 bg-[#FF9900]" />
-                )}
+                                return (
+                                    <div
+                                        key={item.title}
+                                        className="relative space-y-2 flex flex-col items-center justify-center text-center"
+                                    >
+                                        {index > 0 && (
+                                            <span className="hidden lg:block absolute -left-0.5 top-1/2 -translate-y-1/2 w-px h-8 bg-[#FF9900]" />
+                                        )}
 
-                {/* ICON (no background, bigger size) */}
-                <div className="flex items-center justify-center mb-2">
-                    <Icon className="w-10 h-10 text-[#FF9900]" />
-                </div>
+                                        <div className="flex items-center justify-center mb-2">
+                                            <Icon className="w-10 h-10 text-[#FF9900]" />
+                                        </div>
 
-                {/* TITLE */}
-                <h2 className="text-base md:text-lg font-medium text-[#0E0E0E]">
-                    {item.title}
-                </h2>
+                                        <h2 className="text-base md:text-lg font-medium text-[#0E0E0E]">
+                                            {item.title}
+                                        </h2>
 
-                {/* DESCRIPTION */}
-                <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light">
-                    {item.description}
-                </p>
-            </div>
-        )
-    })}
-</div>
+                                        <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light">
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
 
                 </div>
