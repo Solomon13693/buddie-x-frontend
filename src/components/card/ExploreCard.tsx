@@ -43,7 +43,7 @@ const ExploreCard = ({ mentor }: ExploreCardProps) => {
 
                 <div className="space-y-1">
                     <h2 className="text-sm font-semibold">{mentor.name}</h2>
-                    {subtitle && <p className="text-xs text-[#676767] line-clamp-1">{subtitle}</p>}
+                    {subtitle && <p className="text-xs text-[#090604] line-clamp-1">{subtitle}</p>}
                     {mentor.session_summary && (
                         <p className="pt-1 text-[11px] leading-5 text-[#676767] line-clamp-2">
                             {mentor.session_summary}
@@ -98,7 +98,9 @@ const ExploreCard = ({ mentor }: ExploreCardProps) => {
                 </div>
 
                 <div className="inline-flex items-end gap-x-1">
-                    <h2 className="text-lg font-medium">
+                    <span className="pb-1.5 text-[11px] text-[#2b2b2b9a]">From</span>
+
+                    <h2 className="text-lg font-medium"> 
                         {mentor.starting_price != null ? formatCurrency(mentor.starting_price) : "—"}
                     </h2>
                     <span className="pb-1.5 text-[11px] text-[#2b2b2b9a]">Per session</span>
@@ -109,3 +111,4 @@ const ExploreCard = ({ mentor }: ExploreCardProps) => {
 }
 
 export default ExploreCard
+                
