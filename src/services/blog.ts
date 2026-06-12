@@ -13,7 +13,6 @@ type BlogListParams = {
     page?: number;
     perPage?: number;
     search?: string;
-    category?: string;
     sortBy?: 'newest' | 'oldest';
     excludeSlug?: string;
 };

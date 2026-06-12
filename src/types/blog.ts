@@ -1,10 +1,3 @@
-export type BlogCategoryApi = {
-    id: string;
-    name: string;
-    slug: string;
-    is_active?: boolean;
-};
-
 export type BlogAuthorApi = {
     id: string;
     fullname?: string;
@@ -23,7 +16,6 @@ export type BlogPostApi = {
     is_featured?: boolean;
     views?: number;
     read_time?: string;
-    category?: BlogCategoryApi | null;
     created_by?: BlogAuthorApi | null;
     created_at?: string;
     updated_at?: string;
