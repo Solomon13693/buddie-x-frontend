@@ -15,7 +15,7 @@ interface SearchBarTwoProps {
 const SearchBarTwo = ({
     className,
     inputClassName,
-    placeholder = "Search mentors, courses, topics...",
+    placeholder = "Search..",
     defaultValue = "",
     onSearch,
     onClear,

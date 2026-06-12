@@ -1,5 +1,11 @@
-import { CheckCircleIcon } from "@heroicons/react/24/outline"
-import { ArrowTrendingUpIcon, ChevronRightIcon, GlobeAltIcon, ShieldCheckIcon, TrophyIcon } from "@heroicons/react/24/solid"
+import {
+    CheckCircleIcon,
+    CheckBadgeIcon,
+    GlobeAltIcon,
+    UserGroupIcon,
+    CalendarDaysIcon,
+} from "@heroicons/react/24/outline"
+import { ChevronRightIcon } from "@heroicons/react/24/solid"
 import { Button } from "@heroui/react"
 
 const coreServices = [
@@ -92,27 +98,54 @@ const CoreServices = () => {
 
                     {/* ======================== STATS ======================== */}
                     <div className="max-w-5xl mx-auto pt-6">
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10">
                             {[
-                                { value: "Verified Mentors", label: "Reviewed for experience", icon: <ShieldCheckIcon className="size-6 text-primary" /> },
-                                { value: "Global Access", label: "Connect from wherever you are", icon: <GlobeAltIcon className="size-6 text-primary" /> },
-                                { value: "Community Support", label: "Ask questions before you book", icon: <TrophyIcon className="size-6 text-primary" /> },
-                                { value: "Flexible sessions", label: "Pay only for mentor time", icon: <ArrowTrendingUpIcon className="size-6 text-primary" /> },
-                            ].map((stat, index) => (
-                                <div key={stat.value}
-                                    className="relative space-y-1.5 flex flex-col items-center justify-center">
-                                    {index > 0 && (
-                                        <span className="hidden lg:block absolute -left-0.5 top-1/2 -translate-y-1/2 w-px h-8 bg-[#FF9900]" />
-                                    )}
-                                    <span className="flex size-10 items-center justify-center rounded-xl bg-[#E8E4D4]">
-                                        {stat.icon}
-                                    </span>
-                                    <h2 className="text-base md:text-lg font-medium text-[#0E0E0E]">{stat.value}</h2>
-                                    <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light text-center">
-                                        {stat.label}
-                                    </p>
-                                </div>
-                            ))}
+                                {
+                                    title: "Verified Mentors",
+                                    description: "Reviewed for experience",
+                                    icon: CheckBadgeIcon,
+                                },
+                                {
+                                    title: "Global Access",
+                                    description: "Connect from wherever you are",
+                                    icon: GlobeAltIcon,
+                                },
+                                {
+                                    title: "Community Support",
+                                    description: "Ask questions before you book",
+                                    icon: UserGroupIcon,
+                                },
+                                {
+                                    title: "Flexible sessions",
+                                    description: "Pay only for mentor time",
+                                    icon: CalendarDaysIcon,
+                                },
+                            ].map((item, index) => {
+                                const Icon = item.icon
+
+                                return (
+                                    <div
+                                        key={item.title}
+                                        className="relative space-y-2 flex flex-col items-center justify-center text-center"
+                                    >
+                                        {index > 0 && (
+                                            <span className="hidden lg:block absolute -left-0.5 top-1/2 -translate-y-1/2 w-px h-8 bg-[#FF9900]" />
+                                        )}
+
+                                        <div className="flex items-center justify-center mb-2">
+                                            <Icon className="w-10 h-10 text-[#FF9900]" />
+                                        </div>
+
+                                        <h2 className="text-base md:text-lg font-medium text-[#0E0E0E]">
+                                            {item.title}
+                                        </h2>
+
+                                        <p className="text-[11px] sm:text-xs text-[#0E0E0E] font-light">
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
 

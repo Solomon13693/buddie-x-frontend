@@ -16,8 +16,8 @@ const PopularITRoles = () => {
             <div className="relative container space-y-8 z-10">
 
                 <div className="space-y-0.5">
-                    <h2 className="text-xl font-medium text-[#0E0E0E]">Popular IT Roles</h2>
-                    <p className="text-sm text-[#404145] font-light">Find buddies specialized in your target role</p>
+                    <h2 className="text-xl font-medium text-[#0E0E0E]">High-Growth Technology Pathways</h2>
+                    <p className="text-sm text-[#404145] font-light">Find mentors who can help you build clarity, capability, and confidence across in-demand digital fields</p>
                 </div>
 
                 <div className="overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent w-full">
@@ -36,7 +36,7 @@ const PopularITRoles = () => {
                         {popularRoles.map((role, index) => (
                             <PopularITCard
                                 key={role.id || role.name}
-                                title={`Find ${role.mentor_count || 0} Buddies Specialized in ${role.name}`}
+                                title={role.mentor_count && role.mentor_count > 0 ? `Find ${role.mentor_count} Buddies Specialized in ${role.name}` : `Find Buddies in ${role.name}`}
                                 description={role.description || `Learn from mentors specialized in ${role.name}.`}
                                 image={role.image || `/img/home/popular-it/${(index % 5) + 1}.png`}
                                 href={`/explore?industry=${encodeURIComponent(role.name || "")}`}
@@ -45,9 +45,7 @@ const PopularITRoles = () => {
                         <div className="w-5 lg:w-14 shrink-0" aria-hidden="true" />
                     </div>
                 </div>
-
             </div>
-
         </div>
     )
 }
