@@ -6,6 +6,7 @@ import AboutView from "./about";
 import CommunityView from "./community";
 import BlogView from "./blog";
 import BlogListView from "./blog/BlogListView";
+import ContactView from "./contact";
 
 export {
     HomeView,
@@ -16,4 +17,5 @@ export {
     ExploreView,
     MentorsView,
     MentorDetailsView,
+    ContactView,
 }

@@ -91,7 +91,7 @@ const HeroBanner = () => {
 
                     </div>
 
-                    <div className="absolute right-10 xl:right-24 2xl:right-40 top-1/2 
+                    <div className="absolute right-10 xl:right-24 2xl:right-40 top-1/2
                     -translate-y-1/2 z-20 flex flex-col gap-3">
                         {heroImages.map((image, index) => (
                             <button key={image} type="button" aria-label={`Go to hero slide ${index + 1}`} onClick={() => setCurrentImageIndex(index)} className={`size-2 rounded-full transition-colors duration-300 cursor-pointer ${currentImageIndex === index ? "bg-[#FFDEC8]" : "bg-[#FFB33E]"}`}
@@ -107,7 +107,7 @@ const HeroBanner = () => {
                     <div className="pointer-events-none">
 
                         <motion.div
-                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs 
+                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs
                             absolute top-20 left-12 md:-left-8 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, -8, 0] }}
                             transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}>
@@ -117,7 +117,7 @@ const HeroBanner = () => {
                         </motion.div>
 
                         <motion.div
-                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs 
+                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs
                             absolute top-10 sm:top-52 xl:right-10 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, 8, 0] }}
                             transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
@@ -128,7 +128,7 @@ const HeroBanner = () => {
 
 
                         <motion.div
-                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs 
+                            className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs
                             absolute top-20 sm:top-19 xl:right-10 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, 8, 0] }}
                             transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>

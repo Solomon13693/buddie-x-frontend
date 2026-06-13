@@ -6,45 +6,25 @@ import { AnimatePresence, motion } from "framer-motion"
 const SuccessStory = () => {
 
     const testimonials = [
-        {
-            name: "Brigina Patton",
-            role: "Product Manager",
-            avatar: "https://avatars.githubusercontent.com/u/30373425?v=4",
-            content:
-                "Sed mattis est eget penatibus mauris, sed condimentum vitae viverra. Ipsum ut aliquet et morbi ac in. Lacinia mattis eget nisl pellentesque non, porttitor. Vitae et vestibulum ac id. Dui aliquet porttitor libero consequat volutpat eget sed turpis. Feugiat maecenas commodo et morbi morbi gravida.",
-        },
-        {
-            name: "Imelda Cowen",
-            role: "Product Consultant",
-            avatar: "https://i.pravatar.cc/150?img=5",
-            content:
-                "Sapien praesent tristique iaculis amet sit, odio pellentesque. Sit nulla pretium amet, fames aenean. Nascetur augue vulputate sed pretium pretium scelerisque amet facilisis ut pulvinar morbi a egestas. Vel vulputate dolor nisl in non.",
-        },
-        {
-            name: "Alfred Walton",
-            role: "Developer",
-            avatar: "https://i.pravatar.cc/150?img=12",
-            content:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra bibendum feugiat diam egestas ornare quisque tincidunt. Ipsum tortor, pretium lectus urna felis condimentum cursus at. Platea a, pulvinar lacinia id. Augue tortor nunc, ultrices nam in augue a.",
-        },
+       
         {
             name: "Temi Ajayi",
             role: "Data Analyst",
-            avatar: "https://i.pravatar.cc/150?img=23",
+            avatar: "",
             content:
                 "After one mentorship cycle, I improved my portfolio case studies and secured three interview invitations within two weeks.",
         },
         {
             name: "Chika Eze",
             role: "Frontend Engineer",
-            avatar: "https://i.pravatar.cc/150?img=31",
+            avatar: "",
             content:
                 "My mentor helped me structure my learning roadmap, prepare for technical interviews, and transition into tech with confidence",
         },
         {
             name: "Mohammed Bello",
             role: "Cybersecurity Analyst",
-            avatar: "https://i.pravatar.cc/150?img=48",
+            avatar: "",
             content:
                 "My mentor gave practical feedback on my CV and projects, helping me improve my applications and take clearer next steps",
         },

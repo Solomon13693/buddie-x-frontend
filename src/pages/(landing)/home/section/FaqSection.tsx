@@ -1,5 +1,6 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline"
 import { Accordion, AccordionItem } from "@heroui/react"
+import { Link } from "react-router-dom"
 
 const FaqSection = () => {
 
@@ -82,7 +83,7 @@ const FaqSection = () => {
                 <h2 className="text-sm font-medium">I’ve got more questions!</h2>
                 <p className="text-xs">
                     Still have questions?
-                    We can’t wait to hear them. <span className="text-primary">Chat with</span> us or <span className="text-primary">drop us a message</span> any time.
+                    We can’t wait to hear them. <span className="text-primary">Chat with</span> us or <Link to="/contact" className="text-primary hover:underline underline-offset-2">drop us a message</Link> any time.
                 </p>
             </div>
 
