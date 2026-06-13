@@ -1,44 +1,25 @@
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline"
-import { ArrowRightIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid"
-import { useRef, useState } from "react"
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid"
+import { useState } from "react"
+import { Form, Formik } from "formik"
+import toast from "react-hot-toast"
 import { GradientHeroBanner } from "../components"
-
-const MAX_CHARS = 500
-
-const fieldBase = "w-full bg-transparent px-4 py-3 text-sm text-neutral-800 placeholder:text-neutral-400 outline-none transition-all duration-300"
-const labelBase = "block text-[11px] font-medium text-neutral-400 uppercase tracking-widest mb-1.5 transition-colors duration-200"
+import { CustomInput, CustomPhoneInput, TextArea } from "../../../components/form"
+import { Button } from "../../../components/ui"
+import { submitContactForm } from "../../../services"
+import { contactSchema } from "../../../utils/schema"
+import { getErrorMessage } from "../../../utils"
 
 const ContactView = () => {
-    const [message, setMessage] = useState("")
-    const [focused, setFocused] = useState<string | null>(null)
     const [sent, setSent] = useState(false)
-    const [sending, setSending] = useState(false)
-    const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-    const charsLeft = MAX_CHARS - message.length
-    const isNearLimit = charsLeft <= 80
-    const isAtLimit = charsLeft <= 0
-
-    const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        if (e.target.value.length > MAX_CHARS) return
-        setMessage(e.target.value)
-        if (textareaRef.current) {
-            textareaRef.current.style.height = "auto"
-            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
-        }
+    const initialValues = {
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
     }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        setSending(true)
-        setTimeout(() => {
-            setSending(false)
-            setSent(true)
-        }, 1800)
-    }
-
-    const rounded = (name: string) =>
-        `rounded-2xl border transition-all duration-300 ${focused === name ? "border-primary shadow-[0px_0px_0px_3px_#FF6F0015]" : "border-[#D1D5DB]"}`
 
     return (
         <div className="space-y-20">
@@ -71,7 +52,7 @@ const ContactView = () => {
 
                         <div className="space-y-5">
                             <div className="flex items-center gap-4">
-                                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#E8E4D4]">
+                                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                                     <EnvelopeIcon className="size-5 text-primary" />
                                 </span>
                                 <div>
@@ -81,7 +62,7 @@ const ContactView = () => {
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#E8E4D4]">
+                                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                                     <PhoneIcon className="size-5 text-primary" />
                                 </span>
                                 <div>
@@ -103,88 +84,78 @@ const ContactView = () => {
                                 <p className="text-sm text-neutral-500">We'll get back to you as soon as possible.</p>
                             </div>
                             <button
-                                onClick={() => { setSent(false); setMessage("") }}
+                                onClick={() => setSent(false)}
                                 className="text-xs text-primary underline underline-offset-4"
                             >
                                 Send another message
                             </button>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                <div>
-                                    <label className={`${labelBase} ${focused === "first" ? "text-primary" : ""}`}>First name</label>
-                                    <div className={rounded("first")}>
-                                        <input className={fieldBase} placeholder="John" onFocus={() => setFocused("first")} onBlur={() => setFocused(null)} />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label className={`${labelBase} ${focused === "last" ? "text-primary" : ""}`}>Last name</label>
-                                    <div className={rounded("last")}>
-                                        <input className={fieldBase} placeholder="Doe" onFocus={() => setFocused("last")} onBlur={() => setFocused(null)} />
-                                    </div>
-                                </div>
-                            </div>
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={contactSchema}
+                            enableReinitialize
+                            onSubmit={async (values, { resetForm }) => {
+                                try {
+                                    await submitContactForm(values)
+                                    resetForm()
+                                    setSent(true)
+                                } catch (error) {
+                                    toast.error(getErrorMessage(error))
+                                }
+                            }}
+                        >
+                            {({ isSubmitting }) => (
+                                <Form className="space-y-4" autoComplete="off">
 
-                            <div>
-                                <label className={`${labelBase} ${focused === "email" ? "text-primary" : ""}`}>Email</label>
-                                <div className={rounded("email")}>
-                                    <input className={fieldBase} type="email" placeholder="john@example.com" onFocus={() => setFocused("email")} onBlur={() => setFocused(null)} />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className={`${labelBase} ${focused === "subject" ? "text-primary" : ""}`}>Subject</label>
-                                <div className={rounded("subject")}>
-                                    <input className={fieldBase} placeholder="How can we help?" onFocus={() => setFocused("subject")} onBlur={() => setFocused(null)} />
-                                </div>
-                            </div>
-
-                            {/* Message textarea */}
-                            <div className="space-y-1">
-                                <label className={`${labelBase} ${focused === "message" ? "text-primary" : ""}`}>Message</label>
-                                <div className={`${rounded("message")} pt-1 pb-2`}>
-                                    <textarea
-                                        ref={textareaRef}
-                                        value={message}
-                                        onChange={handleMessageChange}
-                                        onFocus={() => setFocused("message")}
-                                        onBlur={() => setFocused(null)}
-                                        rows={4}
-                                        placeholder="Write your message here..."
-                                        className={`${fieldBase} resize-none overflow-hidden leading-6`}
+                                    <CustomInput
+                                        label="Full Name"
+                                        name="name"
+                                        placeholder="John Doe"
+                                        className="rounded-md border-[#CBCAD7]"
                                     />
-                                </div>
-                                <div className="flex items-center justify-between pt-1">
-                                    <p className="text-[10px] text-neutral-400">
-                                        {message.length > 0 && !isNearLimit && "Looks good"}
-                                        {isNearLimit && !isAtLimit && "Almost at the limit"}
-                                        {isAtLimit && "Character limit reached"}
-                                    </p>
-                                    <p className={`text-[10px] tabular-nums transition-colors duration-200 ${isAtLimit ? "text-red-400" : isNearLimit ? "text-amber-400" : "text-neutral-400"}`}>
-                                        {charsLeft} / {MAX_CHARS}
-                                    </p>
-                                </div>
-                            </div>
 
-                            <button
-                                type="submit"
-                                disabled={sending || message.trim().length === 0}
-                                className="inline-flex items-center gap-2 bg-primary text-white text-sm font-medium px-7 py-3 rounded-full hover:bg-primary-dark transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                {sending ? (
-                                    <>
-                                        <span className="size-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                                        Sending...
-                                    </>
-                                ) : (
-                                    <>
+                                    <CustomInput
+                                        label="Email Address"
+                                        name="email"
+                                        type="email"
+                                        placeholder="john@example.com"
+                                        className="rounded-md border-[#CBCAD7]"
+                                    />
+
+                                    <CustomPhoneInput
+                                        label="Phone Number"
+                                        name="phone"
+                                        placeholder="+44 000 000 0000"
+                                        className="rounded-md border-[#CBCAD7] py-1.5"
+                                    />
+
+                                    <CustomInput
+                                        label="Subject"
+                                        name="subject"
+                                        placeholder="How can we help?"
+                                        className="rounded-md border-[#CBCAD7]"
+                                    />
+
+                                    <TextArea
+                                        label="Message"
+                                        name="message"
+                                        rows={5}
+                                        placeholder="Write your message here..."
+                                        className="rounded-md border-[#CBCAD7]"
+                                    />
+
+                                    <Button
+                                        type="submit"
+                                        loading={isSubmitting}
+                                        className="w-full py-6 rounded-md"
+                                    >
                                         Send Message
-                                        <ArrowRightIcon className="size-4" />
-                                    </>
-                                )}
-                            </button>
-                        </form>
+                                    </Button>
+
+                                </Form>
+                            )}
+                        </Formik>
                     )}
 
                 </div>
