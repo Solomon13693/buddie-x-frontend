@@ -36,7 +36,7 @@ const HeroBanner = () => {
                             </h2>
 
                             <p className="text-sm text-[#29282B]">
-                                 Buddie-X connects you with trusted mentors across business, technology, careers, education, and personal development, helping you access real expertise, gain clarity, and make your next move with confidence.
+                                Buddie-X connects you with trusted mentors across business, technology, careers, education, and personal development, helping you access real expertise, gain clarity, and make your next move with confidence.
                             </p>
 
                             <div className="flex items-center flex-wrap gap-3 pt-5">
@@ -104,11 +104,11 @@ const HeroBanner = () => {
                         className="absolute top-0 right-0 w-[80%] pointer-events-none" />
 
                     {/* ======================== HERO BANNER EFFECTS ITEM 1 ======================== */}
-                    <div className="pointer-events-none">
+                    <div className="pointer-events-none z-10">
 
                         <motion.div
                             className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs
-                            absolute top-20 left-12 md:-left-8 shadow-[4px_4px_58px_0px_#0000001F]"
+                            absolute top-10 left-4 sm:top-20 sm:left-12 md:-left-8 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, -8, 0] }}
                             transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}>
                             <img src="/img/home/face-id.svg" alt="Face ID" width={24}
@@ -118,7 +118,7 @@ const HeroBanner = () => {
 
                         <motion.div
                             className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs
-                            absolute top-10 sm:top-52 xl:right-10 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
+                            absolute top-10 right-4 sm:top-52 sm:right-16 xl:right-10 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, 8, 0] }}
                             transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
                             <img src="/img/home/image-download.svg" alt="Face ID" width={24}
@@ -126,10 +126,9 @@ const HeroBanner = () => {
                             <span>Personal Growth Mentors</span>
                         </motion.div>
 
-
                         <motion.div
                             className="inline-flex items-center gap-x-2 bg-white rounded-full px-5 py-3 text-[#343434] text-xs
-                            absolute top-20 sm:top-19 xl:right-10 right-10 sm:right-16 right-40 shadow-[4px_4px_58px_0px_#0000001F]"
+                            absolute top-24 right-4 sm:top-72 sm:right-16 xl:right-10 shadow-[4px_4px_58px_0px_#0000001F]"
                             animate={{ y: [0, 8, 0] }}
                             transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
                             <img src="/img/home/image-download.svg" alt="Face ID" width={24}
