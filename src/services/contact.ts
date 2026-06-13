@@ -1,4 +1,4 @@
-import { axios } from "../lib";
+import { axiosNoAuth } from "../lib";
 
 export interface ContactFormData {
     name: string;
@@ -9,7 +9,7 @@ export interface ContactFormData {
 }
 
 export const submitContactForm = async (data: ContactFormData) => {
-    const response = await axios.post('contact', data);
+    const response = await axiosNoAuth.post('contact', data);
     return response.data;
 };
 

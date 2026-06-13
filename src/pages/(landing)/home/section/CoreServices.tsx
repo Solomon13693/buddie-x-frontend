@@ -98,7 +98,7 @@ const CoreServices = () => {
 
                     {/* ======================== STATS ======================== */}
                     <div className="max-w-5xl mx-auto pt-6">
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-10">
                             {[
                                 {
                                     title: "Verified Mentors",

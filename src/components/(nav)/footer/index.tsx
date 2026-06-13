@@ -45,7 +45,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
     title: "Support",
     links: [
       { label: "Help Centre", href: "#" },
-      { label: "Contact Us", href: "#" },
+      { label: "Contact Us", href: "/contact" },
       { label: "Refund Policy", href: "#" },
       { label: "Trust & Safety", href: "#" }
     ],
