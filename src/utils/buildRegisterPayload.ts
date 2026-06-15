@@ -34,6 +34,12 @@ const normalizeCountry = (country: unknown): { iso: string; name: string } | nul
     return null
 }
 
+const normalizeUrl = (value: string): string => {
+    const trimmed = value.trim()
+    if (!trimmed) return ""
+    return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+}
+
 /**
  * Shape registration data for POST /auth/register (matches backend validator).
  */
@@ -58,7 +64,9 @@ export const buildRegisterPayload = (draft: RegistrationDraft): AuthType => {
 
     if (role === "mentor") {
         payload.linkedin_url =
-            typeof draft.linkedin_url === "string" ? draft.linkedin_url.trim() : ""
+            typeof draft.linkedin_url === "string"
+                ? normalizeUrl(draft.linkedin_url)
+                : ""
         payload.yrs_of_experience = Number(draft.yrs_of_experience ?? 0)
         payload.months_of_experience = Number(draft.months_of_experience ?? 0)
         payload.skills = toStringArray(draft.skills)

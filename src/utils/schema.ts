@@ -1,5 +1,24 @@
 import * as Yup from "yup";
 
+const mentorExperienceLevels = ["Entry Level", "Mid Level", "Senior"] as const;
+
+const linkedInUrlField = (requiredMessage = "LinkedIn URL is required") =>
+  Yup.string()
+    .trim()
+    .required(requiredMessage)
+    .test("valid-linkedin-url", "Enter a valid LinkedIn URL", (value) => {
+      if (!value) return false;
+
+      try {
+        const normalized = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+        const url = new URL(normalized);
+
+        return /linkedin\.com/i.test(url.hostname);
+      } catch {
+        return false;
+      }
+    });
+
 export const LoginSchema = Yup.object({
   email: Yup.string()
     .email("Email address is invalid")
@@ -74,17 +93,16 @@ export const menteeProInfo = Yup.object().shape({
 
 export const mentorProInfo = Yup.object().shape({
   title: Yup.string()
+    .trim()
     .required('Title is required')
     .max(100, 'Title must be at most 100 characters'),
 
   employer: Yup.string()
+    .trim()
     .required('Company/School is required')
     .max(100, 'Employer must be at most 100 characters'),
 
-  linkedin_url: Yup.string()
-    .url('Invalid LinkedIn URL')
-    .nullable()
-    .notRequired(),
+  linkedin_url: linkedInUrlField(),
 
   yrs_of_experience: Yup.number()
     .transform((value, originalValue) =>
@@ -123,10 +141,12 @@ export const mentorProInfo = Yup.object().shape({
     ),
 
   level: Yup.string()
-    .required('Experience level is required'),
+    .required('Experience level is required')
+    .oneOf([...mentorExperienceLevels], 'Experience level is required'),
 
   bio: Yup.string()
-    .required('Short bio is required')
+    .trim()
+    .required('Brief introduction is required')
     .max(500, 'Bio must be at most 500 characters'),
 });
 

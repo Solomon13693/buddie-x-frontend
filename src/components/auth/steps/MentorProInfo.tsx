@@ -8,6 +8,16 @@ import { getRegistrationData, updateRegData } from "../../../redux/features/auth
 
 const inputClass = "rounded-md border-[#CBCAD7]"
 
+const mentorProInfoFields = {
+    title: true,
+    employer: true,
+    linkedin_url: true,
+    yrs_of_experience: true,
+    months_of_experience: true,
+    level: true,
+    bio: true,
+} as const
+
 const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
     const regData = useSelector(getRegistrationData)
     const dispatch = useDispatch()
@@ -50,8 +60,15 @@ const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
                     onNextStep()
                 }}
             >
-                {() => (
-                    <Form className="space-y-5" autoComplete="off">
+                {({ setTouched, handleSubmit }) => (
+                    <Form
+                        className="space-y-5"
+                        autoComplete="off"
+                        onSubmit={(event) => {
+                            setTouched(mentorProInfoFields)
+                            handleSubmit(event)
+                        }}
+                    >
                         <CustomInput
                             label="Title"
                             name="title"
@@ -71,7 +88,7 @@ const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
                         <CustomInput
                             label="LinkedIn URL"
                             name="linkedin_url"
-                            type="url"
+                            type="text"
                             placeholder="linkedin.com/in/example"
                             className={inputClass}
                         />
@@ -85,7 +102,6 @@ const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
                                 max={50}
                                 placeholder="1 year"
                                 className={inputClass}
-                                required
                             />
 
                             <CustomInput
@@ -96,7 +112,6 @@ const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
                                 max={11}
                                 placeholder="3 months"
                                 className={inputClass}
-                                required
                             />
                         </div>
 

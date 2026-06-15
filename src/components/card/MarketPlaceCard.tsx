@@ -123,11 +123,14 @@ const MarketPlaceCard = ({ mentor }: { mentor: MarketplaceMentor }) => {
 
             <div className="flex items-center justify-between">
 
-                <div className="inline-flex items-end gap-x-1">
-                    <h2 className="text-2xl font-semibold text-[#2B2B2B]">
-                        {session?.price ? formatCurrency(session.price) : "Profile"}
-                    </h2>
-                    {session?.price && <span className="text-[11px] text-[#2b2b2b9a] pb-1.5">Per session</span>}
+                <div className="flex flex-col">
+                    <span className="text-[10px] text-[#2b2b2b9a]">Starting from</span>
+                    <div className="inline-flex items-end gap-x-1">
+                        <h2 className="text-lg font-semibold text-[#2B2B2B]">
+                            {session?.price ? formatCurrency(session.price) : "Profile"}
+                        </h2>
+                        {session?.price && <span className="text-[10px] text-[#2b2b2b9a] pb-0.5">/ session</span>}
+                    </div>
                 </div>
 
                 <Button as={Link} to={`/mentor/${mentor.slug}`} className="h-9 px-6" size="sm" radius="sm" color="primary">

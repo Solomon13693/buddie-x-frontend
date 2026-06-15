@@ -33,7 +33,7 @@ function ExploreView() {
                     <SearchBarTwo
                         className="w-full"
                         inputClassName="!w-full h-12 pl-10"
-                        placeholder="What service are you looking for today?"
+                        placeholder="Search mentors by goal, skill, or expertise"
                         defaultValue={search}
                         onSearch={(value) => updateQueryParams({ search: value })}
                         onClear={clearSearch}

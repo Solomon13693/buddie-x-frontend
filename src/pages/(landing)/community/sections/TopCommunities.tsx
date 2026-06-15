@@ -1,9 +1,11 @@
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useTopCommunities } from '../../../../services/communityPublic';
+import type { RootState } from '../../../../redux/store';
 import type { TopCommunityCard } from '../../../../types/community';
 
-const FALLBACK_IMAGE = '/img/community.svg';
+const FALLBACK_IMAGE = '/img/community.jpg';
 
 const formatCardDate = (community: TopCommunityCard) => {
     const raw = community.latest_post?.created_at ?? community.updated_at;
@@ -15,8 +17,10 @@ const formatCardDate = (community: TopCommunityCard) => {
     }
 };
 
-const communityHref = (community: TopCommunityCard) =>
-    `/dashboard/communities/${community.id}`;
+const communityHref = (community: TopCommunityCard, role: string | null) => {
+    const dashboardBase = role === 'mentor' ? '/mentor/dashboard' : '/dashboard';
+    return `${dashboardBase}/communities/${community.id}`;
+};
 
 const TopCommunitySkeleton = () => (
     <article className="overflow-hidden rounded-lg bg-[#F5F5F5] animate-pulse">
@@ -29,14 +33,10 @@ const TopCommunitySkeleton = () => (
 );
 
 const TopCommunities = () => {
-    
-    const { communities = [], isLoading, isError } = useTopCommunities(3);
+    const { role } = useSelector((state: RootState) => state.auth);
+    const { communities = [], isLoading, isError } = useTopCommunities(6);
 
     if (!isLoading && (isError || communities.length === 0)) {
-        return null;
-    }
-
-    if(!isLoading && (isError || communities.length === 0)) {
         return null;
     }
 
@@ -48,11 +48,11 @@ const TopCommunities = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {isLoading
-                    ? Array.from({ length: 3 }).map((_, i) => <TopCommunitySkeleton key={i} />)
+                    ? Array.from({ length: 6 }).map((_, i) => <TopCommunitySkeleton key={i} />)
                     : communities.map((community) => (
                         <Link
                             key={community.id}
-                            to={communityHref(community)}
+                            to={communityHref(community, role)}
                             className="block overflow-hidden rounded-lg bg-[#F5F5F5] transition-opacity hover:opacity-90"
                         >
                             <article>

@@ -17,7 +17,7 @@ const AUTH_REVIEWS: AuthReview[] = [
             "I used to struggle with finding the right mentor, but this platform changed that. The recommendations feel personalized, and it's easy to find mentors who align with what I'm trying to achieve.",
         name: "Daphne Park",
         role: "UI/UX Designer",
-        avatar: "https://i.pravatar.cc/150?img=47",
+        avatar: "",
     },
     {
         id: "2",
@@ -25,7 +25,7 @@ const AUTH_REVIEWS: AuthReview[] = [
             "My mentor gave practical feedback on my portfolio and interview prep. Within weeks I had clearer goals and more confidence in my career direction.",
         name: "Temi Ajayi",
         role: "Product Manager",
-        avatar: "https://i.pravatar.cc/150?img=23",
+        avatar: "",
     },
     {
         id: "3",
@@ -33,7 +33,7 @@ const AUTH_REVIEWS: AuthReview[] = [
             "The sessions were structured, actionable, and worth every minute. I finally connected with someone who understood my industry and growth path.",
         name: "Chika Eze",
         role: "Frontend Engineer",
-        avatar: "https://i.pravatar.cc/150?img=31",
+        avatar: "",
     },
 ]
 

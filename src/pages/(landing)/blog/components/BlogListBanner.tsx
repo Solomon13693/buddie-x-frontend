@@ -11,7 +11,7 @@ const BlogListBanner = () => (
         cardDescription="Explore stories, frameworks, and advice from the Buddie-X community. Whether you are switching careers, leading a team, or sharpening new skills, our blog helps you move forward with clarity."
         buttonLabel="Find a Mentor"
         buttonHref="/mentors"
-        imageSrc="/img/community.svg"
+        imageSrc="/img/community.jpg"
         imageAlt="Buddie-X blog"
     />
 )
