@@ -190,7 +190,7 @@ const RegisterFirstStep = ({ onNextStep }: RegisterFirstStepProps) => {
                                 <a href="/terms" className="text-primary underline underline-offset-2">
                                     Terms of Service
                                 </a>{" "}
-                                and acknowledge you&apos;ve read our{" "}
+                                and acknowledge I&apos;ve read the{" "}
                                 <a href="/privacy" className="text-primary underline underline-offset-2">
                                     Privacy Policy
                                 </a>

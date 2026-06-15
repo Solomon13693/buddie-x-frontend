@@ -1,4 +1,5 @@
 import { Button } from "@heroui/react"
+import { Link } from "react-router-dom"
 
 const JoinConversation = () => {
     const conversationPrompts = [
@@ -47,11 +48,11 @@ const JoinConversation = () => {
 
                     <div className="flex flex-wrap items-center gap-2 pt-1">
 
-                        <Button className="h-10 px-6 bg-[#0E0E0E] text-white" size="sm" radius="sm">
+                        <Button as={Link} to="/contact" className="h-10 px-6 bg-[#0E0E0E] text-white" size="sm" radius="sm">
                             Ask a Question
                         </Button>
 
-                        <Button className="h-10 px-6 text-[#0E0E0E] border-1 border-[#DADADA]" variant="bordered" size="sm" radius="sm">
+                        <Button as={Link} to="/community" className="h-10 px-6 text-[#0E0E0E] border-1 border-[#DADADA]" variant="bordered" size="sm" radius="sm">
                             Browse Community
                         </Button>
 

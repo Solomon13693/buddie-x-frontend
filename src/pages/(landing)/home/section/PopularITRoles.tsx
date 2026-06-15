@@ -3,7 +3,6 @@ import { useGetPopularIndustries } from "../../../../services"
 import { CategoryType } from "../../../../types"
 
 const PopularITRoles = () => {
-
     const { response: industries = [], isLoading } = useGetPopularIndustries(8)
     const popularRoles = (industries as CategoryType[]).filter((industry) => industry.name)
 
@@ -22,7 +21,7 @@ const PopularITRoles = () => {
 
                 <div className="overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent w-full">
                     <div className="flex gap-4 min-w-max pb-2">
-                        {isLoading && Array.from({ length: 5 }).map((_, index) => (
+                        {isLoading && Array.from({ length: 8 }).map((_, index) => (
                             <div key={index} className="flex flex-col gap-y-4 w-[230px] shrink-0 snap-start">
                                 <div className="rounded-2xl aspect-[7/7] animate-pulse bg-gray-100" />
                                 <div className="space-y-2">
@@ -33,12 +32,12 @@ const PopularITRoles = () => {
                             </div>
                         ))}
 
-                        {popularRoles.map((role, index) => (
+                        {!isLoading && popularRoles.map((role) => (
                             <PopularITCard
                                 key={role.id || role.name}
-                                title={role.mentor_count && role.mentor_count > 0 ? `Find ${role.mentor_count} Buddies Specialized in ${role.name}` : `Find Buddies in ${role.name}`}
-                                description={role.description || `Learn from mentors specialized in ${role.name}.`}
-                                image={role.image || `/img/home/popular-it/${(index % 5) + 1}.png`}
+                                title={role.name || ""}
+                                description={role.description || ""}
+                                image={role.image || ""}
                                 href={`/explore?industry=${encodeURIComponent(role.name || "")}`}
                             />
                         ))}
