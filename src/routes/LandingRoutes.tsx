@@ -1,4 +1,4 @@
-import { AboutView, BlogListView, BlogView, CommunityView, ContactView, ExploreView, HomeView, MentorDetailsView, MentorsView } from "../pages";
+import { AboutView, BlogListView, BlogView, CommunityStandardsView, CommunityView, ContactView, ExploreView, HomeView, MentorDetailsView, MentorsView, PrivacyPolicyView, RefundPolicyView, TermsOfServiceView, TrustAndSafetyView } from "../pages";
 
 export const LandingRoutes = [
     {
@@ -36,5 +36,25 @@ export const LandingRoutes = [
     {
         path: "contact",
         element: <ContactView />
+    },
+    {
+        path: "privacy-policy",
+        element: <PrivacyPolicyView />
+    },
+    {
+        path: "terms-of-service",
+        element: <TermsOfServiceView />
+    },
+    {
+        path: "refund-policy",
+        element: <RefundPolicyView />
+    },
+    {
+        path: "trust-and-safety",
+        element: <TrustAndSafetyView />
+    },
+    {
+        path: "community-standards",
+        element: <CommunityStandardsView />
     }
 ];

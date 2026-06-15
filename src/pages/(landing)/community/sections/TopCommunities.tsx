@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTopCommunities } from '../../../../services/communityPublic';
 import type { TopCommunityCard } from '../../../../types/community';
 
-const FALLBACK_IMAGE = '/img/community.svg';
+const FALLBACK_IMAGE = '/img/community.jpg';
 
 const formatCardDate = (community: TopCommunityCard) => {
     const raw = community.latest_post?.created_at ?? community.updated_at;

@@ -11,7 +11,7 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
     return (
         <Link to={`/blog/${post.slug}`} className="block">
             <article className="grid grid-cols-1 md:grid-cols-[1.25fr_3fr] gap-6 items-start py-5 transition-opacity hover:opacity-90">
-                <div className="overflow-hidden rounded-xl aspect-[4/2.5] md:aspect-[7/6] lg:aspect-[9/6] bg-[#F5F5F5]">
+                <div className="rounded-xl ring-1 ring-[#E6E8EC] overflow-hidden aspect-[4/2.5] md:aspect-[7/6] lg:aspect-[9/6] bg-[#F5F5F5]">
                     {post.image ? (
                         <img
                             src={post.image}

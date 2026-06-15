@@ -37,8 +37,8 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Become a Mentor", href: "#" },
       { label: "Careers", href: "#" },
       { label: "Partnerships", href: "#" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms of Service", href: "/terms-of-service" },
     ],
   },
   {
@@ -46,8 +46,8 @@ const FOOTER_SECTIONS: FooterSection[] = [
     links: [
       { label: "Help Centre", href: "#" },
       { label: "Contact Us", href: "/contact" },
-      { label: "Refund Policy", href: "#" },
-      { label: "Trust & Safety", href: "#" }
+      { label: "Refund Policy", href: "/refund-policy" },
+      { label: "Trust & Safety", href: "/trust-and-safety" }
     ],
   },
   {
@@ -56,7 +56,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Community Hub", href: "/community" },
       { label: "Ask a Question", href: "#" },
       { label: "Blog", href: "/blog" },
-      { label: "Community Standards", href: "#" },
+      { label: "Community Standards", href: "/community-standards" },
     ],
   },
 ];

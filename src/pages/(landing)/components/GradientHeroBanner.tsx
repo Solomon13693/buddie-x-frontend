@@ -26,7 +26,7 @@ const GradientHeroBanner = ({
     cardDescription,
     buttonLabel,
     buttonHref,
-    imageSrc = "/img/community.svg",
+    imageSrc = "/img/community.jpg",
     imageAlt = "Community",
 }: GradientHeroBannerProps) => {
     return (

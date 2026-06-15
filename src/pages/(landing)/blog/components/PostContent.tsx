@@ -5,7 +5,7 @@ type PostContentProps = {
 const PostContent = ({ article }: PostContentProps) => {
     return (
         <article
-            className='prose text-sm'
+            className='prose max-w-none text-sm'
             dangerouslySetInnerHTML={{ __html: article }}
         />
     )
