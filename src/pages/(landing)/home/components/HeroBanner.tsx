@@ -123,7 +123,7 @@ const HeroBanner = () => {
                             transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}>
                             <img src="/img/home/image-download.svg" alt="Face ID" width={24}
                                 height={24} className="size-4" />
-                            <span>Personal Growth Mentors</span>
+                            <span>Career Coaches</span>
                         </motion.div>
 
                         <motion.div

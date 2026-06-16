@@ -1,7 +1,14 @@
 import { Button } from "@heroui/react"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../../redux/store"
 
 const JoinConversation = () => {
+
+    const { role } = useSelector((state: RootState) => state.auth)
+    const dashboardBase = role === "mentor" ? "/mentor/dashboard" : "/dashboard"
+    const communityHref = `${dashboardBase}/communities`
+
     const conversationPrompts = [
         {
             text: "What marketing channels are effective in 2026?",
@@ -52,7 +59,7 @@ const JoinConversation = () => {
                             Ask a Question
                         </Button>
 
-                        <Button as={Link} to="/community" className="h-10 px-6 text-[#0E0E0E] border-1 border-[#DADADA]" variant="bordered" size="sm" radius="sm">
+                        <Button as={Link} to={communityHref} className="h-10 px-6 text-[#0E0E0E] border-1 border-[#DADADA]" variant="bordered" size="sm" radius="sm">
                             Browse Community
                         </Button>
 
