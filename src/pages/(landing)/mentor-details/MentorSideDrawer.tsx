@@ -158,14 +158,14 @@ const MentorSideDrawer = (props: MentorSideDrawerProps) => {
             size={size}
             showCloseButton={false}
             header={
-                <div className="flex w-full items-center justify-between">
+                <div className="relative flex w-full items-center justify-center md:justify-between">
                     <h2 className="text-base font-semibold">Book a consultation</h2>
                     <Button
                         onPress={onClose}
                         isIconOnly
                         radius="full"
                         size="sm"
-                        className="bg-gray-200 text-black">
+                        className="absolute right-0 bg-gray-200 text-black md:static">
                         <XMarkIcon className="size-4" />
                     </Button>
                 </div>
@@ -181,8 +181,8 @@ const MentorSideDrawer = (props: MentorSideDrawerProps) => {
                 </div>
             }
         >
-            <div className="space-y-10 py-3">
-                <div className="flex items-start gap-2">
+            <div className="space-y-10 py-3 px-3">
+                <div className="flex flex-col items-center gap-3 text-center md:flex-row md:items-start md:text-left">
                     <Avatar
                         src={avatar}
                         size="lg"
@@ -197,9 +197,9 @@ const MentorSideDrawer = (props: MentorSideDrawerProps) => {
                     </div>
                 </div>
 
-                <div className="space-y-6 px-3">
+                <div className="space-y-6">
                     <div className="space-y-2 border-b border-[#DADADA] pb-6">
-                        <h2 className="text-xs font-medium text-[#29282B]">Select available session</h2>
+                        <h2 className="text-xs font-medium text-[#29282B] text-center md:text-left">Select available session</h2>
 
                         {isSessionsLoading && (
                             <div className="grid grid-cols-2 gap-2">
@@ -210,7 +210,7 @@ const MentorSideDrawer = (props: MentorSideDrawerProps) => {
                         )}
 
                         {!isSessionsLoading && sessions.length === 0 && (
-                            <p className="text-xs text-[#62646A]">No sessions available.</p>
+                            <p className="text-xs text-[#62646A] text-center md:text-left">No sessions available.</p>
                         )}
 
                         {!isSessionsLoading && sessions.length > 0 && (
@@ -244,10 +244,10 @@ const MentorSideDrawer = (props: MentorSideDrawerProps) => {
                     </div>
 
                     <div className="space-y-5 border-b border-[#DADADA] pb-6">
-                        <h2 className="text-xs font-medium text-[#29282B]">Select a date and time</h2>
+                        <h2 className="text-xs font-medium text-[#29282B] text-center md:text-left">Select a date and time</h2>
 
                         {!selectedSessionId && (
-                            <p className="text-[11px] text-[#74767E]">Select a session to view available dates.</p>
+                            <p className="text-[11px] text-[#74767E] text-center md:text-left">Select a session to view available dates.</p>
                         )}
 
                         {selectedSessionId && isDatesLoading && <DateCalendarSkeleton />}
@@ -266,10 +266,10 @@ const MentorSideDrawer = (props: MentorSideDrawerProps) => {
                     </div>
 
                     <div className="space-y-5 border-b border-[#DADADA] pb-6">
-                        <h2 className="text-xs font-medium text-[#29282B]">Choose a time</h2>
+                        <h2 className="text-xs font-medium text-[#29282B] text-center md:text-left">Choose a time</h2>
 
                         {!selectedDate && (
-                            <p className="text-[11px] text-[#74767E]">Select a date to see available times.</p>
+                            <p className="text-[11px] text-[#74767E] text-center md:text-left">Select a date to see available times.</p>
                         )}
 
                         {selectedDate && isTimesLoading && <TimeSlotsSkeleton />}

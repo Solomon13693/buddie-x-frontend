@@ -8,7 +8,7 @@ const SuccessStory = () => {
     const testimonials = [
        
         {
-            name: "Temi Ajayi",
+            name: "Pari Aarvi",
             role: "Data Analyst",
             avatar: "",
             content:
@@ -22,7 +22,7 @@ const SuccessStory = () => {
                 "My mentor helped me structure my learning roadmap, prepare for technical interviews, and transition into tech with confidence",
         },
         {
-            name: "Mohammed Bello",
+            name: "Mary Nicholas",
             role: "Cybersecurity Analyst",
             avatar: "",
             content:
