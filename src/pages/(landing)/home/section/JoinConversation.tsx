@@ -4,8 +4,11 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../../../redux/store"
 
 const JoinConversation = () => {
-    const { token } = useSelector((state: RootState) => state.auth)
-    const communityHref = token ? "/communities" : "/community"
+
+    const { role } = useSelector((state: RootState) => state.auth)
+    const dashboardBase = role === "mentor" ? "/mentor/dashboard" : "/dashboard"
+    const communityHref = `${dashboardBase}/communities`
+
     const conversationPrompts = [
         {
             text: "What marketing channels are effective in 2026?",
