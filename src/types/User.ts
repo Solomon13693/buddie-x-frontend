@@ -18,6 +18,7 @@ export interface AuthType {
     skills?: string[];
     expertise?: string[];
     industries?: string[];
+    category_ids?: string[];
     level?: string;
 
     verification_code?: string;

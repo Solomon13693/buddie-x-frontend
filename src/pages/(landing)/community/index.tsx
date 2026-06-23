@@ -13,7 +13,7 @@ const CommunityView = () => {
                 chip="Mentorship"
                 cardTitle="Buddie-X Mentorship Circles & Live Sessions"
                 cardDescription="Join our community-led mentorship circles and live sessions to accelerate your professional growth and career journey."
-                buttonLabel="View Mentorship"
+                buttonLabel="View Mentors"
                 buttonHref="/mentors"
                 imageAlt="Global mentorship network"
             />

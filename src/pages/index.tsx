@@ -6,6 +6,7 @@ import { MenteeDashboard, MenteeChat, MenteeSettings, MenteeBookingView, MenteeT
 import CommunitiesView from "./CommunitiesView";
 import CommunityDetailsView from "./CommunityDetailsView";
 import PostDetailsView from "./PostDetailsView";
+import AskQuestionView from "./AskQuestionView";
 
 export * from "./(landing)";
 
@@ -37,4 +38,5 @@ export {
     CommunitiesView,
     CommunityDetailsView,
     PostDetailsView,
+    AskQuestionView,
 }
