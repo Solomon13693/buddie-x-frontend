@@ -127,7 +127,6 @@ const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
                             name="bio"
                             className={`h-28 ${inputClass}`}
                             placeholder="Write a brief introduction about yourself"
-                            maxLength={500}
                         />
 
                         <Button type="submit" className="px-20 rounded-md py-6">

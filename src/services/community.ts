@@ -397,17 +397,6 @@ export const useLikeComment = () => {
   });
 };
 
-export const useGetRecentCommunityPosts = (limit = 6) => {
-  return useQuery({
-    queryKey: ['community-posts-recent', limit],
-    queryFn: async () => {
-      const response = await axios.get(`/community-posts/recent?limit=${limit}`);
-      return response.data?.data as { id: string; title: string; community: string }[];
-    },
-    staleTime: 1000 * 60 * 5,
-  });
-};
-
 // Community Stats
 export const useGetCommunityStats = () => {
   return useQuery({

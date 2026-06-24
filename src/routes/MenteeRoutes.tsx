@@ -1,4 +1,4 @@
-import { NotificationView, MenteeDashboard, MenteeChat, MenteeSettings, MenteeBookingView, MenteeTransactionView, WishListView, CommunitiesView, CommunityDetailsView, PostDetailsView, AskQuestionView } from "../pages";
+import { NotificationView, MenteeDashboard, MenteeChat, MenteeSettings, MenteeBookingView, MenteeTransactionView, WishListView, CommunitiesView, CommunityDetailsView, PostDetailsView } from "../pages";
 
 export const MenteeRoutes = [
     {
@@ -40,9 +40,5 @@ export const MenteeRoutes = [
     {
         path: "communities/:communityId/posts/:postId",
         element: <PostDetailsView />
-    },
-    {
-        path: "ask",
-        element: <AskQuestionView />
     },
 ];

@@ -1,5 +1,7 @@
 import { StarIcon } from "@heroicons/react/24/solid"
 import { Avatar, Button, Chip } from "@heroui/react"
+import { FaLinkedin, FaXTwitter } from "react-icons/fa6"
+import { HiOutlineGlobeAlt } from "react-icons/hi2"
 import { formatCurrency } from "../../../lib/formatCurrency"
 import { MentorProfileType, SessionType } from "../../../types"
 
@@ -24,7 +26,7 @@ const MentorProfile = ({
     onBookSession,
 }: MentorProfileProps) => {
     const { user, next_availability, average_rating, total_sessions, total_reviews } = mentor
-    const { fullname, avatar, title, employer, country, timezone, created_at } = user
+    const { fullname, avatar, title, employer, country, timezone, social_links, created_at } = user
     const isOutOfOffice = user.mentor?.out_of_office ?? false
 
     const durationChips = [...new Set(sessions.map((session) => session.duration))].sort((a, b) => a - b)
@@ -41,6 +43,11 @@ const MentorProfile = ({
         created_at ? `Joined ${formatJoinedDate(created_at)}` : "",
     ].filter(Boolean)
 
+    const socialEntries = [
+        { href: social_links?.twitter, icon: FaXTwitter },
+        { href: social_links?.linkedin, icon: FaLinkedin },
+        { href: social_links?.website, icon: HiOutlineGlobeAlt },
+    ].filter((entry) => Boolean(entry.href))
 
     return (
         <div className="border-b border-[#DADADA] pb-10">
@@ -154,6 +161,20 @@ const MentorProfile = ({
                         {isOutOfOffice ? "Out of Office" : "Book Session"}
                     </Button>
 
+                    {socialEntries.length > 0 && (
+                        <div className="inline-flex items-center gap-x-4">
+                            {socialEntries.map(({ href, icon: Icon }, index) => (
+                                <a
+                                    key={`${href}-${index}`}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <Icon className="size-4 text-[#74767E]" />
+                                </a>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

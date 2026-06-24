@@ -7,23 +7,10 @@ interface Option {
     label: string
 }
 
-interface GroupedOption {
-    label: string
-    options: Option[]
-}
-
-type SelectOptions = Option[] | GroupedOption[]
-
-const flattenOptions = (opts: SelectOptions): Option[] => {
-    if (!opts.length) return []
-    if ("options" in opts[0]) return (opts as GroupedOption[]).flatMap((g) => g.options)
-    return opts as Option[]
-}
-
 interface CustomAutocompleteProps {
     name: string
     label: string
-    options: SelectOptions
+    options: Option[]
     placeholder?: string
     formGroupClass?: string
     multiple?: boolean
@@ -48,18 +35,18 @@ const CustomAutocomplete: React.FC<CustomAutocompleteProps> = ({
     const { setValue } = helpers
     const hasError = Boolean(touched && error)
 
-    const flat = flattenOptions(options)
-
     const selectedValue = (() => {
         if (multiple) {
             const valuesArray = Array.isArray(field.value) ? field.value : []
             return returnObject
-                ? flat.filter((opt) => valuesArray.some((val: Option) => val?.value === opt.value))
-                : flat.filter((opt) => valuesArray.includes(opt.value))
+                ? options.filter((opt) =>
+                    valuesArray.some((val: Option) => val?.value === opt.value),
+                )
+                : options.filter((opt) => valuesArray.includes(opt.value))
         }
         return returnObject
-            ? flat.find((opt) => opt.value === field.value?.value)
-            : flat.find((opt) => opt.value === field.value)
+            ? options.find((opt) => opt.value === field.value?.value)
+            : options.find((opt) => opt.value === field.value)
     })()
 
     return (

@@ -6,18 +6,6 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3002,
-    allowedHosts: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8001',
-        changeOrigin: true,
-      },
-      '/broadcasting': {
-        target: 'http://localhost:8001',
-        changeOrigin: true,
-        ws: true,
-      },
-    },
   },
   build: {
     outDir: 'dist', 

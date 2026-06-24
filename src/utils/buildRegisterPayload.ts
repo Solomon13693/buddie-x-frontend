@@ -72,9 +72,6 @@ export const buildRegisterPayload = (draft: RegistrationDraft): AuthType => {
         payload.skills = toStringArray(draft.skills)
         payload.industries = toStringArray(draft.industries)
         payload.tools = toStringArray(draft.tools)
-        payload.category_ids = Array.isArray(draft.category_ids)
-            ? (draft.category_ids as string[]).filter(Boolean)
-            : []
     }
 
     return payload

@@ -8,7 +8,6 @@ import JoinConversation from "./JoinConversation"
 import HowItWorks from "./HowItWorks"
 import FaqSection from "./FaqSection"
 import SuccessStory from "./SuccessStory"
-import BrowseCategories from "./BrowseCategories"
 
 export {
     TrustBy,
@@ -16,7 +15,6 @@ export {
     CoreServices,
     LearnDirectly,
     PopularITRoles,
-    BrowseCategories,
     MarketPlace,
     JoinConversation,
     HowItWorks,

@@ -11,7 +11,6 @@ import { registerUser } from "../../../services"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { setCookie } from "../../../lib"
-import { useExploreCategoryTree } from "../../../services/explore"
 
 type GeneralOption = { name: string }
 
@@ -24,29 +23,11 @@ const MentorExpertises = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
 
-    const { skills = [], industries = [], tools = [] } = useSelector(
+    const { expertises = [], skills = [], industries = [], tools = [] } = useSelector(
         (state: { general: Record<string, GeneralOption[]> }) => state.general,
     )
 
-    const { tree } = useExploreCategoryTree()
-
-    const categoryOptions = tree.map((category) => ({
-        value: category.id,
-        label: category.label,
-    }))
-
-    const expertiseGroupedOptions = tree.map((category) => ({
-        label: category.label,
-        options: category.subcategories.flatMap((sub) =>
-            (sub.expertise_items ?? []).map((item) => ({
-                value: item.label,
-                label: item.label,
-            }))
-        ),
-    }))
-
     const initialValues: Partial<AuthType> = {
-        category_ids: regData?.category_ids || [],
         expertise: regData?.expertise || [],
         skills: regData?.skills || [],
         industries: regData?.industries || [],
@@ -86,19 +67,10 @@ const MentorExpertises = () => {
                 {() => (
                     <Form className="space-y-5" autoComplete="off">
                         <CustomAutocomplete
-                            name="category_ids"
-                            label="Categories"
-                            placeholder="Select your mentoring categories..."
-                            options={categoryOptions}
-                            multiple
-                            formGroupClass="mb-0"
-                        />
-
-                        <CustomAutocomplete
                             name="expertise"
                             label="Expertise"
-                            placeholder="Search or select your expertise..."
-                            options={expertiseGroupedOptions}
+                            placeholder="Select"
+                            options={mapOptions(expertises)}
                             multiple
                             formGroupClass="mb-0"
                         />

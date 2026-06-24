@@ -1,6 +1,6 @@
 import RevealOnScroll from "../../../components/RevealOnScroll"
 import { HeroBanner } from './components'
-import { BrowseCategories, CoreServices, FaqSection, HowItWorks, JoinConversation, LearnDirectly, MarketPlace, NeedsHelpwith, SuccessStory, TrustBy } from './section'
+import { CoreServices, FaqSection, HowItWorks, JoinConversation, LearnDirectly, MarketPlace, NeedsHelpwith, PopularITRoles, SuccessStory, TrustBy } from './section'
 
 const HomeView = () => {
     return (
@@ -26,12 +26,8 @@ const HomeView = () => {
                     <LearnDirectly />
                 </RevealOnScroll>
 
-                {/* <RevealOnScroll delay={0.1}>
+                <RevealOnScroll delay={0.1}>
                     <PopularITRoles />
-                </RevealOnScroll> */}
-
-                <RevealOnScroll delay={0.11}>
-                    <BrowseCategories />
                 </RevealOnScroll>
 
                 <RevealOnScroll delay={0.12}>

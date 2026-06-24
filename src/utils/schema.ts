@@ -151,11 +151,6 @@ export const mentorProInfo = Yup.object().shape({
 });
 
 export const mentorExpertiseSchema = Yup.object().shape({
-  category_ids: Yup.array()
-    .of(Yup.string())
-    .min(1, "Please select at least one category")
-    .required("Category is required"),
-
   expertise: Yup.array()
     .of(Yup.string())
     .min(1, "Please select at least one area of expertise")

@@ -38,6 +38,14 @@ const MentorDetailsView = () => {
         setInitialSessionId("")
     }
 
+    const scrollToSection = (sectionId: string) => {
+        requestAnimationFrame(() => {
+            const section = document.getElementById(sectionId)
+            if (!section) return
+            section.scrollIntoView({ behavior: "smooth", block: "start" })
+        })
+    }
+
     const mentorTabs = [
         { label: "Profile", value: "profile" },
         { label: "Expertise", value: "expertise" },
@@ -98,7 +106,10 @@ const MentorDetailsView = () => {
                             <button
                                 key={tab.value}
                                 type="button"
-                                onClick={() => updateQueryParams({ tab: tab.value })}
+                                onClick={() => {
+                                    updateQueryParams({ tab: tab.value })
+                                    scrollToSection(tab.value)
+                                }}
                                 className={isActive ? "font-medium text-black" : "hover:text-[#1B1D21]"}
                                 aria-pressed={isActive}
                             >
@@ -108,34 +119,34 @@ const MentorDetailsView = () => {
                     })}
                 </div>
 
-                <div className="mx-auto max-w-6xl">
-                    {activeTab === "profile" && (
+                <div className="mx-auto max-w-6xl space-y-8">
+                    <section id="profile" className="scroll-mt-24">
                         <AboutMentor bio={mentor.user.bio} skills={mentor.user.skills} />
-                    )}
+                    </section>
 
-                    {activeTab === "expertise" && (
-                        <ExpertiseMentor expertise={mentor.user.expertise} categories={mentor.categories} />
-                    )}
+                    <section id="expertise" className="scroll-mt-24">
+                        <ExpertiseMentor expertise={mentor.user.expertise} />
+                    </section>
 
-                    {activeTab === "toolkit" && (
+                    <section id="toolkit" className="scroll-mt-24">
                         <ToolkitMentor tools={mentor.user.mentor?.tools} />
-                    )}
+                    </section>
 
-                    {activeTab === "experience" && (
+                    <section id="experience" className="scroll-mt-24">
                         <ExperienceMentor
                             education={mentor.user.education}
                             workExperience={mentor.user.work_experience}
                         />
-                    )}
+                    </section>
 
-                    {activeTab === "reviews" && (
+                    <section id="reviews" className="scroll-mt-24">
                         <ReviewsMentor
                             mentorId={mentorId}
                             reviews={mentorReviews}
                             isLoading={isReviewsLoading}
                             totalReviews={mentor.total_reviews}
                         />
-                    )}
+                    </section>
                 </div>
             </div>
         </div>
