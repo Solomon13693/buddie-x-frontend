@@ -2,10 +2,10 @@ import { Button, Chip } from "@heroui/react"
 import { Link } from "react-router-dom"
 import SearchBarTwo from "../../../components/SearchBarTwo"
 import { ExploreTechSectionSkeleton } from "../../../components/skeleton"
-import { useGetExplorePage } from "../../../services/explore"
+import { useExploreCategoryTree, useGetExplorePage } from "../../../services/explore"
 import { useQueryParams } from "../../../utils"
 import { CertifiedByBuddie, ExploreCategories } from "./components"
-import { ExploreTechSections, PraticeSkills } from "./sections"
+import { ExploreTechSections, PraticeSkills, SubcategorySection } from "./sections"
 
 function ExploreView() {
     const { searchParams, updateQueryParams } = useQueryParams()
@@ -13,8 +13,13 @@ function ExploreView() {
     const search = searchParams.get("search") || ""
 
     const { response, isLoading } = useGetExplorePage({ category, search })
+    const { tree } = useExploreCategoryTree()
 
     const { popular_topics: popularTopics = [], sections = [] } = response ?? {}
+
+    const subcategories = category
+        ? (tree.find((c) => c.value === category)?.subcategories ?? [])
+        : []
 
     const clearSearch = () => updateQueryParams({ search: null })
 
@@ -69,12 +74,18 @@ function ExploreView() {
                     </div>
                 </div>
 
-                {isLoading &&
+                {/* Category selected: one section per subcategory */}
+                {category && subcategories.map((sub) => (
+                    <SubcategorySection key={sub.value} category={category} subcategory={sub} />
+                ))}
+
+                {/* No category: regular sections from API */}
+                {!category && isLoading &&
                     Array.from({ length: 3 }).map((_, index) => (
                         <ExploreTechSectionSkeleton key={index} />
                     ))}
 
-                {!isLoading &&
+                {!category && !isLoading &&
                     sections.map((section) => (
                         <ExploreTechSections
                             key={`${section.type ?? "topic"}-${section.filter_value ?? section.industry}-${section.title}`}
@@ -82,13 +93,13 @@ function ExploreView() {
                         />
                     ))}
 
-                {!isLoading && sections.length === 0 && (
+                {!category && !isLoading && sections.length === 0 && (
                     <div className="flex flex-col items-center gap-3 py-10">
                         <p className="text-center text-sm text-[#74767E]">
                             No mentors found for this filter. Try another category or topic.
                         </p>
-                        {(search || category) && (
-                            <Button variant="light" size="sm" className="text-xs text-[#29282B]" onPress={() => updateQueryParams({ search: null, category: null })}>
+                        {search && (
+                            <Button variant="light" size="sm" className="text-xs text-[#29282B]" onPress={() => updateQueryParams({ search: null })}>
                                 Clear filters
                             </Button>
                         )}

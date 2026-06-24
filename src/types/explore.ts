@@ -7,6 +7,19 @@ export type ExploreCategory = {
     group?: string
 }
 
+export type ExploreSubcategory = {
+    label: string
+    value: string
+    expertise_items?: { label: string; value: string }[]
+}
+
+export type ExploreCategoryTreeItem = {
+    id: string
+    label: string
+    value: string
+    subcategories: ExploreSubcategory[]
+}
+
 export type ExploreCertifiedMentor = {
     mentor_id: string
     slug: string
@@ -45,6 +58,7 @@ export type ExploreSection = {
 
 export type ExplorePageData = {
     categories: ExploreCategory[]
+    subcategories: ExploreSubcategory[]
     popular_topics: string[]
     certified_mentors: ExploreCertifiedMentor[]
     sections: ExploreSection[]

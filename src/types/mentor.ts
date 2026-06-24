@@ -144,4 +144,5 @@ export interface MentorProfileType {
     is_top_rated: boolean;
     availability: Availability[];
     next_availability?: NextAvailability | null;
+    categories?: { id: string; name: string }[];
 }

@@ -7,6 +7,8 @@ import {
   FaLinkedinIn,
   FaXTwitter,
 } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 type FooterLink = {
   label: string;
@@ -54,7 +56,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
     title: "Community",
     links: [
       { label: "Community Hub", href: "/community" },
-      { label: "Ask a Question", href: "#" },
+      { label: "Ask a Question", href: "ASK_PLACEHOLDER" },
       { label: "Blog", href: "/blog" },
       { label: "Community Standards", href: "/community-standards" },
     ],
@@ -63,6 +65,8 @@ const FOOTER_SECTIONS: FooterSection[] = [
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const { role } = useSelector((state: RootState) => state.auth);
+  const askQuestionHref = role ? `/${role === "mentor" ? "mentor/" : ""}dashboard/ask` : "/login";
 
   return (
     <footer className="bg-white pb-6 pt-14 border-t border-gray-200 mt-12">
@@ -95,7 +99,11 @@ const Footer = () => {
               </h4>
               <div className="grid gap-3 text-xs text-[#5E5F6E]">
                 {section.links.map((link) => (
-                  <Link key={link.label} to={link.href} className="transition hover:text-[#74767E]">
+                  <Link
+                    key={link.label}
+                    to={link.href === "ASK_PLACEHOLDER" ? askQuestionHref : link.href}
+                    className="transition hover:text-[#74767E]"
+                  >
                     {link.label}
                   </Link>
                 ))}
@@ -114,16 +122,16 @@ const Footer = () => {
           </p>
 
           <div className="flex items-center gap-4">
-            <a href="#" aria-label="X (Twitter)" className="transition hover:text-[#121624]">
+            <a href="https://x.com/Buddiexcompany" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="transition hover:text-[#121624]">
               <FaXTwitter className="size-4" />
             </a>
-            <a href="#" aria-label="Facebook" className="transition hover:text-[#121624]">
+            <a href="https://www.facebook.com/share/1bQtonuymf/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="transition hover:text-[#121624]">
               <FaFacebookF className="size-4" />
             </a>
-            <a href="#" aria-label="LinkedIn" className="transition hover:text-[#121624]">
+            <a href="https://www.linkedin.com/company/buddie-x/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition hover:text-[#121624]">
               <FaLinkedinIn className="size-4" />
             </a>
-            <a href="#" aria-label="Instagram" className="transition hover:text-[#121624]">
+            <a href="https://www.instagram.com/thebuddiex?igsh=MTZuNm1rZzJtajF2Yg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition hover:text-[#121624]">
               <FaInstagram className="size-4" />
             </a>
             <div className="ml-2 flex items-center gap-2 text-sm">

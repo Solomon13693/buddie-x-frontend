@@ -35,7 +35,8 @@ import {
   useUpdateComment,
   useDeleteComment,
   useLikeComment,
-  useGetCommunityStats
+  useGetCommunityStats,
+  useGetRecentCommunityPosts
 } from "./community";
 
 export {
@@ -140,6 +141,7 @@ export {
     useUpdateComment,
     useDeleteComment,
     useLikeComment,
-    useGetCommunityStats
+    useGetCommunityStats,
+    useGetRecentCommunityPosts,
 
 }
