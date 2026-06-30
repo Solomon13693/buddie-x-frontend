@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik"
-import { CustomInput, TextArea } from "../../form"
+import { CustomAutocomplete, CustomInput, CustomSelect, TextArea } from "../../form"
 import { Button } from "../../ui"
 import { AuthType } from "../../../types"
 import { menteeProInfo } from "../../../utils/schema"
@@ -16,6 +16,7 @@ const inputClass = "rounded-md border-[#CBCAD7]"
 
 const MenteeProfessionalInfo = () => {
     const navigate = useNavigate()
+    const { expertises = [] } = useSelector((state: any) => state.general)
     const regData = useSelector(getRegistrationData)
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
@@ -23,6 +24,8 @@ const MenteeProfessionalInfo = () => {
     const initialValues: AuthType = {
         title: regData.title || "",
         employer: regData.employer || "",
+        level: regData.level || "",
+        expertise: regData.expertise || [],
         bio: regData.bio || "",
     }
 
@@ -74,6 +77,23 @@ const MenteeProfessionalInfo = () => {
                             type="text"
                             placeholder="Eg. Apple, UCLA, etc"
                             className={inputClass}
+                        />
+
+                        <CustomSelect label="Level of experience" name="level" className={inputClass}>
+                            <option value="">Select Level</option>
+                            <option value="Entry Level">Entry Level</option>
+                            <option value="Mid Level">Mid Level</option>
+                            <option value="Senior">Senior</option>
+                        </CustomSelect>
+
+                        <CustomAutocomplete
+                            name="expertise"
+                            label="Expertise"
+                            options={expertises.map((item: { name: string }) => ({
+                                value: item.name,
+                                label: item.name,
+                            }))}
+                            multiple
                         />
 
                         <TextArea

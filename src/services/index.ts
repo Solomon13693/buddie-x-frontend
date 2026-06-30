@@ -8,7 +8,7 @@ import { useGetNotifications, useGetUnReadNotifications, useMarkAllAsRead, useMa
 import { updateProfile, updateTimezone, updateAvailability, updatePassword, uploadAvatar, addDeviceToken, toggleOutOfOffice } from "./profile";
 import { submitContactForm } from "./contact";
 import { useGetPopularIndustries } from "./industries";
-import { useGetExplorePage, useExploreCategories, useExploreCertifiedMentors, useExploreCategoryTree } from "./explore";
+import { useGetExplorePage, useExploreCategories, useExploreCertifiedMentors } from "./explore";
 
 import { useCancelBookings, useGetMenteeBookings, useRequestRefund, useMarkAsCompleted, useGetTransactions, useGetTransactionsStats, useGetMenteeChart, useGetMenteeStats, useAddWishlist, useGetWishlist, useRemoveWishlist, usePostReview, useRescheduleSession as useRescheduleSessionMentee, useApproveSession as useApproveSessionMentee, useUploadSessionResourcesMentee, useGetMenteeDetails } from './mentee'
 
@@ -106,7 +106,6 @@ export {
     useGetExplorePage,
     useExploreCategories,
     useExploreCertifiedMentors,
-    useExploreCategoryTree,
 
     useGetMentors,
     useInfiniteMentors,

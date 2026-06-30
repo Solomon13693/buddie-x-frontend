@@ -180,7 +180,7 @@ const MentorListCard = ({
                 )}
 
                 <div className="sm:text-right">
-                    <p className="text-xs font-medium text-[#62646A]">{priceLabel}</p>
+                    <p className="text-base font-medium text-[#1B1D21]">{priceLabel}</p>
                     <p className="mt-0.5 text-xs text-[#95979D]">{priceSubtext}</p>
                 </div>
 
