@@ -86,8 +86,6 @@ export const personalInfoSchema = Yup.object().shape({
 export const menteeProInfo = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   employer: Yup.string().required('Employer is required'),
-  level: Yup.string().required('Level is required'),
-  expertise: Yup.array().min(1, 'At least one expertise is required'),
   bio: Yup.string().required('Bio is required'),
 });
 

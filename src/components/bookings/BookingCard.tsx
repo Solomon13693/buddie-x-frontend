@@ -738,6 +738,7 @@ const BookingCard = ({ role, item }: { role: RoleType; item: BookingType }) => {
                     open={openedReview}
                     close={closeReview}
                     mentor_id={mentorRecordId}
+                    session_id={id}
                     onSuccess={() => queryClient.invalidateQueries({ queryKey: ['mentee_bookings'] })}
                 />
             )}
