@@ -229,6 +229,7 @@ export default function DateSelector({
                         return <div key={`empty-${index}`} className="p-2" />
                     }
 
+                    const isToday = date.toDateString() === today.toDateString()
                     const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString()
                     const isRecurringSession = selectedDate && sessionDates.some(
                         (sessionDate) => sessionDate.toDateString() === date.toDateString() && !isSelected,
