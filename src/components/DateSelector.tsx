@@ -246,7 +246,7 @@ export default function DateSelector({
                                 {
                                     "bg-black text-white": isSelected,
                                     "bg-[#A5B3BF] text-white": isRecurringSession,
-                                    "text-[#A5B3BF]": disabled,
+                                    "text-[#A5B3BF]": disabled || (isToday && !isSelected && !isRecurringSession && !disabled),
                                     "cursor-not-allowed opacity-50": disabled,
                                     "hover:bg-[#EDF2F7]": !disabled && !isSelected && !isRecurringSession,
                                 },

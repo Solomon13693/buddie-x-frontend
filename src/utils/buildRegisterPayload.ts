@@ -57,12 +57,12 @@ export const buildRegisterPayload = (draft: RegistrationDraft): AuthType => {
         country: country ?? undefined,
         title: typeof draft.title === "string" ? draft.title.trim() : "",
         employer: typeof draft.employer === "string" ? draft.employer.trim() : "",
+        level: typeof draft.level === "string" ? draft.level : "",
         bio: typeof draft.bio === "string" ? draft.bio.trim() : "",
+        expertise: toStringArray(draft.expertise),
     }
 
     if (role === "mentor") {
-        payload.level = typeof draft.level === "string" ? draft.level : ""
-        payload.expertise = toStringArray(draft.expertise)
         payload.linkedin_url =
             typeof draft.linkedin_url === "string"
                 ? normalizeUrl(draft.linkedin_url)

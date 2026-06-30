@@ -4,7 +4,7 @@ import { Button } from "../../ui";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, getUserProfile } from "../../../redux/features/authSlice";
 import { useState } from "react";
-import { updateProfile, useExploreCategoryTree } from "../../../services";
+import { updateProfile } from "../../../services";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "../../../utils";
 import { AppDispatch } from "../../../redux/store";
@@ -17,27 +17,13 @@ const ProfileExpertise = () => {
     const profile = useSelector(getUserProfile)
     const [loading, setLoading] = useState(false)
 
-    const { skills = [], industries = [], tools = [] } = useSelector((state: any) => state.general);
-    const { tree: categoryTree = [] } = useExploreCategoryTree()
-
-    const expertiseGroupedOptions = categoryTree.map((category: any) => ({
-        label: category.label,
-        options: (category.subcategories ?? []).flatMap((sub: any) =>
-            (sub.expertise_items ?? []).map((item: any) => ({
-                value: item.label,
-                label: item.label,
-            }))
-        ),
-    }))
-
-    const currentCategoryIds: string[] = (profile?.mentor?.categories || []).map((c: any) => c.id)
+    const { expertises = [], skills = [], industries = [], tools = [] } = useSelector((state: any) => state.general);
 
     const initialValues = {
         expertise: profile?.expertise || [],
         skills: profile?.skills || [],
         industries: profile?.industries || [],
         tools: profile?.mentor?.tools || [],
-        category_ids: currentCategoryIds,
     };
 
 
@@ -70,19 +56,12 @@ const ProfileExpertise = () => {
                 <Form className="space-y-4" autoComplete="off">
 
                     <CustomAutocomplete
-                        name="category_ids"
-                        label="Categories"
-                        options={categoryTree.map((cat: any) => ({
-                            value: cat.id,
-                            label: cat.label,
-                        }))}
-                        multiple
-                    />
-
-                    <CustomAutocomplete
                         name="expertise"
                         label="Expertise"
-                        options={expertiseGroupedOptions}
+                        options={expertises.map((item: any) => ({
+                            value: item.name,
+                            label: item.name,
+                        }))}
                         multiple
                     />
 

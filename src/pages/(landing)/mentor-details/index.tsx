@@ -114,7 +114,7 @@ const MentorDetailsView = () => {
                     )}
 
                     {activeTab === "expertise" && (
-                        <ExpertiseMentor expertise={mentor.user.expertise} />
+                        <ExpertiseMentor expertise={mentor.user.expertise} categories={mentor.categories} />
                     )}
 
                     {activeTab === "toolkit" && (

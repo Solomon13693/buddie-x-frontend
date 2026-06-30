@@ -10,8 +10,8 @@ export type GradientHeroBannerProps = {
     cardSubtitle?: string
     cardTitle: string
     cardDescription: string
-    buttonLabel?: string
-    buttonHref?: string
+    buttonLabel: string
+    buttonHref: string
     imageSrc?: string
     imageAlt?: string
 }
@@ -77,18 +77,16 @@ const GradientHeroBanner = ({
                                 {cardDescription}
                             </p>
 
-                            {buttonLabel && buttonHref && (
-                                <Button
-                                    as={Link}
-                                    to={buttonHref}
-                                    color="primary"
-                                    size="sm"
-                                    className="h-10 px-6 text-xs bg-black text-white"
-                                    radius="sm"
-                                >
-                                    {buttonLabel}
-                                </Button>
-                            )}
+                            <Button
+                                as={Link}
+                                to={buttonHref}
+                                color="primary"
+                                size="sm"
+                                className="h-10 px-6 text-xs bg-black text-white"
+                                radius="sm"
+                            >
+                                {buttonLabel}
+                            </Button>
                         </div>
 
                         <div className="flex justify-center md:justify-end">

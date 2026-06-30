@@ -39,7 +39,7 @@ export const mapMentorToListCard = (mentor: MentorListApiMentor): MentorListCard
 
     const priceLabel =
         mentor.starting_price != null
-            ? `Starting From ${formatCurrency(mentor.starting_price)}/${mentor.price_unit ?? "session"}`
+            ? `From ${formatCurrency(mentor.starting_price)}/${mentor.price_unit ?? "Project"}`
             : "View pricing on profile"
 
     return {
