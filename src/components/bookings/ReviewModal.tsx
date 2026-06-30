@@ -9,7 +9,7 @@ interface ReviewModalProps {
     open: boolean;
     close: () => void;
     mentor_id: string;
-    session_id: string;
+    session_id?: string;
     onSuccess?: () => void;
 }
 
