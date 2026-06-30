@@ -89,8 +89,8 @@ const CoreServices = () => {
                         </div>
 
                         <div className="flex items-center justify-center pt-5">
-                            <Button className="text-xs mx-auto" variant="light" endContent={<ChevronRightIcon className="size-4" />}>
-                                View More Services
+                            <Button as="a" href="/register" className="text-xs mx-auto" variant="light" endContent={<ChevronRightIcon className="size-4" />}>
+                                Join Buddie-X
                             </Button>
                         </div>
 
