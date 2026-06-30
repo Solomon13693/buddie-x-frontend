@@ -10,8 +10,8 @@ export type GradientHeroBannerProps = {
     cardSubtitle?: string
     cardTitle: string
     cardDescription: string
-    buttonLabel: string
-    buttonHref: string
+    buttonLabel?: string
+    buttonHref?: string
     imageSrc?: string
     imageAlt?: string
 }

@@ -1,4 +1,4 @@
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline"
+import { EnvelopeIcon } from "@heroicons/react/24/outline"
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid"
 import { useState } from "react"
 import { Form, Formik } from "formik"
@@ -30,8 +30,6 @@ const ContactView = () => {
                 chip="Support"
                 cardTitle="We're here to help"
                 cardDescription="Reach out to our team and we'll get back to you as soon as possible. Whether it's a technical question or a general enquiry, we're happy to assist."
-                buttonLabel="View Mentors"
-                buttonHref="/mentors"
                 imageAlt="Contact Buddie-X"
             />
 
@@ -61,15 +59,6 @@ const ContactView = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4">
-                                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                                    <PhoneIcon className="size-5 text-primary" />
-                                </span>
-                                <div>
-                                    <p className="text-[11px] uppercase tracking-widest text-neutral-400">Phone</p>
-                                    <p className="text-sm font-medium text-neutral-800">+44 000 000 0000</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
