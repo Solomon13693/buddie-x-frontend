@@ -154,7 +154,7 @@ const MentorListCard = ({
             <div className="mt-4 flex flex-wrap items-center gap-2">
                 {offersHourly ? (
                     <span className="rounded-full bg-[#F3F4F6] px-3 py-1 text-xs text-[#1B1D21]">
-                        Offers hourly rates
+                        Offers flexible sessions
                     </span>
                 ) : null}
                 {tags.map((tag) => (
