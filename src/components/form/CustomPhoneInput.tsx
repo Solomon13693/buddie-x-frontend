@@ -17,7 +17,6 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, className, d
 
     const handlePhoneChange = (value: string | undefined) => {
         helpers.setValue(value || '');
-        helpers.setTouched(true);
     };
 
     return (

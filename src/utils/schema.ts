@@ -264,7 +264,7 @@ export const contactSchema = Yup.object().shape({
   phone: Yup.string()
     .nullable()
     .optional()
-    .matches(/^\+?\d{7,15}$/, 'Enter a valid phone number'),
+    .matches(/^\+?\d{7,15}$/, { message: 'Enter a valid phone number', excludeEmptyString: true }),
   message: Yup.string()
     .required('Message is required')
     .min(10, 'Message must be at least 10 characters'),
