@@ -143,11 +143,11 @@ const PersonnalInfo = ({ onNextStep }: { onNextStep: () => void }) => {
                             />
                             <span className="text-xs leading-relaxed text-[#62646A]">
                                 I agree to the{" "}
-                                <a href="/terms" className="text-primary underline underline-offset-2">
+                                <a href="/terms-of-service" className="text-primary underline underline-offset-2">
                                     Terms of Service
                                 </a>{" "}
                                 and acknowledge I&apos;ve read the{" "}
-                                <a href="/privacy" className="text-primary underline underline-offset-2">
+                                <a href="/privacy-policy" className="text-primary underline underline-offset-2">
                                     Privacy Policy
                                 </a>
                                 .
