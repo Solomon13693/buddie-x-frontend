@@ -113,7 +113,7 @@ const ContactView = () => {
                                     />
 
                                     <CustomPhoneInput
-                                        label="Phone Number"
+                                        label="Phone Number (optional)"
                                         name="phone"
                                         placeholder="+44 000 000 0000"
                                         className="rounded-md border-[#CBCAD7] py-1.5"

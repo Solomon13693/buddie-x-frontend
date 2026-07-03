@@ -3,7 +3,7 @@ import { axios } from "../../lib";
 
 interface PostReviewData {
     mentor_id: string;
-    session_id?: string;
+    session_id: string;
     rating: number;
     review: string;
 }
