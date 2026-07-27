@@ -67,11 +67,38 @@ const authSlice = createSlice({
         },
         updateRegData: (state, action: PayloadAction<Record<string, any>>) => {
             const incoming = action.payload;
-            if ('role' in incoming && incoming.role !== state.registration.role) {
-                state.registration = { role: incoming.role };
+            const previousRole = state.registration.role;
+            const roleChanged =
+                'role' in incoming &&
+                incoming.role !== previousRole &&
+                previousRole !== undefined &&
+                previousRole !== '';
+
+            if (roleChanged) {
+                const professionalFields = [
+                    'title',
+                    'employer',
+                    'level',
+                    'bio',
+                    'linkedin_url',
+                    'yrs_of_experience',
+                    'months_of_experience',
+                    'expertise',
+                    'skills',
+                    'industries',
+                    'tools',
+                ] as const;
+
+                const kept = { ...state.registration };
+                professionalFields.forEach((key) => {
+                    delete kept[key];
+                });
+
+                state.registration = { ...kept, ...incoming };
             } else {
                 state.registration = { ...state.registration, ...incoming };
             }
+
             sessionStorage.setItem('registration', JSON.stringify(state.registration));
         },        
         resetRegistrationData: (state) => {

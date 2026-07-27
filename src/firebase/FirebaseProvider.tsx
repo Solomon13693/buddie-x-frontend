@@ -1,7 +1,6 @@
 'use client';
 
 import { createContext, useEffect, useState, ReactNode } from 'react';
-import Cookies from 'js-cookie';
 import {
     onFirebaseMessageListener,
     requestFirebaseNotificationPermission,
@@ -29,26 +28,29 @@ export default function FirebaseNotificationProvider({
     const [token, setToken] = useState<string | null>(null);
     const [message, setMessage] = useState<any>(null);
 
-    // ✅ call useSelector at the top level
-    const authToken = useSelector((state: RootState) => state.auth.token) || Cookies.get('token');
+    const authToken = useSelector((state: RootState) => state.auth.token);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
         if (!authToken) return;
 
+        let unsubscribe = () => {};
+
         const initialize = async () => {
             try {
                 const fcmToken = await requestFirebaseNotificationPermission();
+                console.log('FCM token:', fcmToken);
 
-                if (fcmToken) {
-                    setToken(fcmToken);
+                if (!fcmToken) return;
 
-                    // Save device token to backend
+                setToken(fcmToken);
+
+                if (authToken) {
                     await addDeviceToken({ device_token: fcmToken });
+                    console.log('Device token saved to backend');
                 }
 
-                // Listen for foreground messages
-                onFirebaseMessageListener().then((payload) => {
+                unsubscribe = onFirebaseMessageListener((payload) => {
                     setMessage(payload);
                 });
             } catch (error) {
@@ -57,7 +59,9 @@ export default function FirebaseNotificationProvider({
         };
 
         initialize();
-    }, [authToken]); 
+
+        return () => unsubscribe();
+    }, [authToken]);
 
     return (
         <FirebaseNotificationContext.Provider value={{ token, message }}>

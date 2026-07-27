@@ -10,6 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 interface FavouriteButtonProps {
     isActive?: boolean;
+    filled?: boolean;
     mentorId: string;
     size?: "sm" | "md" | "lg";
     className?: string;
@@ -23,6 +24,7 @@ const sizeClasses = {
 
 const FavouriteButton: React.FC<FavouriteButtonProps> = ({
     isActive = false,
+    filled = false,
     mentorId,
     size = "md",
     className,
@@ -59,11 +61,15 @@ const FavouriteButton: React.FC<FavouriteButtonProps> = ({
             radius="full"
             size={size}
             className={cn("bg-white", className)}
-            onPress={handleClick}>
+            onPress={handleClick}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            }}>
             {isActive ? (
                 <FilledHeartIcon className={cn(iconSize, "text-red-500")} />
             ) : (
-                <HeartIconOutline className={iconSize} />
+                filled ? <FilledHeartIcon className={cn(iconSize, "text-[#B5B6BA]")} /> : <HeartIconOutline className={iconSize} />
             )}
         </Button>
     );

@@ -51,7 +51,6 @@ const ReviewTable = ({ reviews }: { reviews: ReviewType[] }) => {
                                         src: item.user.avatar || '',
                                         size: 'sm'
                                     }}
-                                    description={item.user.email}
                                     name={item.user.fullname}
                                 />
                             </TableCell>

@@ -6,9 +6,15 @@ import { AppLayout, LandingPageLayout, MenteeAppLayout } from "./layout";
 import { ForgotPassword, LoginView, Registeration, ResetPassword, VerifyAccount } from "./pages";
 import { AuthDirect } from "./components/auth";
 import { MenteeRoutes } from "./routes/MenteeRoutes";
-import { LandingPageRoutes } from "./routes/LandingPageRoutes";
+import { LandingRoutes } from "./routes/LandingRoutes";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LandingPageLayout />,
+    errorElement: <Error />,
+    children: LandingRoutes,
+  },
   {
     path: "/register",
     element: (
@@ -60,12 +66,6 @@ const router = createBrowserRouter([
     element: <MenteeAppLayout />,
     errorElement: <Error />,
     children: MenteeRoutes,
-  },
-  {
-    path: "/",
-    element: <LandingPageLayout />,
-    errorElement: <Error />,
-    children: LandingPageRoutes,
   },
   {
     path: "/404",

@@ -1,12 +1,41 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { axios, axiosNoAuth } from "../lib";
 
-export const getMentors = async (params = {}) => {
+export type MentorsListResponse = {
+    total: number
+    current_page: number
+    per_page: number
+    total_pages: number
+    mentors: unknown[]
+}
+
+export const getMentors = async (params: Record<string, string | number | undefined> = {}) => {
     const response = await axiosNoAuth.get('mentors', {
         params
     });
-    return response?.data;
+    return response?.data as MentorsListResponse;
 };
+
+const MENTORS_PER_PAGE = 12
+
+export const useInfiniteMentors = (filterParams: Record<string, string | undefined> = {}) => {
+    return useInfiniteQuery({
+        queryKey: ['mentors', 'infinite', filterParams],
+        queryFn: ({ pageParam }) =>
+            getMentors({
+                ...filterParams,
+                page: pageParam,
+                per_page: MENTORS_PER_PAGE,
+            }),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            if (lastPage.current_page < lastPage.total_pages) {
+                return lastPage.current_page + 1
+            }
+            return undefined
+        },
+    })
+}
 
 export const getTopMentors = async (limit = 6) => {
     const response = await axiosNoAuth.get('mentors/top', {
@@ -15,13 +44,13 @@ export const getTopMentors = async (limit = 6) => {
     return response?.data;
 };
 
-export const useGetMentors = (params = {}) => {
-    const { data: response, isLoading } = useQuery({
+export const useGetMentors = (params: Record<string, string | undefined> = {}) => {
+    const { data: response, isLoading, isError } = useQuery({
         queryKey: ['mentors', params],
         queryFn: () => getMentors(params),
     });
 
-    return { response, isLoading };
+    return { response, isLoading, isError };
 };
 
 export const useGetTopMentors = (limit = 6) => {
@@ -39,13 +68,13 @@ export const getMentorDetails = async (slug: string) => {
 };
 
 export const useGetMentorDetails = (slug: string) => {
-    const { data: response, isLoading } = useQuery({
+    const { data: response, isLoading, isError } = useQuery({
         queryKey: ['mentors', slug],
         queryFn: () => getMentorDetails(slug),
         enabled: !!slug
     });
 
-    return { response, isLoading };
+    return { response, isLoading, isError };
 };
 
 export const getMentorsReviews = async (id: string) => {
@@ -136,7 +165,7 @@ export const fetchVendorAvailableTime = async (params: {}) => {
 
 export const useAvailableTime = (mentorId: string, mentorSessionId: string, date: string) => {
     return useQuery({
-        queryKey: ['available_date', mentorId, mentorSessionId, date],
+        queryKey: ['available_time', mentorId, mentorSessionId, date],
         queryFn: () =>
             fetchVendorAvailableTime({
                 mentor_id: mentorId,

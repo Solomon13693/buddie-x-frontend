@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Footer, Header } from "../components";
 import { AppDispatch, RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { fetchProfile } from "../redux/features/authSlice";
@@ -8,6 +7,9 @@ import { fetchGeneralData } from "../redux/features/generalDataSlice";
 import { getFavourites } from "../redux/features/favouriteSlice";
 import { SuccessfulPayment } from "../components/modal";
 import { useSyncTimezone } from "../hooks/useSyncTimezone";
+import Header from "../components/(nav)/header";
+import Footer from "../components/(nav)/footer";
+import ScrollToTop from "../components/ScrollToTop";
 
 const LandingPageLayout = ({ children }: { children?: React.ReactNode }) => {
 
@@ -59,6 +61,8 @@ const LandingPageLayout = ({ children }: { children?: React.ReactNode }) => {
 
     return (
         <>
+            <ScrollToTop />
+
             <Header />
 
             <main className="">{children ? children : <Outlet />}</main>

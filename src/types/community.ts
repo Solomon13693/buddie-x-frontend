@@ -122,3 +122,20 @@ export interface CommunityStatsType {
   total_posts: number;
   total_comments: number;
 }
+
+export type TopCommunityLatestPost = {
+  id: string;
+  title: string;
+  created_at: string;
+};
+
+export type TopCommunityCard = {
+  id: string;
+  name: string;
+  category: string;
+  cover_image?: string | null;
+  member_count: number;
+  post_count: number;
+  updated_at: string;
+  latest_post: TopCommunityLatestPost | null;
+};

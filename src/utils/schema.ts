@@ -1,5 +1,24 @@
 import * as Yup from "yup";
 
+const mentorExperienceLevels = ["Entry Level", "Mid Level", "Senior"] as const;
+
+const linkedInUrlField = (requiredMessage = "LinkedIn URL is required") =>
+  Yup.string()
+    .trim()
+    .required(requiredMessage)
+    .test("valid-linkedin-url", "Enter a valid LinkedIn URL", (value) => {
+      if (!value) return false;
+
+      try {
+        const normalized = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+        const url = new URL(normalized);
+
+        return /linkedin\.com/i.test(url.hostname);
+      } catch {
+        return false;
+      }
+    });
+
 export const LoginSchema = Yup.object({
   email: Yup.string()
     .email("Email address is invalid")
@@ -67,46 +86,74 @@ export const personalInfoSchema = Yup.object().shape({
 export const menteeProInfo = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   employer: Yup.string().required('Employer is required'),
-  level: Yup.string().required('Level is required'),
-  expertise: Yup.array().min(1, 'At least one expertise is required'),
   bio: Yup.string().required('Bio is required'),
 });
 
 export const mentorProInfo = Yup.object().shape({
   title: Yup.string()
+    .trim()
     .required('Title is required')
     .max(100, 'Title must be at most 100 characters'),
 
   employer: Yup.string()
+    .trim()
     .required('Company/School is required')
     .max(100, 'Employer must be at most 100 characters'),
 
-  linkedin_url: Yup.string()
-    .url('Invalid LinkedIn URL')
-    .nullable()
-    .notRequired(),
+  linkedin_url: linkedInUrlField(),
 
   yrs_of_experience: Yup.number()
-    .nullable()
-    .typeError('Years of experience must be a number')
-    .min(0, 'Must be at least 0')
-    .max(50, 'Must be 50 or less'),
+    .transform((value, originalValue) =>
+      originalValue === '' || originalValue === null ? undefined : value,
+    )
+    .typeError('Years of experience is required')
+    .required('Years of experience is required')
+    .min(0, 'Must be 0 or more')
+    .max(50, 'Must be 50 or less')
+    .test(
+      'years-not-zero-without-months',
+      'Years of experience cannot be 0 when months is 0',
+      function (value) {
+        const months = Number(this.parent.months_of_experience ?? 0)
+        if (months > 0) return true
+        return Number(value ?? 0) > 0
+      },
+    ),
 
   months_of_experience: Yup.number()
-    .nullable()
-    .typeError('Months of experience must be a number')
-    .min(0, 'Must be at least 0')
-    .max(11, 'Must be less than 12'),
+    .transform((value, originalValue) =>
+      originalValue === '' || originalValue === null ? undefined : value,
+    )
+    .typeError('Months of experience is required')
+    .required('Months of experience is required')
+    .min(0, 'Must be 0 or more')
+    .max(11, 'Must be 11 or less')
+    .test(
+      'months-not-zero-without-years',
+      'Months of experience cannot be 0 when years is 0',
+      function (value) {
+        const years = Number(this.parent.yrs_of_experience ?? 0)
+        if (years > 0) return true
+        return Number(value ?? 0) > 0
+      },
+    ),
 
   level: Yup.string()
-    .required('Experience level is required'),
+    .required('Experience level is required')
+    .oneOf([...mentorExperienceLevels], 'Experience level is required'),
 
   bio: Yup.string()
-    .required('Short bio is required')
-    .max(500, 'Bio must be at most 500 characters'),
+    .trim()
+    .required('Brief introduction is required')
+    .max(2000, 'Brief introduction must be at most 2000 characters'),
 });
 
 export const mentorExpertiseSchema = Yup.object().shape({
+  category_ids: Yup.array()
+    .of(Yup.string())
+    .min(1, "Please select at least one category")
+    .required("Category is required"),
+
   expertise: Yup.array()
     .of(Yup.string())
     .min(1, "Please select at least one area of expertise")
@@ -198,9 +245,10 @@ export const profilePersonalInfoSchema = Yup.object().shape({
     .required("Languages are required"),
 
   bio: Yup.string()
-    .min(10, "Bio must be at least 10 characters")
-    .max(300, "Bio can't be more than 300 characters")
-    .required("Bio is required"),
+    .trim()
+    .required("Brief introduction is required")
+    .min(10, "Brief introduction must be at least 10 characters")
+    .max(2000, "Brief introduction must be at most 2000 characters"),
 });
 
 
@@ -215,8 +263,9 @@ export const contactSchema = Yup.object().shape({
     .required('Subject is required')
     .min(3, 'Subject must be at least 3 characters'),
   phone: Yup.string()
-    .required('Phone number is required')
-    .matches(/^\+?\d{7,15}$/, 'Enter a valid phone number'),
+    .nullable()
+    .optional()
+    .matches(/^\+?\d{7,15}$/, { message: 'Enter a valid phone number', excludeEmptyString: true }),
   message: Yup.string()
     .required('Message is required')
     .min(10, 'Message must be at least 10 characters'),

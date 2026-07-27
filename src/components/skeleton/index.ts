@@ -5,6 +5,11 @@ import SessionCardSkeleton from "./SessionCardSkeleton";
 import MentorCardSkeleton from "./MentorCardSkeleton";
 import MentorBannerSkeleton from "./MentorBannerSkeleton";
 import MentorSessionCardSkeleton from "./MentorSessionCardSkeleton";
+import MarketPlaceCardSkeleton from "./MarketPlaceCardSkeleton";
+import ExploreCardSkeleton from "./ExploreCardSkeleton";
+import ExploreCategoriesSkeleton from "./ExploreCategoriesSkeleton";
+import CertifiedByBuddieSkeleton from "./CertifiedByBuddieSkeleton";
+import ExploreTechSectionSkeleton from "./ExploreTechSectionSkeleton";
 
 export {
     RecentChatSkeleton,
@@ -13,5 +18,10 @@ export {
     SessionCardSkeleton,
     MentorCardSkeleton,
     MentorBannerSkeleton,
-    MentorSessionCardSkeleton
+    MentorSessionCardSkeleton,
+    MarketPlaceCardSkeleton,
+    ExploreCardSkeleton,
+    ExploreCategoriesSkeleton,
+    CertifiedByBuddieSkeleton,
+    ExploreTechSectionSkeleton,
 }

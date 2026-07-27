@@ -17,18 +17,19 @@ type MentorSessionCardProps = {
     session: SessionType;
     full?: boolean;
     loading?: boolean;
+    onBook?: (session: SessionType) => void;
 };
 
-const MentorSessionCard = ({ session, full = false, loading = false }: MentorSessionCardProps) => {
+const MentorSessionCard = ({ session, full = false, loading = false, onBook }: MentorSessionCardProps) => {
 
     const navigate = useNavigate()
     const [isExpanded, setIsExpanded] = useState(false)
 
     return (
-        <div className="space-y-3 pt-5">
-            <div className="flex items-start justify-between">
-                <div className="space-y-0.5 max-w-[70%]">
-                    <h1 className="font-semibold text-sm lg:text-[15px]">
+        <div className="space-y-2 py-4">
+            <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0 flex-1 space-y-0.5">
+                    <h1 className="text-sm font-semibold text-[#29282B] lg:text-[15px]">
                         {loading ? (
                             <Skeleton className="w-24 h-5 rounded" />
                         ) : (
@@ -36,7 +37,7 @@ const MentorSessionCard = ({ session, full = false, loading = false }: MentorSes
                         )}
                     </h1>
 
-                    <p className="text-[13px] font-medium text-gray-600">
+                    <p className="text-[13px] font-medium text-[#62646A]">
                         {loading ? (
                             <Skeleton className="w-40 h-4 rounded" />
                         ) : (
@@ -49,20 +50,21 @@ const MentorSessionCard = ({ session, full = false, loading = false }: MentorSes
                 </div>
 
                 {!full && (
-                    <Button 
-                        onPress={() => navigate(`${session.id}`)} 
-                        size="sm" 
-                        className="bg-black text-white"
+                    <Button
+                        onPress={() => (onBook ? onBook(session) : navigate(`${session.id}`))}
+                        size="sm"
+                        radius="sm"
+                        className="shrink-0 bg-black px-5 text-white"
                         isDisabled={loading}
                     >
-                        {loading ? <Skeleton className="w-12 h-4 rounded" /> : "Book"}
+                        {loading ? <Skeleton className="h-4 w-12 rounded" /> : "Book"}
                     </Button>
                 )}
             </div>
 
-            <h2 className="font-medium">
-                {loading ? <Skeleton className="w-16 h-5 rounded" /> : formatCurrency(session?.price)}
-            </h2>
+            <p className="text-sm font-semibold text-[#29282B]">
+                {loading ? <Skeleton className="h-5 w-16 rounded" /> : formatCurrency(session?.price)}
+            </p>
 
             {full && (
                 <div className="relative">

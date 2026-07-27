@@ -9,6 +9,7 @@ interface ReviewModalProps {
     open: boolean;
     close: () => void;
     mentor_id: string;
+    session_id: string;
     onSuccess?: () => void;
 }
 
@@ -16,6 +17,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
     open,
     close,
     mentor_id,
+    session_id,
     onSuccess
 }) => {
     const [rating, setRating] = useState(0);
@@ -23,6 +25,11 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
     const { mutate: postReview, isPending } = usePostReview();
 
     const handleSubmit = () => {
+        if (!session_id) {
+            toast.error('Session information is missing. Please refresh and try again.');
+            return;
+        }
+
         if (rating === 0) {
             toast.error('Please select a rating');
             return;
@@ -36,6 +43,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
         postReview(
             {
                 mentor_id,
+                session_id,
                 rating,
                 review: review.trim()
             },

@@ -11,6 +11,7 @@ interface Props {
     onSelectRole: (role: Role) => void;
 }
 
+/** @deprecated Use RegisterFirstStep for the registration flow */
 const SelectRoleForm: React.FC<Props> = ({ onSelectRole }) => {
 
     const regData = useSelector(getRegistrationData)
@@ -39,24 +40,21 @@ const SelectRoleForm: React.FC<Props> = ({ onSelectRole }) => {
 
             </div>
 
-            <div className="flex flex-col gap-4 mb-5">
+            <p className="mb-3 text-sm text-[#62646A]">You&apos;re creating an account as?</p>
+
+            <div className="flex flex-col gap-3 sm:flex-row mb-5">
                 {(["mentee", "mentor"] as Role[]).map((role) => (
                     <AccountType
                         key={role}
                         value={role}
-                        title={role.charAt(0).toUpperCase() + role.slice(1)}
-                        description={
-                            role === "mentee"
-                                ? "Looking to learn and grow under a mentor."
-                                : "Willing to guide and mentor others."
-                        }
+                        title={role === "mentee" ? "As a Mentee" : "As a Mentor"}
                         isSelected={selectedRole === role}
-                        onSelect={() => setSelectedRole(role)}  
+                        onSelect={() => setSelectedRole(role)}
                     />
                 ))}
             </div>
 
-            <Button className="py-6" isDisabled={!selectedRole} onClick={handleSelect}>
+            <Button className="px-20 rounded-md py-6" isDisabled={!selectedRole} onClick={handleSelect}>
                 Continue
             </Button>
 

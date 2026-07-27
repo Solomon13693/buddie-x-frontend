@@ -11,5 +11,7 @@ export const formatCurrency = (
   return new Intl.NumberFormat(effectiveLocale, {
     style: "currency",
     currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(numberValue);
 };

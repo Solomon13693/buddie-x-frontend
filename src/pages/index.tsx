@@ -3,17 +3,12 @@ import {Registeration, LoginView, VerifyAccount, ForgotPassword, ResetPassword }
 
 import { MenteeDashboard, MenteeChat, MenteeSettings, MenteeBookingView, MenteeTransactionView, WishListView } from "./mentee";
 
-import ExploreView from "./ExploreView";
-import MentorDetailsPage from "./MentorDetailsPage";
-import MentorServicesBooking from "./MentorServicesBooking";
-import HomeView from "./HomeView";
-
 import CommunitiesView from "./CommunitiesView";
 import CommunityDetailsView from "./CommunityDetailsView";
 import PostDetailsView from "./PostDetailsView";
-import ContactView from "./ContactView";
-import MenteeDetailsPage from "./MenteeDetailsPage";
-import ServicesView from "./ServicesView";
+import AskQuestionView from "./AskQuestionView";
+
+export * from "./(landing)";
 
 export {
     MentorDashboard,
@@ -39,16 +34,9 @@ export {
     MenteeBookingView,
     MenteeTransactionView,
     WishListView,
-
-    ExploreView,
-    MentorDetailsPage,
-    MentorServicesBooking,
-    HomeView,
     
     CommunitiesView,
     CommunityDetailsView,
     PostDetailsView,
-    ContactView,
-    MenteeDetailsPage,
-    ServicesView
+    AskQuestionView,
 }
