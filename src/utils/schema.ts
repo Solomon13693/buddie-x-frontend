@@ -145,7 +145,7 @@ export const mentorProInfo = Yup.object().shape({
   bio: Yup.string()
     .trim()
     .required('Brief introduction is required')
-    .max(500, 'Bio must be at most 500 characters'),
+    .max(2000, 'Brief introduction must be at most 2000 characters'),
 });
 
 export const mentorExpertiseSchema = Yup.object().shape({
@@ -245,9 +245,10 @@ export const profilePersonalInfoSchema = Yup.object().shape({
     .required("Languages are required"),
 
   bio: Yup.string()
-    .min(10, "Bio must be at least 10 characters")
-    .max(300, "Bio can't be more than 300 characters")
-    .required("Bio is required"),
+    .trim()
+    .required("Brief introduction is required")
+    .min(10, "Brief introduction must be at least 10 characters")
+    .max(2000, "Brief introduction must be at most 2000 characters"),
 });
 
 

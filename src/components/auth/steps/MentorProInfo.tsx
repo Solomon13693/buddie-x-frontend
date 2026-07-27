@@ -125,9 +125,9 @@ const MentorProInfo = ({ onNextStep }: { onNextStep: () => void }) => {
                         <TextArea
                             label="Brief Introduction"
                             name="bio"
-                            className={`h-28 ${inputClass}`}
+                            className={`min-h-48 h-48 ${inputClass}`}
                             placeholder="Write a brief introduction about yourself"
-                            maxLength={500}
+                            maxLength={2000}
                         />
 
                         <Button type="submit" className="px-20 rounded-md py-6">

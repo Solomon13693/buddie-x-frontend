@@ -76,7 +76,7 @@ const MarketPlaceCard = ({ mentor }: { mentor: MarketplaceMentor }) => {
                 </Chip>
 
                 <p className="line-clamp-3 min-h-[3.75rem] text-[12px] leading-5 text-[#676767]">
-                    {session?.description || mentor.bio || `Get expert guidance from ${mentor.name}.`}
+                    {mentor.bio || `Get expert guidance from ${mentor.name}.`}
                 </p>
 
             </div>

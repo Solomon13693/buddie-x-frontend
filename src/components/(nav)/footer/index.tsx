@@ -28,7 +28,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Technology", href: "/explore" },
       { label: "Product", href: "/explore" },
       { label: "Data", href: "/explore" },
-      { label: "Business Stretegy", href: "/explore" },
+      { label: "Business Strategy", href: "/explore" },
       { label: "Personal Growth", href: "/explore" },
     ],
   },
@@ -79,14 +79,14 @@ const Footer = () => {
 
             <p className="w-full max-w-[500px] text-sm leading-6 text-black">
               Join our weekly newsletter with roundups, video resources and
-              upcoming event.
+              upcoming events.
             </p>
 
             <div className="mt-6 flex max-w-[620px] items-center gap-x-2">
               <input type="email" placeholder="Enter your email" className="h-10 w-full rounded-md border border-[#E6E8EC] px-4 text-[12px] text-[#121624] outline-none placeholder:text-[#98A2B3]"
               />
               <Button color="primary" size="sm" className="h-10 px-6" radius="sm">
-                Subscribe us
+                Subscribe
               </Button>
             </div>
 

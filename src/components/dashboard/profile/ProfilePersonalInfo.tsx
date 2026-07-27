@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import { useQueryClient } from '@tanstack/react-query';
 import { CustomAutocomplete, CustomInput, CustomPhoneInput, CustomSelect, TextArea } from '../../form';
 import { Button } from '../../ui';
 import { countries, languages } from '../../../constant';
@@ -17,6 +18,7 @@ const ProfilePersonalInfo = () => {
     const [loading, setLoading] = useState(false)
     const profile = useSelector(getUserProfile)
     const dispatch = useDispatch<AppDispatch>()
+    const queryClient = useQueryClient()
 
     const [ isLoading, setIsLoading ] = useState(false)
 
@@ -79,6 +81,10 @@ const ProfilePersonalInfo = () => {
                         toast.success(response?.message)
 
                         dispatch(fetchProfile());
+                        // Bust explore/mentor list caches so About/bio updates show immediately
+                        queryClient.invalidateQueries({ queryKey: ['explore_page'] })
+                        queryClient.invalidateQueries({ queryKey: ['mentors'] })
+                        queryClient.invalidateQueries({ queryKey: ['topMentors'] })
 
                     } catch (error) {
                         toast.error(getErrorMessage(error))
@@ -134,10 +140,11 @@ const ProfilePersonalInfo = () => {
                         />
 
                         <TextArea
-                            label="About"
+                            label="Brief Introduction"
                             name="bio"
-                            className="h-24"
+                            className="min-h-48 h-48"
                             placeholder="Write a brief introduction about yourself"
+                            maxLength={2000}
                         />
 
                         <Button loading={loading} type="submit" className="bg-black py-6 w-full" >
